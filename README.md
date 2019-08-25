@@ -24,11 +24,11 @@ Yes, you need
 
 ## Different Public Cloud IaC specific template policies go in different files?
 
-    Yes. Each Infrastructure as Code Template Policies go in template specific file. e:g; CFT template related rules are added/edited to file ```src/main/resources/content/cft.json```
+   Yes. Each Infrastructure as Code Template Policies go in template specific file. e:g; CFT template related rules are added/edited to file ```src/main/resources/content/cft.json```
 
 ## Do I follow any practice/format to write the new rule?
 
-    Yes. Only Json format is supported. The policies are Json arraylist of Rule Object where each Rule consists of severity, resourceType, policy(rule name/what is the rule for), rule(based on json path), is(UUID), enabled(default false)   
+   Yes. Only Json format is supported. The policies are Json arraylist of Rule Object where each Rule consists of severity, resourceType, policy(rule name/what is the rule for), rule(based on json path), is(UUID), enabled(default false)   
 
 ## How can I know I am ready to check in rules?
 
