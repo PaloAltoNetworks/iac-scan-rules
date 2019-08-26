@@ -1,4 +1,4 @@
-# Public Cloud Infrastructure as Code(IaC) Policies 
+# Public Cloud Infrastructure as Code(IaC) Policies
 This is a bare-bones Infrastructure as Code Policies project where policies are open to public.
 
 The IaC policies will be verified by Palo Alto Networks before they are available to world.
