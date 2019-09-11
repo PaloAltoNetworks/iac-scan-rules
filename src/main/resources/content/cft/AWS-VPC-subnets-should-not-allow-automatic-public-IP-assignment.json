@@ -1,0 +1,1 @@
+{"severity":"medium","rule":"$.Resources.[*].Type equals AWS::EC2::Subnet and ($.Resources.[*].Properties.MapPublicIpOnLaunch exists and $.Resources.[*].Properties.MapPublicIpOnLaunch is true)","id":"11743cd3-35e4-4639-91e1-bc87b52d4cf5","enabled":true,"resourceType":"ec2","policy":"AWS VPC subnets should not allow automatic public IP assignment"}

@@ -1,0 +1,1 @@
+{"severity":"high","rule":"$.spec.template.spec.hostNetwork is true","id":"99544e17-fc8f-4c77-963e-083ab80c53b0 ","enabled":true,"resourceType":"k8s","policy":"do not share host network with containers"}

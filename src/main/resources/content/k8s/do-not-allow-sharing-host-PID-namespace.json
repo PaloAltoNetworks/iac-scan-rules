@@ -1,0 +1,1 @@
+{"severity":"medium","rule":"$.spec.template.spec.hostPID is true","id":"4c5d00c1-8f60-40bc-9566-a5b4e019752a","enabled":true,"resourceType":"k8s","policy":"do not allow sharing host PID namespace"}

@@ -1,0 +1,1 @@
+{"severity":"high","rule":"$.resource[*].aws_security_group[*].[*].[*].ingress[*].to_port == 3389","id":"1796efe6-802d-4768-8c17-7491c560b686","enabled":true,"resourceType":"security group","policy":"AWS Security Groups allow internet traffic from internet to RDP port (3389)"}

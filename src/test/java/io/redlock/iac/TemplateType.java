@@ -3,8 +3,7 @@ package io.redlock.iac;
 public enum TemplateType {
   TF("tf"),
   CFT("cft"),
-  K8S("k8s"),
-  K8WH("k8wh");
+  K8S("k8s");
 
   String templateType;
 

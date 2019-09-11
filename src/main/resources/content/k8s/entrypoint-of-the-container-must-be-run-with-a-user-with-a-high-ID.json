@@ -1,0 +1,1 @@
+{"severity":"medium","rule":"$.spec.template.spec.containers[*].securityContext.runAsUser < 9999","id":"6e06b1a6-7eea-4730-91c2-9ac3fb676dce","enabled":true,"resourceType":"k8s","policy":"entrypoint of the container must be run with a user with a high ID"}

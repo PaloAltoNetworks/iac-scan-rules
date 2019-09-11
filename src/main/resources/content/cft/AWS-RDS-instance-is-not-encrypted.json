@@ -1,0 +1,1 @@
+{"severity":"high","rule":"$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any equal false","id":"34fa9efb-d18f-41e4-b93f-2f7e5378752c","enabled":true,"resourceType":"rds","policy":"AWS RDS instance is not encrypted"}

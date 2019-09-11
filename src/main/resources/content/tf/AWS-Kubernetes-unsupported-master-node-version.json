@@ -1,0 +1,1 @@
+{"severity":"high","rule":"$.resource[*].aws_eks_cluster[*].*[*].version starts with 1.9","id":"60440266-3d03-41ce-ba8c-d51ccbdb6804","enabled":true,"resourceType":"eks","policy":"AWS Kubernetes unsupported master node version"}

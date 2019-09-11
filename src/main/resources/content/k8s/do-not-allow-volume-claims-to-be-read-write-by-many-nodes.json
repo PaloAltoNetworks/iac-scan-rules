@@ -1,0 +1,1 @@
+{"severity":"medium","rule":"$.spec.volumeClaimTemplates[*].spec.accessModes == ReadWriteMany","id":"f9bcb4b8-3f22-448a-8521-9e09e3a994e0","enabled":true,"resourceType":"k8s","policy":"do not allow volume claims to be read-write by many nodes"}

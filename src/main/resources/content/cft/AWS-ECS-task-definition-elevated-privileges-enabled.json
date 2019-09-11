@@ -1,0 +1,1 @@
+{"severity":"high","rule":"$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Privileged any equal true","id":"38026e84-451b-4290-a008-562eeb36212a","enabled":true,"resourceType":"ecs","policy":"AWS ECS task definition elevated privileges enabled"}

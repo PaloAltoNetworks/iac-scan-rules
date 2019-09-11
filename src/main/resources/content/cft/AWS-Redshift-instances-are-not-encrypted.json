@@ -1,0 +1,1 @@
+{"severity":"high","rule":"$.Resources.[*].Type equals AWS::Redshift::Cluster and ($.Resources.[*].Properties.Encrypted does not exist or ($.Resources.[*].Properties.Encrypted exists and $.Resources.[*].Properties.Encrypted is false))","id":"0132bbb2-c733-4c36-9c5d-c58967c7d1a6","enabled":true,"resourceType":"redshift","policy":"AWS Redshift instances are not encrypted"}

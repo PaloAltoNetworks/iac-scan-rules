@@ -1,0 +1,1 @@
+{"severity":"low","rule":"$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.BackupRetentionPeriod any null","id":"f81d0239-3633-4828-a499-d2d1b1219a5c","enabled":true,"resourceType":"rds","policy":"AWS RDS instance without Automatic Backup setting"}
