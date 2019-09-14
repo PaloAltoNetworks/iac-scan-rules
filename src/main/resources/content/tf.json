@@ -25,6 +25,14 @@
     "policy": "AWS IAM password policy does not expire in 90 days"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].minimum_password_length less than 14",
+    "id": "7228106b-f82f-4d2e-a1a0-73fd15f70637",
+    "enabled": true,
+    "resourceType": "iam_account_password",
+    "policy": "AWS IAM password policy does not have a minimum of 14 characters"
+  },
+  {
     "severity": "high",
     "rule": "$.resource[*].aws_eks_cluster[*].*[*].version starts with 1.9",
     "id": "60440266-3d03-41ce-ba8c-d51ccbdb6804",
