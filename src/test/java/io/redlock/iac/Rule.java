@@ -1,5 +1,5 @@
 package io.redlock.iac;
-import org.json.JSONObject;
+import com.grack.nanojson.JsonObject;
 
 public class Rule {
 
@@ -7,13 +7,15 @@ public class Rule {
   private String rule;
   private String severity;
   private String policy;
+  private String resourceType;
   private boolean enabled;
 
-  public Rule(String id, String rule, String severity, String policy, boolean enabled) {
+  public Rule(String id, String rule, String severity, String policy, String resourceType, boolean enabled) {
     this.id = id;
     this.rule = rule;
     this.severity = severity;
     this.policy = policy;
+    this.resourceType = resourceType;
     this.enabled = enabled;
   }
 
@@ -57,11 +59,16 @@ public class Rule {
     this.enabled = enabled;
   }
 
+  public String getResourceType() { return resourceType; }
+
+  public void setResourceType(String resourceType) { this.resourceType = resourceType; }
+
   @Override public String toString() {
-    return "Rule{" +
+    return "{" +
         "id='" + id + '\'' +
         ", rule='" + rule + '\'' +
         ", severity='" + severity + '\'' +
+        ", resourceType='" + resourceType + '\'' +
         ", policy='" + policy + '\'' +
         ", enabled=" + enabled +
         '}';
@@ -101,13 +108,14 @@ public class Rule {
     return result;
   }
 
-  public static Rule toRule(JSONObject jsonObject) {
+  public static Rule toRule(JsonObject jsonObject) {
     Rule jsonRule = new Rule(
         jsonObject.getString("id"),
         jsonObject.getString("rule"),
         jsonObject.getString("severity"),
         jsonObject.getString("policy"),
-        jsonObject.optBoolean("enabled"));
+        jsonObject.getString("resourceType"),
+        jsonObject.getBoolean("enabled"));
 
     return jsonRule;
   }
