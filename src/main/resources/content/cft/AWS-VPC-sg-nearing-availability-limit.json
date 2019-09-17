@@ -1,0 +1,8 @@
+{
+    "severity": "low",
+    "resourceType": "ec2",
+    "policy": "AWS VPC Security group nearing availability limit",
+    "rule": "$.Resources.[*].Type equals AWS::EC2::VPC and $.Resources.[*].Properties.SecurityGroupCount exists and $.Resources.[*].Properties.SecurityGroupCount greater than 2000",
+    "id": "f1d37839-e0de-44d5-8fb9-94156e3e4b39",
+    "enabled": true
+}

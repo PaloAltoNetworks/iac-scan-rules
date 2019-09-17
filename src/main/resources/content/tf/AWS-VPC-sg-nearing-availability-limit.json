@@ -1,0 +1,8 @@
+{
+    "severity": "low",
+    "resourceType": "storage",
+    "policy": "AWS VPC Security group nearing availability limit",
+    "rule": "$.resource[*].aws_security_group exists and $.resource[*].aws_security_group[*] size > 2000",
+    "id": "9ac00f18-4ebe-4ef9-b039-72c62e3a42b5",
+    "enabled": true
+}
