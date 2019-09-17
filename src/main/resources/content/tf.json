@@ -66,6 +66,14 @@
   },
   {
     "severity": "high",
+    "rule": "$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] contains ::/0)",
+    "id": "9745cb18-32f9-4411-a59c-fae4ffa362ce",
+    "enabled": true,
+    "resourceType": "security group",
+    "policy": "AWS Security Groups allow internet traffic to SSH port (22)"
+  },
+  {
+    "severity": "high",
     "rule": "($.resource[*].aws_security_group exists and ($.resource[*].aws_security_group.*[*].*.ingress[*].protocol equals -1 and ($.resource[*].aws_security_group.*[*].*.ingress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[*].ipv6_cidr_blocks[*] contains ::/0))) or ($.resource[*].aws_security_group_rule exists and ($.resource[*].aws_security_group_rule.*[*].*.protocol equals -1 and $.resource[*].aws_security_group_rule.*[*].*.type equals ingress and ($.resource[*].aws_security_group_rule.*[*].*.cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group_rule.*[*].*.ipv6_cidr_blocks[*] contains ::/0)))",
     "id": "eba4d571-4338-4f62-8110-9be6c4b47fd0",
     "enabled": true,
