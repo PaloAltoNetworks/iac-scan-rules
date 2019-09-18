@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "resourceType": "vpc",
+  "policy": "AWS VPC allows unauthorized peering",
+  "rule": "$.resource[*].aws_vpc_peering_connection[*].*[*].peer_vpc_id does not equal $.resource[*].aws_vpc_peering_connection[*].*[*].vpc_id",
+  "id": "59356130-d856-470d-a08e-b2a0ba2a4ac7",
+  "enabled": true
+}
