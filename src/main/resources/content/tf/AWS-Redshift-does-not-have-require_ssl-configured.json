@@ -1,8 +1,8 @@
 {
   "severity": "medium",
   "rule": "$.resource[*].aws_redshift_cluster exists and ($.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')] !exists or $.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')].value isFalse)",
-  "id": "7446ad28-8502-4d71-b334-18cef8d85a2b",
-  "enabled": false,
+  "id": "2ff03f80-c9f6-4a37-b8b1-1212965e352d",
+  "enabled": true,
   "resourceType": "redshift",
   "policy": "AWS Redshift does not have require_ssl configured"
 }
