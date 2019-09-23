@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].aws_kms_key[*].*[?(@.enable_key_rotation != 'true')] exists",
+  "id": "497f7e2c-b702-47c7-9a07-f0f6404ac896",
+  "enabled": true,
+  "resourceType": "kms",
+  "policy": "AWS Customer Master Key (CMK) rotation is not enabled"
+}
