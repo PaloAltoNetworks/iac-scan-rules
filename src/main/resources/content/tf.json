@@ -3,6 +3,14 @@
 "policies": [
   {
     "severity": "medium",
+    "rule": "$.resource[*].aws_cloudtrail[*].*[*].kms_key_id anyNull or $.resource[*].aws_cloudtrail[*].*[*].kms_key_id anyEmpty",
+    "id": "07a06f60-1532-4e2e-b91c-8f972a96f1a9",
+    "enabled": true,
+    "resourceType": "cloudtrail",
+    "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].aws_kms_key[*].*[?(@.enable_key_rotation != 'true')] exists",
     "id": "497f7e2c-b702-47c7-9a07-f0f6404ac896",
     "enabled": true,
@@ -84,8 +92,8 @@
   {
     "severity": "medium",
     "rule": "$.resource[*].aws_redshift_cluster exists and ($.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')] !exists or $.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')].value isFalse)",
-    "id": "7446ad28-8502-4d71-b334-18cef8d85a2b",
-    "enabled": false,
+    "id": "2ff03f80-c9f6-4a37-b8b1-1212965e352d",
+    "enabled": true,
     "resourceType": "redshift",
     "policy": "AWS Redshift does not have require_ssl configured"
   },
