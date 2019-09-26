@@ -1,16 +1,17 @@
-# Public Cloud Infrastructure as Code(IaC) Policies
-This is a bare-bones Infrastructure as Code Policies project where policies are open to public.
+# Public Cloud 'Infrastructure as Code(IaC)' Policies
+This is a bare-bones 'Infrastructure as Code' Policies project where policies are open to public.
 
-The IaC policies will be verified by Palo Alto Networks before they are available to world.
+The IaC policies will be verified by Palo Alto Networks(PANW) before they are available publicaly.
 
-Just add/update the IaC policies and create PR to contribute to this project.
+To contribute, just add/update the IaC policies and create a PR.
 
 ## How to build and run
 
-It's  a maven Java project. Go to iac-policies project directory and run ```$ mvn clean install```. 
+It's a Java maven project. Go to iac-policies project directory and run ```$ mvn clean install```. 
 
 
 ### It doesn't work, do I need to install something first?
+
 Yes, you need
 
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or any other Java 8 version. 
@@ -18,23 +19,37 @@ Yes, you need
 
 
 ## Where are the policies?
-
+There are respective folders for each policy type under:
     src/main/resouces/content
   
 
 ## Different Public Cloud IaC specific template policies go in different files?
 
-   Yes. Each Infrastructure as Code Template Policies go in template specific file. e:g; CFT template related rules are added/edited to file ```src/main/resources/content/cft.json```
+Yes. Each Infrastructure as Code Template Policies go in template specific directories. Each rule is added as a file to their respective directories e:g; CFT template related rule files are added/edited to directory: ```src/main/resources/content/cft```
+Once the rule PR is approved and rule is merged, then it is added to the respective rules file.
 
 ## Do I follow any practice/format to write the new rule?
 
-   Yes. Only Json format is supported. The policies are Json arraylist of Rule Object where each Rule consists of severity, resourceType, policy(rule name/what is the rule for), rule(based on json path), is(UUID), enabled(default false)   
+Yes. Only Json format is supported. The policies are Json arraylist of Rule Object where each Rule consists of severity, resourceType, policy(rule name/what is the rule for), rule(based on json path), is(UUID), enabled(default false):
+```
+{
+   "severity": "<string>",
+   "resourceType": "<string>",
+   "policy": "<string>",
+   "rule": "<json rule>",
+   "id": "<uuid>",
+   "enabled": <boolean>
+} 
+```
+
+## Where should I write rules?
+Create a file under the respective folder(tf, cft or k8) with a '.json' extension. When you changes are meged, then your rule will be added to the respective rules file ,for e.g. for CFT ```src/main/resources/content/cft.json```
 
 ## How can I know I am ready to check in rules?
 
-When I have added/updated rules in one of the files and full build with unit tests working on my local machine, i am ready to push changes.
+Once the rules are written and added to the repective directory & the build is successful on the local machine, then you can go ahead and push your changes.
 
-Create Pull Request with new changes in new branch to be merged to master. Once approved by PANW, it will be merged for the world to be used. 
+Create Pull Request with the respective changes in new branch to be merged with master. Once approved by PANW, it will be available for use publicaly. 
 
 ### For full documentation on rules and supported rules
 [Prisma Public Cloud IaC Scan Policies](https://iacscanapidoc.redlock.io/content)
