@@ -146,6 +146,14 @@
     "policy": "AWS Security Groups with Inbound rule overly permissive to All Traffic"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].ipv6_cidr_blocks[*] == ::/0 ",
+    "id": "2b47072f-0d2b-45a5-aa2d-1db80974176e",
+    "enabled": true,
+    "resourceType": "Security Group egress traffic",
+    "policy": "AWS security group allow egress traffic from blocked ports - 21,22,135,137-139,445,69"
+  },
+  {
     "severity": "high",
     "rule": "($.resource[*].azurerm_network_security_rule exists and ($.resource[*].azurerm_network_security_rule.*[*].*.access contains Allow and $.resource[*].azurerm_network_security_rule.*[*].*.destination_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.source_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.destination_port_range contains 22 and $.resource[*].azurerm_network_security_rule.*[*].*.direction contains Inbound))",
     "id": "1eb0cd02-789a-4b96-8463-fb5583e40585",
