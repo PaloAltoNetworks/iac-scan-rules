@@ -59,33 +59,33 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_lowercase_characters is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_lowercase_characters is false",
     "id": "77c2d5a8-071f-48b9-9de0-5917e9b4548d",
-    "enabled": false,
+    "enabled": true,
     "resourceType": "iam_account_password",
     "policy": "AWS IAM password policy does not have a lowercase character"
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_numbers is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_numbers is false",
     "id": "41fdae49-6fc7-4bc9-80e4-2cbb2262ab7a",
-    "enabled": false,
+    "enabled": true,
     "resourceType": "iam_account_password",
     "policy": "AWS IAM password policy does not have a number"
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_symbols is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_symbols is false",
     "id": "f8013bbf-21b8-4e81-b6ef-7b568407129c ",
-    "enabled": false,
+    "enabled": true,
     "resourceType": "iam_account_password",
     "policy": "AWS IAM password policy does not have a symbol"
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_uppercase_characters is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_uppercase_characters is false",
     "id": "d6dadfcf-a98c-4917-97b5-a5df6a9c493d ",
-    "enabled": false,
+    "enabled": true,
     "resourceType": "iam_account_password",
     "policy": "AWS IAM password policy does not have a uppercase character"
   },
