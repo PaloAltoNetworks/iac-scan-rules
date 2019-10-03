@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].aws_cloudtrail[*].*[*].kms_key_id anyNull or $.resource[*].aws_cloudtrail[*].*[*].kms_key_id anyEmpty",
+  "id": "07a06f60-1532-4e2e-b91c-8f972a96f1a9",
+  "enabled": true,
+  "resourceType": "cloudtrail",
+  "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys"
+}
