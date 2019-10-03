@@ -1,0 +1,139 @@
+{
+  "resource": [
+    {
+      "aws_security_group": [
+        {
+          "test_sg1": [
+            {
+              "egress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 22,
+                  "protocol": "tcp",
+                  "to_port": 22
+                }
+              ],
+              "ingress": [
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 22,
+                  "protocol": "tcp",
+                  "to_port": 22
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 21,
+                  "protocol": "tcp",
+                  "to_port": 21
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 137,
+                  "protocol": "-1",
+                  "to_port": 139
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 5800,
+                  "protocol": "tcp",
+                  "to_port": 5800
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 5900,
+                  "protocol": "tcp",
+                  "to_port": 5903
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 2323,
+                  "protocol": "tcp",
+                  "to_port": 2323
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 23,
+                  "protocol": "tcp",
+                  "to_port": 23
+                },
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 25,
+                  "protocol": "tcp",
+                  "to_port": 25
+                },
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 110,
+                  "protocol": "tcp",
+                  "to_port": 110
+                },
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 143,
+                  "protocol": "tcp",
+                  "to_port": 143
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 53,
+                  "protocol": "-1",
+                  "to_port": 53
+                },
+                {
+                  "cidr_blocks": [
+                    "10.0.0.0/16"
+                  ],
+                  "from_port": 69,
+                  "protocol": "udp",
+                  "to_port": 69
+                }
+              ],
+              "name": "test_sg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_instance": [
+        {
+          "example": [
+            {
+              "ami": "ami-b374d5a5",
+              "instance_type": "t2.micro",
+              "key_name": "${var.key_name}",
+              "security_groups": [
+                "${aws_security_group.test_sg1.name}"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
