@@ -27,6 +27,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0",
+    "id": "c2bcdbe7-7c2c-48bc-a0f7-37e1b9766385",
+    "enabled": true,
+    "resourceType": "Security Group ingress rule",
+    "policy": "AWS EC2 instance have SSH port open to internet"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].aws_elasticsearch_domain exists and $.resource[*].aws_elasticsearch_domain[*].es[*].vpc_options does not exist",
     "id": "28ee2708-305a-4b23-acf0-535ab45b96ab",
     "enabled": true,
@@ -35,7 +43,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].strict[*].max_password_age==90",
+    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].max_password_age greater than 90",
     "id": "cb4e7ef6-b4b4-45a5-9ae5-194d3a0e12e9",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -51,7 +59,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_lowercase_characters is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_lowercase_characters is false",
     "id": "77c2d5a8-071f-48b9-9de0-5917e9b4548d",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -59,7 +67,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_numbers is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_numbers is false",
     "id": "41fdae49-6fc7-4bc9-80e4-2cbb2262ab7a",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -67,7 +75,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_symbols is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_symbols is false",
     "id": "f8013bbf-21b8-4e81-b6ef-7b568407129c ",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -75,7 +83,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_uppercase_characters is false",
+    "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_uppercase_characters is false",
     "id": "d6dadfcf-a98c-4917-97b5-a5df6a9c493d ",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -136,6 +144,46 @@
     "enabled": true,
     "resourceType": "security group",
     "policy": "AWS Security Groups with Inbound rule overly permissive to All Traffic"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].action==allow",
+    "id": "de727ef6-60b0-46b9-a056-29830952c986",
+    "enabled": true,
+    "resourceType": "AWS NACL egress rules",
+    "policy": "AWS VPC NACL allow egress traffic from blocked ports"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5800' && @.to_port == '5800')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5900' && @.to_port == '5903')].action==allow or  $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '2323' && @.to_port == '2323')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '23' && @.to_port == '23')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '25' && @.to_port == '25')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '110' && @.to_port == '110')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '143' && @.to_port == '143')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '53' && @.to_port == '53')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].action==allow",
+    "id": "1cc0ec13-4079-4e27-b597-9edf83a1cd93",
+    "enabled": true,
+    "resourceType": "AWS VPC NACL allow traffic",
+    "policy": "AWS VPC NACL allows traffic from blocked ports"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_vpc_peering_connection[*].*[*].peer_vpc_id does not equal $.resource[*].aws_vpc_peering_connection[*].*[*].vpc_id",
+    "id": "59356130-d856-470d-a08e-b2a0ba2a4ac7",
+    "enabled": true,
+    "resourceType": "vpc",
+    "policy": "AWS VPC allows unauthorized peering"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].ipv6_cidr_blocks[*] == ::/0 ",
+    "id": "2b47072f-0d2b-45a5-aa2d-1db80974176e",
+    "enabled": true,
+    "resourceType": "Security Group egress traffic",
+    "policy": "AWS security group allow egress traffic from blocked ports - 21,22,135,137-139,445,69"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5800' && @.to_port == '5800')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5800' && @.to_port == '5800')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5900' && @.to_port == '5903')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5900' && @.to_port == '5903')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '2323' && @.to_port == '2323')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '2323' && @.to_port == '2323')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '23' && @.to_port == '23')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '23' && @.to_port == '23')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '25' && @.to_port == '25')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '25' && @.to_port == '25')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '110' && @.to_port == '110')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '110' && @.to_port == '110')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '143' && @.to_port == '143')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '143' && @.to_port == '143')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '53' && @.to_port == '53')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '53' && @.to_port == '53')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].ipv6_cidr_blocks[*] == ::/0",
+    "id": "9731fe16-636f-477a-b083-6d90c66d2c0b",
+    "enabled": true,
+    "resourceType": "AWS security group ingress ports",
+    "policy": "AWS security group allows traffic from blocked ports"
   },
   {
     "severity": "high",

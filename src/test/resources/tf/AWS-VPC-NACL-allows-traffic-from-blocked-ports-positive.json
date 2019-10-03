@@ -1,0 +1,128 @@
+{
+  "resource": [
+    {
+      "aws_network_acl": [
+        {
+          "main": [
+            {
+              "egress": [
+                {
+                  "action": "allow",
+                  "cidr_block": "10.3.0.0/18",
+                  "from_port": 443,
+                  "protocol": "tcp",
+                  "rule_no": 200,
+                  "to_port": 443
+                }
+              ],
+              "ingress": [
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 22,
+                  "protocol": "tcp",
+                  "rule_no": 100,
+                  "to_port": 22
+                },
+                {
+                  "action": "allow",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 21,
+                  "protocol": "tcp",
+                  "rule_no": 300,
+                  "to_port": 21
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 137,
+                  "protocol": "-1",
+                  "rule_no": 400,
+                  "to_port": 139
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 5800,
+                  "protocol": "tcp",
+                  "rule_no": 500,
+                  "to_port": 5800
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 5900,
+                  "protocol": "tcp",
+                  "rule_no": 600,
+                  "to_port": 5903
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 2323,
+                  "protocol": "tcp",
+                  "rule_no": 700,
+                  "to_port": 2323
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 23,
+                  "protocol": "tcp",
+                  "rule_no": 800,
+                  "to_port": 23
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 25,
+                  "protocol": "tcp",
+                  "rule_no": 900,
+                  "to_port": 25
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 110,
+                  "protocol": "tcp",
+                  "rule_no": 1000,
+                  "to_port": 110
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 143,
+                  "protocol": "tcp",
+                  "rule_no": 1100,
+                  "to_port": 143
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 53,
+                  "protocol": "-1",
+                  "rule_no": 1200,
+                  "to_port": 53
+                },
+                {
+                  "action": "deny",
+                  "cidr_block": "0.0.0.0/0",
+                  "from_port": 69,
+                  "protocol": "udp",
+                  "rule_no": 1300,
+                  "to_port": 69
+                }
+              ],
+              "tags": [
+                {
+                  "Name": "main"
+                }
+              ],
+              "vpc_id": "${aws_vpc.demo.id}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

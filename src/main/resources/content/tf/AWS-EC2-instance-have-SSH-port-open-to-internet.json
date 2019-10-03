@@ -1,0 +1,8 @@
+{
+   "severity": "medium",
+   "resourceType": "Security Group ingress rule",
+   "policy": "AWS EC2 instance have SSH port open to internet",
+   "rule": "$.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0",
+   "id": "c2bcdbe7-7c2c-48bc-a0f7-37e1b9766385",
+   "enabled": true
+}
