@@ -194,6 +194,14 @@
     "policy": "Azure Network Security Group (NSG) allows SSH traffic from internet on port 22"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*] is not empty and $.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*].disabled any equal true)",
+    "id": "afb8ee15-96a4-4f32-83a5-c5f60c49de75",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters have HTTP load balancing disabled"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] is empty or ($.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] is not empty and $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled any equal true))",
     "id": "6afc115a-d9f9-45e8-9716-6a4204621074",
