@@ -26,6 +26,7 @@ public class ContentTest {
 
   @Test
   public void ensureFileExtensionIsJson() throws Exception {
+    Assert.fail("test log message");
     for (TemplateType templateType : TemplateType.values()) {
       ensureFileExtensionIsJson(getResourcePathByTemplateType(templateType));
     }
