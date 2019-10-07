@@ -76,7 +76,7 @@
   {
     "severity": "medium",
     "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_symbols is false",
-    "id": "f8013bbf-21b8-4e81-b6ef-7b568407129c ",
+    "id": "f8013bbf-21b8-4e81-b6ef-7b568407129c",
     "enabled": true,
     "resourceType": "iam_account_password",
     "policy": "AWS IAM password policy does not have a symbol"
@@ -84,7 +84,7 @@
   {
     "severity": "medium",
     "rule": "$.resource[*].aws_iam_account_password_policy exists and $.resource[*].aws_iam_account_password_policy[*].*[*].require_uppercase_characters is false",
-    "id": "d6dadfcf-a98c-4917-97b5-a5df6a9c493d ",
+    "id": "d6dadfcf-a98c-4917-97b5-a5df6a9c493d",
     "enabled": true,
     "resourceType": "iam_account_password",
     "policy": "AWS IAM password policy does not have a uppercase character"
