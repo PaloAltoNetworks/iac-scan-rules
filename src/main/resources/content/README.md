@@ -44,11 +44,11 @@ Supported formats are: <b>cft, tf and k8s</b>. There are folders for each type r
 
 <h3>JSON Rules</h3>
 
-The rules are written in JSON Path format. A quick tutorial guide: https://restfulapi.net/json-jsonpath/
+The rules are written in JSON Path format. A quick tutorial guide: [A guide to Json Path](https://restfulapi.net/json-jsonpath/)
 
 Since the rules should return a boolean, they should end with a relational statement. 
 
-The allowed relational operators are: https://bitbucket.org/redlockio/redlock-platform/src/4961bf69fd2a86dfd7a8fd6c2a0b692767cf4560/redlock-java/redlock-maven-agg/redlock-rules-eval/src/main/antlr4/io/redlock/rules/generated/RuleSet.g4
+The allowed relational operators check: [List of allowed relational operators](https://bitbucket.org/redlockio/redlock-platform/src/4961bf69fd2a86dfd7a8fd6c2a0b692767cf4560/redlock-java/redlock-maven-agg/redlock-rules-eval/src/main/antlr4/io/redlock/rules/generated/RuleSet.g4)
 
 Steps/Guide for rule creation and validation:
 
