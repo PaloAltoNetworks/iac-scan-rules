@@ -2,7 +2,7 @@ This file tells you how to write policy and policy rules.
 If you are new to writing policy rules, this is for you.
 If you are proficient with writing rules, go through this ones to understand the structure.
 
-<b>Let's Begin:</b>
+<h2><b>Let's Begin:</b></h2>
 
 <h3>Files, folders and naming convention</h3>
 
@@ -60,3 +60,9 @@ Steps/Guide for rule creation and validation:
 5. Once your have tested couple of positive and negative test cases, commit and push your changes.
 
 
+<h3> Test Cases </h3>
+
+Put the Json payload with negative and positive scenarios under 
+https://github.com/PaloAltoNetworks/iac-scan-rules/tree/development/src/test/resources/tf
+
+The file name should be same as the policy file name with a suffix of -positive and -negative respectively.
