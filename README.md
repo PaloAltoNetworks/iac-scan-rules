@@ -19,14 +19,14 @@ Yes, you need
 
 
 ## Where are the policies?
-There are respective folders for each policy type under:
-    src/main/resouces/content
+There are respective folders for each template type(cft, tf & k8s) under:
+    src/main/resouces/content/
   
 
 ## Different Public Cloud IaC specific template policies go in different files?
 
-Yes. Each Infrastructure as Code Template Policies go in template specific directories. Each rule is added as a file to their respective directories e:g; CFT template related rule files are added/edited to directory: ```src/main/resources/content/cft```
-Once the rule PR is approved and rule is merged, then it is added to the respective rules file.
+Yes. Each Infrastructure as Code Template Policies go in template specific directories. Each rule is added as a file to their respective directories e.g. CFT template related rule files are added/edited to directory: ```src/main/resources/content/cft```
+Once the rule PR is approved and rule is merged, then it is added to the respective rules file(cft.json etc).
 
 ## Do I follow any practice/format to write the new rule?
 
@@ -50,6 +50,10 @@ Create a file under the respective folder(tf, cft or k8) with a '.json' extensio
 Once the rules are written and added to the repective directory & the build is successful on the local machine, then you can go ahead and push your changes.
 
 Create Pull Request with the respective changes in new branch to be merged with master. Once approved by PANW, it will be available for use publicaly. 
+
+### Is there any guide on how to write policy?
+
+Yes, Please go [here](src/main/resources/content/) for step wise documentation on how to write a policy with rule and merge it.
 
 ### For full documentation on rules and supported rules
 [Prisma Public Cloud IaC Scan Policies](https://iacscanapidoc.redlock.io/content)
