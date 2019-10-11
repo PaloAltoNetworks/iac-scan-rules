@@ -5,7 +5,7 @@ The IaC policies will be verified by Palo Alto Networks(PANW) before they are av
 
 To contribute, just add/update the IaC policies and create a PR.
 
-## How to build and run
+## How to build and run?
 
 It's a Java maven project. Go to iac-policies project directory and run ```$ mvn clean install```. 
 
@@ -18,44 +18,30 @@ Yes, you need
 - [Apache Maven 3](https://maven.apache.org/)
 
 
-## Where are the policies?
+## Where are the policies in repo structure?
 There are respective folders for each template type(cft, tf & k8s) under:
     src/main/resouces/content/
   
+## How can i contribute to repo?
+Please create PR against development branch. Development branch is used for development and testing. By default PRs are raised against development branch.
 
-## Different Public Cloud IaC specific template policies go in different files?
-
-Yes. Each Infrastructure as Code Template Policies go in template specific directories. Each rule is added as a file to their respective directories e.g. CFT template related rule files are added/edited to directory: ```src/main/resources/content/cft```
-Once the rule PR is approved and rule is merged, then it is added to the respective rules file(cft.json etc).
-
-## Do I follow any practice/format to write the new rule?
-
-Yes. Only Json format is supported. The policies are Json arraylist of Rule Object where each Rule consists of severity, resourceType, policy(rule name/what is the rule for), rule(based on json path), is(UUID), enabled(default false):
-```
-{
-   "severity": "<string>",
-   "resourceType": "<string>",
-   "policy": "<string>",
-   "rule": "<json rule>",
-   "id": "<uuid>",
-   "enabled": <boolean>
-} 
-```
-
-## Where should I write rules?
-Create a file under the respective folder(tf, cft or k8) with a '.json' extension. When you changes are meged, then your rule will be added to the respective rules file ,for e.g. for CFT ```src/main/resources/content/cft.json```
+## Is there any guideline on how to write policy?
+Yes, Please go [here](src/main/resources/content/) for step wise documentation on how to write a policy with rule.
 
 ## How can I know I am ready to check in rules?
+Once the rules are written and added to the respective directory & the build is successful on the local machine, then you can go ahead and push your changes to create PR.
 
-Once the rules are written and added to the repective directory & the build is successful on the local machine, then you can go ahead and push your changes.
+## When would my changes be in development branch?
+Once PR is generated, one non-author review approval + health check needs to passed to be merged to development branch. Add reviewer for your changes to be reviewed. Before merging to development branch, it will be reviewed by PANW team as well.
 
-Create Pull Request with the respective changes in new branch to be merged with master. Once approved by PANW, it will be available for use publicaly. 
+## What if health check didn't pass?
+Its likely because rebase is required with development branch or build failure due to compilation/unit tests.
+Please see the details in health check and take appropriate action.    
 
-### Is there any guide on how to write policy?
+## When my rules are available in production? 
+Master branch is treated as production branch. If your changes are merged on any day by 11pm, they are available to be used publicly by end of that day. Please check the doc in next question: If the policy is available in that doc, its already in use in production.  
 
-Yes, Please go [here](src/main/resources/content/) for step wise documentation on how to write a policy with rule and merge it.
-
-### For full documentation on rules and supported rules
+### For full documentation supported rules
 [Prisma Public Cloud IaC Scan Policies](https://iacscanapidoc.redlock.io/content)
 
 ## Where can I read more about the Prisma IaC scan api and how these rules are used?
