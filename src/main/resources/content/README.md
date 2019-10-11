@@ -10,7 +10,7 @@ Supported Infrastructure as Code templates are: <b>cft, tf and k8s</b>. There ar
 Yes. Each Infrastructure as Code Template Policies go in template specific directories. Each rule is added as a file to their respective directories e.g. CFT template related rule files are added/edited to directory: ```src/main/resources/content/cft```
 
 ## How do i write the policy?
-Please see 'Let's Begin section'.
+Please see 'Policy Writting in Details' section.
 At higher level please create a policy file under the respective folder(tf, cft or k8) with a '.json' extension. 
 
 ## What are cft.json, tf.json and k8s.json files in /src/main/resources/content/?
@@ -32,8 +32,8 @@ Only Json format is supported. The policy is Json Object where each Rule consist
    "enabled": <boolean>
 } 
 ```
-<h2> Let's Begin </h2>
-<h3>Policy Structure example</h3>
+<h3> Policy Writting in Details</h3>
+<h6>Policy Structure example</h6>
 
 ```
 { 
@@ -54,7 +54,7 @@ Only Json format is supported. The policy is Json Object where each Rule consist
 * enabled: true/false. If you want your policy not available when in doubt, make it enabled=false. By default it will be treated as false anyway. 
 
 
-<h3>JSON Rules</h3>
+<h6>JSON Rules</h6>
 
 The rules are written in JSON Path format. A quick tutorial guide: [A guide to Json Path](https://restfulapi.net/json-jsonpath/)
 
