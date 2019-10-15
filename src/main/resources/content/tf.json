@@ -106,6 +106,14 @@
     "policy": "AWS IAM password policy does not have a uppercase character"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].aws_iam_policy_attachment[*].*[*].users exists and $.resource[*].aws_iam_policy_attachment[*].*[*].users[*] is not empty",
+    "id": "1903f355-b68f-4d9c-84dd-c46abe4f8673",
+    "enabled": true,
+    "resourceType": "iam_policy_attachment",
+    "policy": "AWS IAM policy attached to users"
+  },
+  {
     "severity": "high",
     "rule": "$.resource[*].aws_eks_cluster[*].*[*].version starts with 1.9",
     "id": "60440266-3d03-41ce-ba8c-d51ccbdb6804",
