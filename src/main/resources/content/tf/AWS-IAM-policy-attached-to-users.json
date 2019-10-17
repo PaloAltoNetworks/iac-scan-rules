@@ -1,0 +1,8 @@
+{ 
+   "severity":"low",
+   "resourceType":"iam_policy_attachment",
+   "policy":"AWS IAM policy attached to users",
+   "rule":"$.resource[*].aws_iam_policy_attachment[*].*[*].users exists and $.resource[*].aws_iam_policy_attachment[*].*[*].users[*] is not empty",
+   "id":"1903f355-b68f-4d9c-84dd-c46abe4f8673",
+   "enabled":true
+}

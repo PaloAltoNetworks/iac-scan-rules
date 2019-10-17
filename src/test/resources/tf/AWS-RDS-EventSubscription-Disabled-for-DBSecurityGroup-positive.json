@@ -1,0 +1,21 @@
+{
+  "resource": [
+    {
+      "aws_db_event_subscription": [
+        {
+          "default": [
+            {
+              "enabled": false,
+              "name": "rds-event-sub",
+              "sns_topic": "arn12356",
+              "source_ids": [
+                "1234"
+              ],
+              "source_type": "db-security-group"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
