@@ -1,8 +1,0 @@
-{
-    "severity": "medium",
-    "resourceType": "kubernetes engine",
-    "policy": "GCP Kubernetes Engine Clusters have Network policy disabled",
-    "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*] is empty or ($.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*] is not empty and $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled any equal true))",
-    "id": "ca78ea0f-83ec-4401-9c33-300215ebe7b3",
-    "enabled": true
-}
