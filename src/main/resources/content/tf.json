@@ -259,6 +259,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*] is empty or ($.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*] is not empty and $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*].disabled any equal false))",
+    "id": "243d8c63-97cf-434a-b75e-2a84c57fdc37",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.versioning does not exist or $.resource[*].google_storage_bucket.*[*].*.versioning exists and ($.resource[*].google_storage_bucket.*[*].*.versioning[*].enabled any equal false))",
     "id": "53a9b6e1-dd93-4110-b443-4658c13134b4",
     "enabled": true,
