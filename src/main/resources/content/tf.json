@@ -138,6 +138,14 @@
     "policy": "AWS Redshift does not have require_ssl configured"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].aws_cloudtrail[*].*[*].enable_logging exists and $.resource[*].aws_cloudtrail[*].*[*].enable_logging isFalse",
+    "id": "82578260-f754-4e0e-ba6b-a06b9e36ad5b",
+    "enabled": true,
+    "resourceType": "AWS S3 cloudtrail logging",
+    "policy": "AWS S3 CloudTrail buckets for which access logging is disabled"
+  },
+  {
     "severity": "high",
     "rule": "$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.acl does not exist or ($.resource[*].aws_s3_bucket.*[*].*.acl equals public-read-write or $.resource[*].aws_s3_bucket.*[*].*.acl equals public-read))",
     "id": "ded75b65-7ef6-4239-a08f-d4d9a4eb218b",
