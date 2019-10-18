@@ -1,0 +1,49 @@
+{
+  "locals": [
+    {
+      "test_description": "2 container-definitions. None with user root"
+    }
+  ],
+  "resource": [
+    {
+      "aws_ecs_task_definition": [
+        {
+          "tw-console": [
+            {
+              "container_definitions": [
+                {"name": "test-task", "user": "random"},
+                {"name": "test-task-1", "user": "random-1"}
+              ],
+              "family": "tw-console",
+              "network_mode": "awsvpc",
+              "placement_constraints": [
+                {
+                  "expression": "attribute:purpose == infra",
+                  "type": "memberOf"
+                }
+              ],
+              "volume": [
+                {
+                  "host_path": "/dev/log",
+                  "name": "syslog-socket"
+                },
+                {
+                  "host_path": "/twistlock_console/var/lib/twistlock",
+                  "name": "twistlock-console"
+                },
+                {
+                  "host_path": "/twistlock_console/var/lib/twistlock-config",
+                  "name": "twistlock-config-volume"
+                },
+                {
+                  "host_path": "/twistlock_console/var/lib/twistlock-backup",
+                  "name": "twistlock-backup-volume"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
