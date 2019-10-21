@@ -42,6 +42,14 @@
     "policy": "AWS EC2 instance have SSH port open to internet"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].aws_ecs_task_definition[*].*[*].container_definitions[?(@.user=='root')] exists",
+    "id": "d7cf6d0e-e515-4d0f-b93d-c88932c60172",
+    "enabled": true,
+    "resourceType": "ECS task definition",
+    "policy": "AWS ECS task definition root user found"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].aws_elasticsearch_domain exists and $.resource[*].aws_elasticsearch_domain[*].es[*].vpc_options does not exist",
     "id": "28ee2708-305a-4b23-acf0-535ab45b96ab",
