@@ -42,6 +42,14 @@
     "policy": "AWS EC2 instance have SSH port open to internet"
   },
   {
+    "severity": "medium",
+    "rule": " $.resource[*].aws_ecs_task_definition exists and  $.resource[*].aws_ecs_task_definition[*].*[*].container_definitions exists  and $.resource[*].aws_ecs_task_definition[*].*[*].execution_role_arn does not exist",
+    "id": "a76c8132-7cc3-40b1-a417-d3a41fc44f89",
+    "enabled": true,
+    "resourceType": "ecs",
+    "policy": "AWS ECS task definition execution IAM Role not found"
+  },
+  {
     "severity": "low",
     "rule": "$.resource[*].aws_ecs_task_definition[*].*[*].container_definitions[?(@.user=='root')] exists",
     "id": "d7cf6d0e-e515-4d0f-b93d-c88932c60172",
