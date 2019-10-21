@@ -130,6 +130,14 @@
     "policy": "AWS RDS event subscription disabled for DB security groups"
   },
   {
+    "severity": "high",
+    "rule": "$.resource[*].aws_db_instance[*].primary[*].publicly_accessible exists  and $.resource[*].aws_db_instance[*].primary[*].publicly_accessible isTrue",
+    "id": "054e0760-d0e2-454a-8898-015e9e9fbc1a",
+    "enabled": true,
+    "resourceType": "rds",
+    "policy": "AWS RDS snapshots are accessible to public"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].aws_redshift_cluster exists and ($.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')] !exists or $.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')].value isFalse)",
     "id": "2ff03f80-c9f6-4a37-b8b1-1212965e352d",
