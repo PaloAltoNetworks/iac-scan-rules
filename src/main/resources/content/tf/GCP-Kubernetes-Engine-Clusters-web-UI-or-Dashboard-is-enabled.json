@@ -2,7 +2,7 @@
   "severity": "medium",
   "resourceType": "kubernetes engine",
   "policy": "GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled",
-  "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard does not exist or $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*] is empty or ($.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*] is not empty and $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*].disabled any equal false))",
+  "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*].disabled anyFalse",
   "id": "243d8c63-97cf-434a-b75e-2a84c57fdc37",
   "enabled": true
 }

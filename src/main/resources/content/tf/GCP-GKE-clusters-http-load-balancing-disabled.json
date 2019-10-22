@@ -2,7 +2,7 @@
     "severity": "low",
     "resourceType": "kubernetes engine",
     "policy": "GCP Kubernetes Engine Clusters have HTTP load balancing disabled",
-    "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*] is not empty and $.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*].disabled any equal true)",
+    "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*].disabled anyTrue)",
     "id": "afb8ee15-96a4-4f32-83a5-c5f60c49de75",
     "enabled": true
  }

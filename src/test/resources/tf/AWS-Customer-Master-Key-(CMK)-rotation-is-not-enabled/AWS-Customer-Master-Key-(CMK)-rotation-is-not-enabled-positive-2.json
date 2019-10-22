@@ -1,0 +1,34 @@
+{
+  "locals": [
+    {
+      "test_description": "one of the two aws_kms_key resources doesnot have enable_key_rotation attribute"
+    }
+  ],
+  "resource": [
+    {
+      "aws_kms_key": [
+        {
+          "a": [
+            {
+              "deletion_window_in_days": 10,
+              "description": "KMS key 1",
+              "enable_key_rotation": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_kms_key": [
+        {
+          "b": [
+            {
+              "deletion_window_in_days": 10,
+              "description": "KMS key 1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

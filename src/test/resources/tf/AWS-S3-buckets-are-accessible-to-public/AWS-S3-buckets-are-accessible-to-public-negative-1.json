@@ -1,0 +1,45 @@
+{
+  "locals": [
+    {
+      "test_description": "two aws_s3_bucket resources but no acl attribute"
+    }
+  ],
+  "resource": [
+    {
+      "aws_s3_bucket": [
+        {
+          "a": [
+            {
+              "not_acl": "public-read",
+              "bucket": "my-tf-test-bucket",
+              "tags": [
+                {
+                  "Environment": "Dev",
+                  "Name": "My bucket"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_s3_bucket": [
+        {
+          "b": [
+            {
+              "not_acl": "public-read-write",
+              "bucket": "my-tf-test-bucket",
+              "tags": [
+                {
+                  "Environment": "Dev",
+                  "Name": "My bucket"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

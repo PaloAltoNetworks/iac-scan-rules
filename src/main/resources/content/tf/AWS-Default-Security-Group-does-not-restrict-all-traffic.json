@@ -1,1 +1,5 @@
-{"severity":"high","rule":"$.resource[*].aws_default_security_group exists and ($.resource[*].aws_default_security_group.*[*].*.ingress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_default_security_group.*[*].*.ingress[*].ipv6_cidr_blocks[*] contains ::/0 or $.resource[*].aws _default_security_group.*[*].*.egress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_default_security_group.*[*].*.egress[*].ipv6_cidr_blocks[*] contains ::/0)","id":"c8f6a525-e4ba-4499-b015-15153c797143","enabled":true,"resourceType":"security group","policy":"AWS Default Security Group does not restrict all traffic"}
+{"severity":"high",
+  "rule":"$.resource[*].aws_default_security_group exists and ($.resource[*].aws_default_security_group[*].*[*].ingress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_default_security_group[*].*[*].ingress[*].ipv6_cidr_blocks[*] contains ::/0 or $.resource[*].aws_default_security_group[*].*[*].egress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_default_security_group[*].*[*].egress[*].ipv6_cidr_blocks[*] contains ::/0)",
+  "id":"c8f6a525-e4ba-4499-b015-15153c797143",
+  "enabled":true,"resourceType":"security group",
+  "policy":"AWS Default Security Group does not restrict all traffic"}
