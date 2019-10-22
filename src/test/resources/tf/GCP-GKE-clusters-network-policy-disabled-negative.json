@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "both google_container_cluster resources with  network_policy_config.disabled set to false and have network_policy block"
+    }
+  ],
   "provider": [
     {
       "google": [
@@ -23,6 +28,12 @@
         {
           "prb-tft-kube": [
             {
+              "network_policy": [
+                {
+                  "enabled": true,
+                  "provider": "CALICO"
+                }
+              ],
               "addons_config": [
                 {
                   "http_load_balancing": [
@@ -106,6 +117,12 @@
           ],
           "another_one": [
             {
+              "network_policy": [
+                {
+                  "enabled": true,
+                  "provider": "CALICO"
+                }
+              ],
               "addons_config": [
                 {
                   "http_load_balancing": [

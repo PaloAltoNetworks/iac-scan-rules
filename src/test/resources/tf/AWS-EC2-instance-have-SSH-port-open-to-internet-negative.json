@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "aws_security_group ingress ip is not universal"
+    }
+  ],
   "resource": [
     {
       "aws_security_group": [
@@ -18,7 +23,7 @@
               "ingress": [
                 {
                   "cidr_blocks": [
-                    "10.0.0.0/24",
+                    "0.0.0.0/1",
                     "10.0.0.0/16"
                   ],
                   "from_port": 22,

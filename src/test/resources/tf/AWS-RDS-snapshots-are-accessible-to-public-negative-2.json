@@ -1,24 +1,43 @@
 {
+    "locals": [
+        {
+            "test_description": "both aws_db_instance resources have publicly_accessible set to false"
+        }
+    ],
     "resource": [
         {
             "aws_db_instance": [
                 {
-                    "primary": [
+                    "a": [
                         {
-                            "final_snapshot_identifier": "snapshot",
-                            "identifier": "hello-primary",
-                            "instance_class": "micro",
-                            "parameter_group_name": "gn",
-                            "skip_final_snapshot": true,
-                            "snapshot_identifier": "1234",
-                            "timeouts": [
-                                {
-                                    "create": "2h"
-                                }
-                            ],
-                            "vpc_security_group_ids": [
-                                "sg-1"
-                            ]
+                            "allocated_storage": 20,
+                            "engine": "mysql",
+                            "engine_version": "5.7",
+                            "instance_class": "db.t2.micro",
+                            "name": "mydb",
+                            "password": "foobarbaz",
+                            "publicly_accessible": false,
+                            "storage_type": "gp2",
+                            "username": "foo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "aws_db_instance": [
+                {
+                    "b": [
+                        {
+                            "allocated_storage": 20,
+                            "engine": "mysql",
+                            "engine_version": "5.7",
+                            "instance_class": "db.t2.micro",
+                            "name": "mydb",
+                            "password": "foobarbaz",
+                            "publicly_accessible": false,
+                            "storage_type": "gp2",
+                            "username": "foo"
                         }
                     ]
                 }

@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "the only google_container_cluster resource has kubernetes_dashboard[*].disabled set to true"
+    }
+  ],
   "provider": [
     {
       "google": [

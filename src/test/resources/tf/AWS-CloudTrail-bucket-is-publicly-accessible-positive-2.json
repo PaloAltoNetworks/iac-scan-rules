@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "cloudtrail s3 bucket block_public_policy is false"
+    }
+  ],
   "resource": [
     {
       "aws_cloudtrail": [
@@ -32,8 +37,8 @@
           "foo": [
             {
               "block_public_acls": true,
-              "block_public_policy": true,
-              "bucket": "${aws_s3_bucket.foob.id}"
+              "block_public_policy": false,
+              "bucket": "${aws_s3_bucket.foo.id}"
             }
           ]
         }

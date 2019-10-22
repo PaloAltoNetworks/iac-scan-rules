@@ -1,0 +1,47 @@
+{
+  "locals": [
+    {
+      "test_description": "es domain has vpc_options"
+    }
+  ],
+  "resource": [
+    {
+      "aws_elasticsearch_domain": [
+        {
+          "example": [
+            {
+              "cluster_config": [
+                {
+                  "instance_type": "r4.large.elasticsearch"
+                }
+              ],
+              "domain_name": "example",
+              "elasticsearch_version": "1.5",
+              "snapshot_options": [
+                {
+                  "automated_snapshot_start_hour": 23
+                }
+              ],
+              "tags": [
+                {
+                  "Domain": "TestDomain"
+                }
+              ],
+              "vpc_options": [
+                {
+                  "security_group_ids": [
+                    "${aws_security_group.elasticsearch.id}"
+                  ],
+                  "subnet_ids": [
+                    "${data.aws_subnet_ids.selected.ids[0]}",
+                    "${data.aws_subnet_ids.selected.ids[1]}"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
