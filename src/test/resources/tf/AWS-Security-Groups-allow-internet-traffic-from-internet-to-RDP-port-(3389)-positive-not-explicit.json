@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Positive case for a non explicit port range that includes 3389"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [

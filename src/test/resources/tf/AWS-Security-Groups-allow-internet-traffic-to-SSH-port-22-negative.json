@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Tests for negative case s.t port 22 is not included within the port range"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [

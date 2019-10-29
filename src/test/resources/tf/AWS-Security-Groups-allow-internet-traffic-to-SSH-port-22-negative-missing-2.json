@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Tests negative case for missing ingress k/v pair in AWS security group resources"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [

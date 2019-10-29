@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Simple positive case that detects an Ingress connection from Internet via Port 3389"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [

@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Test negative case for port range"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [

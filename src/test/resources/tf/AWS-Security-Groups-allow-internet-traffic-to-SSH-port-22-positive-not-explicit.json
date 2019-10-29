@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Tests for a non explicit positive case of the port range including port 22"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [
@@ -26,7 +31,7 @@
                   ],
                   "from_port": 0,
                   "protocol": "tcp",
-                  "to_port": 22
+                  "to_port": 23
                 }
               ],
               "name": "allow_tls",

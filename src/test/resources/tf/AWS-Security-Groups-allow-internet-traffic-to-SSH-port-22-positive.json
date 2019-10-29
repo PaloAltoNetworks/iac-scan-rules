@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Tests for simple positive case of port 22 being included in port range"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [

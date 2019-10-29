@@ -1,4 +1,9 @@
 {
+  "locals": [
+     {
+       "test_description": "Tests negative case for missing ingress k/v pairing in aws security group"
+     }
+   ],
   "resource": [
     {
       "aws_security_group": [
@@ -17,16 +22,6 @@
                   ],
                   "protocol": "-1",
                   "to_port": 0
-                }
-              ],
-              "ingress": [
-                {
-                  "cidr_blocks": [
-                    "0.0.0.3/0"
-                  ],
-                  "from_port": 3389,
-                  "protocol": "tcp",
-                  "to_port": 3389
                 }
               ],
               "name": "allow_tls",
