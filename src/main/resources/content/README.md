@@ -79,4 +79,4 @@ https://github.com/PaloAltoNetworks/iac-scan-rules/src/test/resources/tf/xx. whe
 
 The file name should be same as the policy file name with a suffix of -positive.json and -negative.json respectively in AWS-password dir. Test folder name has to match rule file name. 
 
-Positive case when rule will be matched(wrong template with fault in it) and negative case rule match won't happen for that specific rule(right template).
+Positive case when rule will be matched(wrong template with fault in it) and it's negative case rule match won't happen for that specific rule(right template).
