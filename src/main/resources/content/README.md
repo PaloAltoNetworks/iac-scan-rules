@@ -77,6 +77,6 @@ Yes, please include positive and negative scenario as described below. The polic
 Put the Json payload with negative and positive scenarios under 
 https://github.com/PaloAltoNetworks/iac-scan-rules/src/test/resources/tf/xx. where XX is folder for specific rule file. e:g; src/main/test/resources/tf/AWS-passoword
 
-The file name should be same as the policy file name with a suffix of -positive.json and -negative.json respectively in AWS-password dir. 
+The file name should be same as the policy file name with a suffix of -positive.json and -negative.json respectively in AWS-password dir. Test folder name has to match rule file name. 
 
 Positive case when rule will be matched(wrong template with fault in it) and negative case rule match won't happen for that specific rule(right template).
