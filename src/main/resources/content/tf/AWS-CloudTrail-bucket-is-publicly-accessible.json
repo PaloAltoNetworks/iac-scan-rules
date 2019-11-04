@@ -1,8 +1,8 @@
-{ 
-   "severity":"low",
-   "resourceType":"AWS_cloudtrail_s3_bucket",
-   "policy":"AWS CloudTrail bucket is publicly accessible",
-   "rule":"$.resource[*].aws_cloudtrail exists and (($.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name does not equal $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket) or (($.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name equals $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket) and  ($.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_acls isFalse or  $.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_policy isFalse)))",
-   "id":"fc24c16c-f3cc-43b0-aa0e-ba32f5e234d3",
-   "enabled":true
+{
+  "severity": "low",
+  "resourceType": "AWS_cloudtrail_s3_bucket",
+  "policy": "AWS CloudTrail bucket is publicly accessible",
+  "rule": "$.resource[*].aws_cloudtrail exists and (($.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name does not equal $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket) or (($.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name equals $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket) and  ($.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_acls isFalse or  $.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_policy isFalse)))",
+  "id": "fc24c16c-f3cc-43b0-aa0e-ba32f5e234d3",
+  "enabled": true
 }

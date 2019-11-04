@@ -1,1 +1,8 @@
-{"severity":"high","rule":"$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.acl does not exist or ($.resource[*].aws_s3_bucket.*[*].*.acl equals public-read-write or $.resource[*].aws_s3_bucket.*[*].*.acl equals public-read))","id":"ded75b65-7ef6-4239-a08f-d4d9a4eb218b","enabled":true,"resourceType":"s3","policy":"AWS S3 buckets are accessible to public"}
+{
+  "severity": "high",
+  "rule": "$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.acl does not exist or ($.resource[*].aws_s3_bucket.*[*].*.acl equals public-read-write or $.resource[*].aws_s3_bucket.*[*].*.acl equals public-read))",
+  "id": "ded75b65-7ef6-4239-a08f-d4d9a4eb218b",
+  "enabled": true,
+  "resourceType": "s3",
+  "policy": "AWS S3 buckets are accessible to public"
+}
