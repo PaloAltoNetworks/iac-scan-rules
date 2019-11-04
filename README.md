@@ -7,7 +7,7 @@ To contribute, just add/update the IaC policies and create a PR.
 
 ## How to build and run?
 
-It's a Java maven project. Go to iac-policies project directory and run ```$ mvn clean install```. 
+It's a Java maven project. Go to iac-policies project root directory and run ```$ mvn clean install```. 
 
 
 ### It doesn't work, do I need to install something first?
