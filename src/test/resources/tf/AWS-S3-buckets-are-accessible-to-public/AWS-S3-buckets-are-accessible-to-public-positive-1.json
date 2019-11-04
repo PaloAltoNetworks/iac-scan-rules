@@ -1,0 +1,45 @@
+{
+  "locals": [
+    {
+      "test_description": "one of the aws_s3_bucket resources has acl set to public-read-write"
+    }
+  ],
+  "resource": [
+    {
+      "aws_s3_bucket": [
+        {
+          "a": [
+            {
+              "acl": "private",
+              "bucket": "my-tf-test-bucket",
+              "tags": [
+                {
+                  "Environment": "Dev",
+                  "Name": "My bucket"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_s3_bucket": [
+        {
+          "b": [
+            {
+              "acl": "public-read-write",
+              "bucket": "my-tf-test-bucket",
+              "tags": [
+                {
+                  "Environment": "Dev",
+                  "Name": "My bucket"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

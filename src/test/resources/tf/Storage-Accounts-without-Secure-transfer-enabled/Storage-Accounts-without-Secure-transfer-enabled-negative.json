@@ -1,0 +1,41 @@
+{
+  "locals": [
+    {
+      "test_description": "no azurerm_storage_account resources"
+    }
+  ],
+  "resource": [
+    {
+      "not_azurerm_storage_account": [
+        {
+          "a": [
+            {
+              "account_replication_type": "GRS",
+              "account_tier": "Standard",
+              "enable_https_traffic_only": false,
+              "location": "${azurerm_resource_group.a.location}",
+              "name": "storageaccountname",
+              "resource_group_name": "${azurerm_resource_group.a.name}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "not_azurerm_storage_account": [
+        {
+          "b": [
+            {
+              "account_replication_type": "GRS",
+              "account_tier": "Standard",
+              "enable_https_traffic_only": false,
+              "location": "${azurerm_resource_group.b.location}",
+              "name": "storageaccountname",
+              "resource_group_name": "${azurerm_resource_group.b.name}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

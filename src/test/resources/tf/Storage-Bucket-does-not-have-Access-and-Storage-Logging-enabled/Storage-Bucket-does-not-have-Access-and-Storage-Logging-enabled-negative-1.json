@@ -1,0 +1,41 @@
+{
+  "locals": [
+    {
+      "test_description": "both google_storage_bucket resources have non-empty logging.log_bucket"
+    }
+  ],
+  "resource": [
+    {
+      "google_storage_bucket": [
+        {
+          "a": [
+            {
+              "logging": [
+                {
+                  "log_bucket": "log_a"
+                }
+              ],
+              "name": "a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_storage_bucket": [
+        {
+          "b": [
+            {
+              "logging": [
+                {
+                  "log_bucket": "log_b"
+                }
+              ],
+              "name": "b"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "locals": [
+    {
+      "test_description": "both cloudtrails have kms_key_id set"
+    }
+  ],
+  "resource": [
+    {
+      "aws_cloudtrail": [
+        {
+          "foo": [
+            {
+              "include_global_service_events": false,
+              "name": "tf-trail-foo",
+              "s3_bucket_name": "${aws_s3_bucket.foo.id}",
+              "s3_key_prefix": "prefix",
+              "kms_key_id": "x"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_cloudtrail": [
+        {
+          "bar": [
+            {
+              "include_global_service_events": false,
+              "name": "tf-trail-bar",
+              "s3_bucket_name": "${aws_s3_bucket.foo.id}",
+              "s3_key_prefix": "prefix",
+              "kms_key_id": "y"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

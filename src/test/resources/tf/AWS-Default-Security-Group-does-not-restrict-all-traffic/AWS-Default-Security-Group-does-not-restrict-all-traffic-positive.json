@@ -1,0 +1,38 @@
+{
+  "locals": [
+    {
+      "test_description": "egress allows universal v4 IP"
+    }
+  ],
+  "resource": [
+    {
+      "aws_default_security_group": [
+        {
+          "default": [
+            {
+              "egress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 0,
+                  "protocol": "-1",
+                  "to_port": 0
+                }
+              ],
+              "ingress": [
+                {
+                  "from_port": 0,
+                  "protocol": -1,
+                  "self": true,
+                  "to_port": 0
+                }
+              ],
+              "vpc_id": "${aws_vpc.mainvpc.id}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
