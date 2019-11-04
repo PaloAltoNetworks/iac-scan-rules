@@ -1,7 +1,7 @@
 {
   "locals": [
     {
-      "test_description": "1 container-definitions with user non-root"
+      "test_description": "One item in container-definitions with user non-root"
     }
   ],
   "resource": [
