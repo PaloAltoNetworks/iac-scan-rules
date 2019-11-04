@@ -1,0 +1,43 @@
+{
+  "locals": [
+    {
+      "test_description": "one of the aws_s3_buckets has versioning enabled false"
+    }
+  ],
+  "resource": [
+    {
+      "aws_s3_bucket": [
+        {
+          "a": [
+            {
+              "bucket": "tf-test-bucket-a",
+              "region": "eu-west-1",
+              "not_versioning": [
+                {
+                  "enabled": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_s3_bucket": [
+        {
+          "b": [
+            {
+              "bucket": "tf-test-bucket-b",
+              "region": "eu-west-1",
+              "versioning": [
+                {
+                  "not_enabled": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

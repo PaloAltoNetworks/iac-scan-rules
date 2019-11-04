@@ -1,0 +1,49 @@
+{
+  "locals": [
+    {
+<<<<<<< HEAD:src/test/resources/tf/AWS-EC2-instance-have-SSH-port-open-to-internet-positive.json
+      "test_description": "aws_security_group cidr is universal and port range includes 22"
+=======
+      "test_description": "no aws_security_group resource"
+>>>>>>> a5360fee0f51f377bb6554ab968851ea6a355f50:src/test/resources/tf/AWS-EC2-instance-have-SSH-port-open-to-internet/AWS-EC2-instance-have-SSH-port-open-to-internet-negative-2.json
+    }
+  ],
+  "resource": [
+    {
+      "not_aws_security_group": [
+        {
+          "allow_tls": [
+            {
+              "description": "Allow TLS inbound traffic",
+              "egress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 0,
+                  "prefix_list_ids": [
+                    "pl-12c4e678"
+                  ],
+                  "protocol": "tcp",
+                  "to_port": 0
+                }
+              ],
+              "ingress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 22,
+                  "protocol": "tcp",
+                  "to_port": 25
+                }
+              ],
+              "name": "allow_tls",
+              "vpc_id": "${aws_vpc.main.id}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

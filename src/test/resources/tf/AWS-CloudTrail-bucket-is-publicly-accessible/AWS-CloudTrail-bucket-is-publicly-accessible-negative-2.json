@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "cloudtrail s3 bucket name does not match"
+    }
+  ],
   "resource": [
     {
       "aws_cloudtrail": [
@@ -21,6 +26,19 @@
             {
               "bucket": "tf-test-trail",
               "force_destroy": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_s3_bucket_public_access_block": [
+        {
+          "foo": [
+            {
+              "block_public_acls": true,
+              "block_public_policy": false,
+              "bucket": "randomName"
             }
           ]
         }

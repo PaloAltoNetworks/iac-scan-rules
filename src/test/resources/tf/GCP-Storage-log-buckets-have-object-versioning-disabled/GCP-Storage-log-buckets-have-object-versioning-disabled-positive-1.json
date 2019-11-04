@@ -1,0 +1,40 @@
+{
+  "locals": [
+    {
+      "test_description": "one of the two google_storage_bucket resources have versioning[*].enabled missing"
+    }
+  ],
+  "resource": [
+    {
+      "google_storage_bucket": [
+        {
+          "a": [
+            {
+              "name": "a-bucket",
+              "versioning": [
+                {
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_storage_bucket": [
+        {
+          "b": [
+            {
+              "name": "b-bucket",
+              "versioning": [
+                {
+                  "enabled": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

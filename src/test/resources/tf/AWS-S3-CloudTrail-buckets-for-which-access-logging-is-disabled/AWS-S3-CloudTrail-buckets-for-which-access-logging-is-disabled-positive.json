@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "only aws_cloudtrail resource has enabled_logging set to false"
+    }
+  ],
   "resource": [
     {
       "aws_cloudtrail": [
