@@ -1,7 +1,7 @@
 # Public Cloud 'Infrastructure as Code(IaC)' Policies
 This is a bare-bones 'Infrastructure as Code' Policies project where policies are open to public.
 
-The IaC policies will be verified by Palo Alto Networks(PANW) before they are available publicaly.
+The IaC policies will be verified by Palo Alto Networks(PANW) before they are available publicly.
 
 To contribute, just add/update the IaC policies and create a PR.
 
