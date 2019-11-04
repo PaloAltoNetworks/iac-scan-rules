@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TemplatesTest {
+public class TemplateStandardTest {
 
   private static final String rulesDirPath = "./src/main/resources/content";
   private static final String resourceExtension = "json";
@@ -15,72 +15,30 @@ public class TemplatesTest {
   private static final String POSITIVE_TEST_FILE_NAME_CONTAINS = "positive";
   private static final String NEGATIVE_TEST_FILE_NAME_CONTAINS = "negative";
 
-  //TF template tests
-
   @Test
-  public void ensureTemplateFileExtensionIsJsonTF() throws Exception {
-    ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.TF));
-  }
-
-  @Test
-  public void ensureTestTemplateFolderExistsForEachTFRules() throws Exception {
+  public void ensureTestTemplateStructureConventionAndStandardsForTF() throws Exception {
+    //execute in this sequence: folder verification->json file extension->Name convention-> must pos/neg templates
     ensureTestTemplateFolderExists(TemplateType.TF);
-  }
-
-  @Test
-  public void ensureTestTemplateFilesFollowNameConventionForTFRules() throws Exception {
+    ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.TF));
     ensureTestTemplateFilesFollowNameConvention(TemplateType.TF);
-  }
-
-  @Test
-  public void ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExistsTFRules() throws Exception {
     ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExists(TemplateType.TF);
   }
 
-  //CFT
-
   @Test (enabled = false)
-  public void ensureTemplateFileExtensionIsJsonCFT() throws Exception {
-    ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.CFT));
-  }
-
-  @Test (enabled = false)
-  public void ensureTestTemplateFolderExistsForEachCFTRules() throws Exception {
+  public void ensureTestTemplateStructureConventionAndStandardsForCFT() throws Exception {
     ensureTestTemplateFolderExists(TemplateType.CFT);
-  }
-
-  @Test (enabled = false)
-  public void ensureTestTemplateFilesFollowNameConventionForCFTRules() throws Exception {
+    ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.CFT));
     ensureTestTemplateFilesFollowNameConvention(TemplateType.CFT);
-  }
-
-  @Test (enabled = false)
-  public void ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExistsCFTRules() throws Exception {
     ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExists(TemplateType.CFT);
   }
 
-  //K8S
-
   @Test (enabled = false)
-  public void ensureTemplateFileExtensionIsJsonK8S() throws Exception {
-    ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.K8S));
-  }
-
-  @Test (enabled = false)
-  public void ensureTestTemplateFolderExistsForEachK8SRules() throws Exception {
+  public void ensureTestTemplateStructureConventionAndStandardsForK8S() throws Exception {
     ensureTestTemplateFolderExists(TemplateType.K8S);
-  }
-
-  @Test (enabled = false)
-  public void ensureTestTemplateFilesFollowNameConventionForK8SRules() throws Exception {
+    ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.K8S));
     ensureTestTemplateFilesFollowNameConvention(TemplateType.K8S);
-  }
-
-  @Test (enabled = false)
-  public void ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExistsK8SRules() throws Exception {
     ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExists(TemplateType.K8S);
   }
-
 
 
   private String getResourcePathByTemplateType(TemplateType templateType) throws Exception {
@@ -125,9 +83,8 @@ public class TemplatesTest {
     for (File dir : dirs) {
       Collection<File> files = FileUtils.listFiles(dir, null, Boolean.TRUE);
       for (File file : files) {
-        String fileName = file.getCanonicalPath();
         if (file.getCanonicalPath().endsWith(".json") == false) {
-          Assert.fail("file extension should be json for file: " + file.getName());
+          Assert.fail("File extension should be json for file: " + file.getName());
         }
       }
     }
@@ -164,12 +121,12 @@ public class TemplatesTest {
         for (File testFile : testFiles) {
           if (!testFile.getName().contains(NEGATIVE_TEST_FILE_NAME_CONTAINS) && !testFile.getName().contains(
               POSITIVE_TEST_FILE_NAME_CONTAINS)) {
-            Assert.fail("test template folder: " + testFolder.getName() + " doesn't follow positive and negative test "
+            Assert.fail("Test template folder: " + testFolder.getName() + " doesn't follow positive and negative test "
                 + "template file name convention for file: " + testFile);
           }
           if (testFile.getName().contains(NEGATIVE_TEST_FILE_NAME_CONTAINS) && testFile.getName().contains(
               POSITIVE_TEST_FILE_NAME_CONTAINS)) {
-            Assert.fail("test File: " + testFile + " can't be for both positive & negative test case. pos/beg both "
+            Assert.fail("Test File: " + testFile + " can't be for both positive & negative test case. pos/beg both "
                 + "naming "
                 + "conventions exists.");
           }
@@ -218,7 +175,7 @@ public class TemplatesTest {
           }
         }
         if (negCount < 1 && posCount < 1) {
-          Assert.fail("testFolder : " + testFolder.getName() + " doesn;t have at least one positive & atleast one "
+          Assert.fail("Test Folder : " + testFolder.getName() + " doesn;t have at least one positive & atleast one "
               + "negative test template");
         }
       }
