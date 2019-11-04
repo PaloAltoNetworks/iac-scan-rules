@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource[*].aws_redshift_cluster exists and ($.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')] !exists or $.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')].value isFalse)",
+  "rule": "$.resource[*].aws_redshift_parameter_group exists and ($.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')] !exists  or $.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl' && @.value=='false' )] exists)",
   "id": "2ff03f80-c9f6-4a37-b8b1-1212965e352d",
   "enabled": true,
   "resourceType": "redshift",

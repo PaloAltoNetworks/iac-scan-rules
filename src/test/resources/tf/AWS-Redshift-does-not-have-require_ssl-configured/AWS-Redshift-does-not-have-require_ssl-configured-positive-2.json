@@ -1,0 +1,53 @@
+{
+  "locals": [
+    {
+      "test_description": "both aws_redshift_parameter_group resources don't have require_ssl attribute"
+    }
+  ],
+  "resource": [
+    {
+      "aws_redshift_parameter_group": [
+        {
+          "bar": [
+            {
+              "family": "redshift-1.0",
+              "name": "parameter-group-test-terraform",
+              "parameter": [
+                {
+                  "name": "not_require_ssl",
+                  "value": "false"
+                },
+                {
+                  "name": "query_group",
+                  "value": "example"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_redshift_parameter_group": [
+        {
+          "foo": [
+            {
+              "family": "redshift-1.0",
+              "name": "parameter-group-test-terraform",
+              "parameter": [
+                {
+                  "name": "not_require_ssl",
+                  "value": "false"
+                },
+                {
+                  "name": "query_group",
+                  "value": "example"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

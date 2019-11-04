@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "execution_role_arn exists"
+    }
+  ],
   "resource": [
     {
       "aws_ecs_task_definition": [

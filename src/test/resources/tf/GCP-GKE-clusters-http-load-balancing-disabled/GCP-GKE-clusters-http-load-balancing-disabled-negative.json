@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "one google_container_cluster with  http_load_balancing.disabled set to false"
+    }
+  ],
   "provider": [
     {
       "google": [

@@ -1,0 +1,53 @@
+{
+  "locals": [
+    {
+      "test_description": "one of the google_container_cluster resources have kubernetes_dashboard[*]*.disabled false"
+    }
+  ],
+  "resource": [
+    {
+      "google_container_cluster": [
+        {
+          "x": [
+            {
+              "addons_config": [
+                {
+                  "kubernetes_dashboard": [
+                    {
+                      "disabled": true
+                    }
+                  ]
+                }
+              ],
+              "initial_node_count": 3,
+              "location": "us-central1-a",
+              "name": "marcellus-wallace"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_container_cluster": [
+        {
+          "y": [
+            {
+              "addons_config": [
+                {
+                  "kubernetes_dashboard": [
+                    {
+                      "disabled": false
+                    }
+                  ]
+                }
+              ],
+              "initial_node_count": 3,
+              "location": "us-central1-a",
+              "name": "marcellus-wallace"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

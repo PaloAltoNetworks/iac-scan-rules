@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.versioning does not exist or ($.resource[*].aws_s3_bucket.*[*].*.versioning exists and $.resource[*].aws_s3_bucket.*[*].*.versioning[*].enabled any equal false))","id":"1914c65c-2406-4261-88cd-fbeb684a15dc","enabled":true,"resourceType":"s3","policy":"AWS S3 object versioning is disabled"}
+{
+  "severity": "medium",
+  "rule": " $.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.versioning[*].enabled does not exist or $.resource[*].aws_s3_bucket.*[*].*.versioning[*].enabled anyFalse)",
+  "id": "1914c65c-2406-4261-88cd-fbeb684a15dc",
+  "enabled": true,
+  "resourceType": "s3",
+  "policy": "AWS S3 object versioning is disabled"
+}

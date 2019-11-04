@@ -1,48 +1,41 @@
 {
+  "locals": [
+    {
+      "test_description": "aws_security_group cidr is universal and port range includes 22"
+    }
+  ],
   "resource": [
     {
       "aws_security_group": [
         {
-          "test_sg1": [
+          "allow_tls": [
             {
+              "description": "Allow TLS inbound traffic",
               "egress": [
                 {
                   "cidr_blocks": [
                     "0.0.0.0/0"
                   ],
                   "from_port": 0,
-                  "protocol": "-1",
+                  "prefix_list_ids": [
+                    "pl-12c4e678"
+                  ],
+                  "protocol": "tcp",
                   "to_port": 0
                 }
               ],
               "ingress": [
                 {
                   "cidr_blocks": [
-                    "0.0.0.0/0",
-                    "10.0.0.0/16"
+                    "0.0.0.0/0"
                   ],
                   "from_port": 22,
                   "protocol": "tcp",
-                  "to_port": 22
+                  "to_port": 25
                 }
               ],
-              "name": "test_sg"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "aws_instance": [
-        {
-          "example": [
-            {
-              "ami": "ami-b374d5a5",
-              "instance_type": "t2.micro",
-              "key_name": "${var.key_name}",
-              "security_groups": [
-                "${aws_security_group.test_sg1.name}"
-              ]
+              "name": "allow_tls",
+              "vpc_id": "${aws_vpc.main.id}"
             }
           ]
         }
