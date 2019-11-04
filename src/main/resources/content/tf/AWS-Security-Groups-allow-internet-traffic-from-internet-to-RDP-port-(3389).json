@@ -1,7 +1,8 @@
 {
-    "severity":"high",
-    "rule":"$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<3390 && @.to_port>3388 )].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<3390 && @.to_port>3388)].ipv6_cidr_blocks[*] contains ::/0)",
-    "id":"1796efe6-802d-4768-8c17-7491c560b686",
-    "enabled":true,"resourceType":"security group",
-    "policy":"AWS Security Groups allow internet traffic from internet to RDP port (3389)"
+  "severity": "high",
+  "rule": "$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<3390 && @.to_port>3388 )].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<3390 && @.to_port>3388)].ipv6_cidr_blocks[*] contains ::/0)",
+  "id": "1796efe6-802d-4768-8c17-7491c560b686",
+  "enabled": true,
+  "resourceType": "security group",
+  "policy": "AWS Security Groups allow internet traffic from internet to RDP port (3389)"
 }

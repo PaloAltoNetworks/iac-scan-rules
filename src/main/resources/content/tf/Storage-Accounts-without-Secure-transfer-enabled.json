@@ -1,6 +1,8 @@
-{"severity":"medium",
-  "rule":"$.resource[*].azurerm_storage_account exists and ($.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyNull or $.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyFalse)",
-  "id":"80f6dc01-4aaa-4712-a7bf-70e103fea4a3",
-  "enabled":true,
-  "resourceType":"storage",
-  "policy":"Storage Accounts without Secure transfer enabled"}
+{
+  "severity": "medium",
+  "rule": "$.resource[*].azurerm_storage_account exists and ($.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyNull or $.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyFalse)",
+  "id": "80f6dc01-4aaa-4712-a7bf-70e103fea4a3",
+  "enabled": true,
+  "resourceType": "storage",
+  "policy": "Storage Accounts without Secure transfer enabled"
+}

@@ -1,8 +1,8 @@
-{ 
-   "severity":"low",
-   "resourceType":"AWS S3 cloudtrail logging",
-   "policy":"AWS S3 CloudTrail buckets for which access logging is disabled",
-   "rule":"$.resource[*].aws_cloudtrail[*].*[*].enable_logging anyFalse",
-   "id":"82578260-f754-4e0e-ba6b-a06b9e36ad5b",
-   "enabled":true
+{
+  "severity": "low",
+  "resourceType": "AWS S3 cloudtrail logging",
+  "policy": "AWS S3 CloudTrail buckets for which access logging is disabled",
+  "rule": "$.resource[*].aws_cloudtrail[*].*[*].enable_logging anyFalse",
+  "id": "82578260-f754-4e0e-ba6b-a06b9e36ad5b",
+  "enabled": true
 }

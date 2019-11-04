@@ -1,8 +1,8 @@
 {
-    "severity": "medium",
-    "resourceType": "kubernetes engine",
-    "policy": "GCP Kubernetes cluster istioConfig not enabled",
-    "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] anyNull  or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyNull or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyTrue)",
-    "id": "6afc115a-d9f9-45e8-9716-6a4204621074",
-    "enabled": true
+  "severity": "medium",
+  "resourceType": "kubernetes engine",
+  "policy": "GCP Kubernetes cluster istioConfig not enabled",
+  "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] anyNull  or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyNull or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyTrue)",
+  "id": "6afc115a-d9f9-45e8-9716-6a4204621074",
+  "enabled": true
 }

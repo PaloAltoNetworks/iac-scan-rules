@@ -1,7 +1,8 @@
-{   "severity": "high",
-    "rule": "$.resource[*].aws_db_instance exists and ($.resource[*].aws_db_instance[*].*[*].publicly_accessible !exists  or $.resource[*].aws_db_instance[*].*[*].publicly_accessible anyTrue)",
-    "id": "054e0760-d0e2-454a-8898-015e9e9fbc1a",
-    "enabled": true,
-    "resourceType": "rds",
-    "policy": "AWS RDS snapshots are accessible to public"
+{
+  "severity": "high",
+  "rule": "$.resource[*].aws_db_instance exists and ($.resource[*].aws_db_instance[*].*[*].publicly_accessible !exists  or $.resource[*].aws_db_instance[*].*[*].publicly_accessible anyTrue)",
+  "id": "054e0760-d0e2-454a-8898-015e9e9fbc1a",
+  "enabled": true,
+  "resourceType": "rds",
+  "policy": "AWS RDS snapshots are accessible to public"
 }    
