@@ -1,0 +1,28 @@
+{
+  "locals": [
+    {
+      "test_description": "no aws_security_group"
+    }
+  ],
+  "resource": [
+    {
+      "not_aws_security_group": [
+        {
+          "x": [
+            {
+              "description": "Allow TLS inbound traffic",
+              "ingress": [
+                {
+                  "cidr_blocks": ["0.0.0.0/0"],
+                  "protocol": "-1"
+                }
+              ],
+              "name": "allow_tls",
+              "vpc_id": "${aws_vpc.main.id}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

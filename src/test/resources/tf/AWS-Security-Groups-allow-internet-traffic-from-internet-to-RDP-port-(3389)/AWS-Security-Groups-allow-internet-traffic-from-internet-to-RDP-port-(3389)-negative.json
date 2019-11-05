@@ -1,0 +1,76 @@
+{
+  "resource": [
+    {
+      "aws_security_group": [
+        {
+          "allow_tls": [
+            {
+              "description": "Allow TLS inbound traffic",
+              "egress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 0,
+                  "prefix_list_ids": [
+                    "pl-12c4e678"
+                  ],
+                  "protocol": "-1",
+                  "to_port": 0
+                }
+              ],
+              "ingress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 443,
+                  "protocol": "tcp",
+                  "to_port": 443
+                }
+              ],
+              "name": "allow_tls",
+              "vpc_id": "${aws_vpc.main.id}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_security_group": [
+        {
+          "allow_tls": [
+            {
+              "description": "Allow TLS inbound traffic",
+              "egress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 3389,
+                  "prefix_list_ids": [
+                    "pl-12c4e678"
+                  ],
+                  "protocol": "-1",
+                  "to_port": 3389
+                }
+              ],
+              "ingress": [
+                {
+                  "cidr_blocks": [
+                    "0.0.0.0/0"
+                  ],
+                  "from_port": 443,
+                  "protocol": "tcp",
+                  "to_port": 443
+                }
+              ],
+              "name": "allow_tls",
+              "vpc_id": "${aws_vpc.main.id}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

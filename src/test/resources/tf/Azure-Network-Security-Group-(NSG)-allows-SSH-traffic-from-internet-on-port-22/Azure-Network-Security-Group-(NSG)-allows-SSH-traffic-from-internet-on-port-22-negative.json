@@ -1,0 +1,30 @@
+{
+  "locals": [
+    {
+      "test_description": "No azurerm_network_security_rule"
+    }
+  ],
+  "resource": [
+    {
+      "not_azurerm_network_security_rule": [
+        {
+          "test": [
+            {
+              "access": "Allow",
+              "destination_address_prefix": "*",
+              "destination_port_range": "22",
+              "direction": "Inbound",
+              "name": "test123",
+              "network_security_group_name": "${azurerm_network_security_group.test.name}",
+              "priority": 100,
+              "protocol": "Tcp",
+              "resource_group_name": "${azurerm_resource_group.test.name}",
+              "source_address_prefix": "*",
+              "source_port_range": "*"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

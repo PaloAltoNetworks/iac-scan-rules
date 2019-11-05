@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.logging does not exist or $.resource[*].google_storage_bucket.*[*].*.logging[*].log_bucket is empty)","id":"22df2129-f6bf-4a10-9118-42b8d5d922a9","enabled":true,"resourceType":"storage","policy":"Storage Bucket does not have Access and Storage Logging enabled"}
+{
+  "severity": "medium",
+  "rule": "$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.logging anyNull or $.resource[*].google_storage_bucket.*[*].*.logging[*].log_bucket anyEmpty)",
+  "id": "22df2129-f6bf-4a10-9118-42b8d5d922a9",
+  "enabled": true,
+  "resourceType": "storage",
+  "policy": "Storage Bucket does not have Access and Storage Logging enabled"
+}

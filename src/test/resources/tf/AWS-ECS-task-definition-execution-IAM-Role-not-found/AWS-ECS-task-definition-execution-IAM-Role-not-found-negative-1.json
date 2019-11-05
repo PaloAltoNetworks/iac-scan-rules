@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "container_definitions does not exist"
+    }
+  ],
   "resource": [
     {
       "aws_ecs_task_definition": [

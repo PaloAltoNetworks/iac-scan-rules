@@ -1,47 +1,22 @@
 {
+  "locals": [
+    {
+      "test_description": "aws_security_group allows port 22 from anywhere"
+    }
+  ],
   "resource": [
     {
       "aws_security_group": [
         {
-          "test_sg1": [
+          "x": [
             {
-              "egress": [
-                {
-                  "cidr_blocks": [
-                    "0.0.0.0/0"
-                  ],
-                  "from_port": 0,
-                  "protocol": "-1",
-                  "to_port": 0
-                }
-              ],
               "ingress": [
                 {
-                  "cidr_blocks": [
-                    "0.0.0.0/0",
-                    "10.0.0.0/16"
-                  ],
-                  "from_port": 22,
+                  "cidr_blocks": ["0.0.0.0/0"],
                   "protocol": "tcp",
+                  "from_port": 22,
                   "to_port": 22
                 }
-              ],
-              "name": "test_sg"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "aws_instance": [
-        {
-          "example": [
-            {
-              "ami": "ami-b374d5a5",
-              "instance_type": "t2.micro",
-              "key_name": "${var.key_name}",
-              "security_groups": [
-                "${aws_security_group.test_sg1.name}"
               ]
             }
           ]

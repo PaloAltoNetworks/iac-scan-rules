@@ -1,0 +1,41 @@
+{
+  "locals": [
+    {
+      "test_description": "both azurerm_storage_account resources have enable_https_traffic_only set to true"
+    }
+  ],
+  "resource": [
+    {
+      "azurerm_storage_account": [
+        {
+          "a": [
+            {
+              "account_replication_type": "GRS",
+              "account_tier": "Standard",
+              "enable_https_traffic_only": true,
+              "location": "${azurerm_resource_group.a.location}",
+              "name": "storageaccountname",
+              "resource_group_name": "${azurerm_resource_group.a.name}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "azurerm_storage_account": [
+        {
+          "b": [
+            {
+              "account_replication_type": "GRS",
+              "account_tier": "Standard",
+              "enable_https_traffic_only": true,
+              "location": "${azurerm_resource_group.b.location}",
+              "name": "storageaccountname",
+              "resource_group_name": "${azurerm_resource_group.b.name}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

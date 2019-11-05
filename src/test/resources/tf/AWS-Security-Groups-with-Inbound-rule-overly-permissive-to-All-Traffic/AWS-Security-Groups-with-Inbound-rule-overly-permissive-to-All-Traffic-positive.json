@@ -1,0 +1,28 @@
+{
+  "locals": [
+    {
+      "test_description": "One aws_security_group with ingress too permissive"
+    }
+  ],
+  "resource": [
+    {
+      "aws_security_group": [
+        {
+          "x": [
+            {
+              "description": "Allow TLS inbound traffic",
+              "ingress": [
+                {
+                  "cidr_blocks": ["0.0.0.0/0"],
+                  "protocol": "-1"
+                }
+              ],
+              "name": "allow_tls",
+              "vpc_id": "${aws_vpc.main.id}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

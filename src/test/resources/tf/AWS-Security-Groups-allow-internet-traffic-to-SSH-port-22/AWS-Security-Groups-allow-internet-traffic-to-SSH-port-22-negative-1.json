@@ -1,0 +1,27 @@
+{
+  "locals": [
+    {
+      "test_description": "aws_security_group doesn't allow port 22 from anywhere"
+    }
+  ],
+  "resource": [
+    {
+      "aws_security_group": [
+        {
+          "x": [
+            {
+              "ingress": [
+                {
+                  "cidr_blocks": ["0.0.0.0/0"],
+                  "protocol": "tcp",
+                  "from_port": 23,
+                  "to_port": 23
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

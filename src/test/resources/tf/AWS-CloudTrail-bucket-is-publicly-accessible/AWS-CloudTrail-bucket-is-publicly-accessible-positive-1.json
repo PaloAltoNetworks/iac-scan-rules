@@ -1,4 +1,9 @@
 {
+  "locals": [
+    {
+      "test_description": "cloudtrail s3 bucket both block_public_acls and block_public_policy are false"
+    }
+  ],
   "resource": [
     {
       "aws_cloudtrail": [

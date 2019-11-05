@@ -1,0 +1,41 @@
+{
+  "locals": [
+    {
+      "test_description": "no google_storage_bucket resource"
+    }
+  ],
+  "resource": [
+    {
+      "not_google_storage_bucket": [
+        {
+          "a": [
+            {
+              "logging": [
+                {
+                  "log_bucket": "log_a"
+                }
+              ],
+              "name": "a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "not_google_storage_bucket": [
+        {
+          "b": [
+            {
+              "logging": [
+                {
+                  "log_bucket": "log_b"
+                }
+              ],
+              "name": "b"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

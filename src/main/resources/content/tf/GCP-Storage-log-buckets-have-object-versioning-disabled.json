@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.versioning does not exist or $.resource[*].google_storage_bucket.*[*].*.versioning exists and ($.resource[*].google_storage_bucket.*[*].*.versioning[*].enabled any equal false))","id":"53a9b6e1-dd93-4110-b443-4658c13134b4","enabled":true,"resourceType":"storage","policy":"GCP Storage log buckets have object versioning disabled"}
+{
+  "severity": "medium",
+  "rule": "$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.versioning anyNull or $.resource[*].google_storage_bucket.*[*].*.versioning[*].enabled anyNull or $.resource[*].google_storage_bucket.*[*].*.versioning[*].enabled anyFalse)",
+  "id": "53a9b6e1-dd93-4110-b443-4658c13134b4",
+  "enabled": true,
+  "resourceType": "storage",
+  "policy": "GCP Storage log buckets have object versioning disabled"
+}
