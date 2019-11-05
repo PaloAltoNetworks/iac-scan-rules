@@ -1,19 +1,19 @@
 {
   "locals": [
     {
-      "test_description": "no aws_security_group"
+      "test_description": "One aws_security_group with ingress restricted"
     }
   ],
   "resource": [
     {
-      "not_aws_security_group": [
+      "aws_security_group": [
         {
           "x": [
             {
               "description": "Allow TLS inbound traffic",
               "ingress": [
                 {
-                  "cidr_blocks": ["0.0.0.0/0"],
+                  "cidr_blocks": ["0.0.0.0/1"],
                   "protocol": "-1"
                 }
               ],

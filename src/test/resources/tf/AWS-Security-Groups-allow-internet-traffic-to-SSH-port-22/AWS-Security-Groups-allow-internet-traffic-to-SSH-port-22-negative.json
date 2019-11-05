@@ -10,15 +10,14 @@
         {
           "x": [
             {
-              "description": "Allow TLS inbound traffic",
               "ingress": [
                 {
                   "cidr_blocks": ["0.0.0.0/0"],
-                  "protocol": "-1"
+                  "protocol": "-1",
+                  "from_port": 22,
+                  "to_port": 22
                 }
-              ],
-              "name": "allow_tls",
-              "vpc_id": "${aws_vpc.main.id}"
+              ]
             }
           ]
         }

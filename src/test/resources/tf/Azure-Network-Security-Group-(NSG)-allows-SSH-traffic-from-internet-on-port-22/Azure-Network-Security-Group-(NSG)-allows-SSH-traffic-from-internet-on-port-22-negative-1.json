@@ -1,18 +1,18 @@
 {
   "locals": [
     {
-      "test_description": "No azurerm_network_security_rule"
+      "test_description": "azurerm_network_security_rule rules restricted"
     }
   ],
   "resource": [
     {
-      "not_azurerm_network_security_rule": [
+      "azurerm_network_security_rule": [
         {
           "test": [
             {
               "access": "Allow",
               "destination_address_prefix": "*",
-              "destination_port_range": "22",
+              "destination_port_range": "100",
               "direction": "Inbound",
               "name": "test123",
               "network_security_group_name": "${azurerm_network_security_group.test.name}",
