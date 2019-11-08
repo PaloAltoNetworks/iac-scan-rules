@@ -1,5 +1,11 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+    "testDescription": {
+      "Description": "Tests for positive case, detecting TCP port 22 and UDP port 69 open to Internet in AWS Security Groups",
+      "Type": "String"
+    }
+  },
     "Resources": {
         "myELB": {
             "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
