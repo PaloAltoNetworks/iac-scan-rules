@@ -1,7 +1,7 @@
 {
   "locals": [
     {
-      "test_description": "both cloudtrails have kms_key_id set"
+      "test_description": "There is no aws_cloudtrail"
     }
   ],
   "resource": [
