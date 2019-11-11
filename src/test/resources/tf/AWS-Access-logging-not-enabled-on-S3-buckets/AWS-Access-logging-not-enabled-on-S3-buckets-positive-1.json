@@ -1,0 +1,33 @@
+{
+  "locals": [
+    {
+      "test_description": "bboth aws_s3_bucket resources does not have logging"
+    }
+  ],
+  "resource": [
+    {
+      "aws_s3_bucket": [
+        {
+          "a": [
+            {
+              "acl": "private",
+              "bucket": "a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_s3_bucket": [
+        {
+          "b": [
+            {
+              "acl": "private",
+              "bucket": "b"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

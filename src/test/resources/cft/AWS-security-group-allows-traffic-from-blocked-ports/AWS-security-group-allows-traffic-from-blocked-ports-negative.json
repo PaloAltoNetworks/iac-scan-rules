@@ -1,0 +1,78 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+    "testDescription": {
+      "Description": "Tests for blocked ports negative case in AWS Security Groups",
+      "Type": "String"
+    }
+  },
+    "Resources": {
+        "myELB": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "AvailabilityZones": [
+                    "eu-west-1a"
+                ],
+                "Listeners": [
+                    {
+                        "LoadBalancerPort": "80",
+                        "InstancePort": "80",
+                        "Protocol": "HTTP"
+                    }
+                ]
+            }
+        },
+        "myELBIngressGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "ELB ingress group",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "4.0.0.0/0",
+                        "SourceSecurityGroupOwnerId": {
+                            "Fn::GetAtt": [
+                                "myELB",
+                                "SourceSecurityGroup.OwnerAlias"
+                            ]
+                        },
+                        "SourceSecurityGroupName": {
+                            "Fn::GetAtt": [
+                                "myELB",
+                                "SourceSecurityGroup.GroupName"
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "myELBIngressGroup2": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "ELB ingress group",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "0",
+                        "ToPort": "0",
+                        "CidrIp": "4.0.0.0/0",
+                        "SourceSecurityGroupOwnerId": {
+                            "Fn::GetAtt": [
+                                "myELB",
+                                "SourceSecurityGroup.OwnerAlias"
+                            ]
+                        },
+                        "SourceSecurityGroupName": {
+                            "Fn::GetAtt": [
+                                "myELB",
+                                "SourceSecurityGroup.GroupName"
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
