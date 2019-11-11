@@ -1,6 +1,6 @@
 { 
    "Resources":{ 
-      "myKey":{ 
+      "myPolicy":{ 
        "Type":"AWS::IAM::Policy",
        "Properties":{ 
           "PolicyName":"root",
