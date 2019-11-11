@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket[*].*[*].logging anyNull)",
+  "id": "41215510-c504-4752-ab38-0a36e49d55f8",
+  "enabled": true,
+  "resourceType": "s3",
+  "policy": "AWS Access logging not enabled on S3 buckets"
+}

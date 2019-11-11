@@ -1,0 +1,39 @@
+{
+  "locals": [
+    {
+      "test_description": "aws_s3_bucket a does not have logging"
+    }
+  ],
+  "resource": [
+    {
+      "aws_s3_bucket": [
+        {
+          "a": [
+            {
+              "acl": "private",
+              "bucket": "a",
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aws_s3_bucket": [
+        {
+          "b": [
+            {
+              "acl": "private",
+              "bucket": "b",
+              "logging": [
+                {
+                  "target_bucket": "${aws_s3_bucket.log_bucket.id}",
+                  "target_prefix": "logb/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
