@@ -2,7 +2,7 @@
    "severity":"medium",
    "resourceType":"AWS Customer Master Key (CMK)",
    "policy":"AWS Customer Master Key (CMK) rotation is not enabled",
-   "rule":"$.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation !exists or $.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation isFalse",
+   "rule":"$.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation !exists or not($.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation isTrue)",
    "id":"6ae8d0a5-4794-438c-aafa-200f94b45f1f",
    "enabled":true
 }
