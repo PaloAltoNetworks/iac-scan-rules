@@ -1,5 +1,5 @@
 { 
-   "severity":"low",
+   "severity":"high",
    "resourceType":"AWS_cloudtrail_s3_bucket",
    "policy":"AWS CloudTrail bucket is publicly accessible",
    "rule":"$.resource[*].aws_cloudtrail exists and $.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name equals $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket and  ($.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_acls isFalse or  $.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_policy isFalse)",
