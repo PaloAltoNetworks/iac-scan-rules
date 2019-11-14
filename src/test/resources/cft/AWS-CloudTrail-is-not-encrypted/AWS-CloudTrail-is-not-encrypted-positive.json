@@ -1,0 +1,26 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "testDescription": {
+      "Description": "Cloud trails bar missing KMSKeyId",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "foo": {
+      "Type": "AWS::CloudTrail::Trail",
+      "Properties": {
+        "CloudWatchLogsLogGroupArn" : "fooarn",
+        "KMSKeyId" : "fookey",
+        "TrailName" : "foo"
+      }
+    },
+    "bar": {
+      "Type": "AWS::CloudTrail::Trail",
+      "Properties": {
+        "CloudWatchLogsLogGroupArn" : "bararn",
+        "TrailName" : "bar"
+      }
+    }
+  }
+}

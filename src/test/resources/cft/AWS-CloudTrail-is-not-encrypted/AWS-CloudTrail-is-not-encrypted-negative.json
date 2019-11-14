@@ -1,0 +1,27 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "testDescription": {
+      "Description": "No cloud trail",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "foo": {
+      "Type": "NOT::AWS::CloudTrail::Trail",
+      "Properties": {
+        "CloudWatchLogsLogGroupArn" : "fooarn",
+        "KMSKeyId" : "",
+        "TrailName" : "foo"
+      }
+    },
+    "bar": {
+      "Type": "NOT::AWS::CloudTrail::Trail",
+      "Properties": {
+        "CloudWatchLogsLogGroupArn" : "bararn",
+        "KMSKeyId" : "",
+        "TrailName" : "bar"
+      }
+    }
+  }
+}
