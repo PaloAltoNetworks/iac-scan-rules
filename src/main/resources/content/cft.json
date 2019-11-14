@@ -11,10 +11,10 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any null or $.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any equal false",
+    "rule": "$.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any null or $.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail anyFalse",
     "id": "c1ad39ed-5341-43cb-8266-4d93a2033d75",
     "enabled": true,
-    "resourceType": "cloudtrail",
+    "resourceType": "AWS cloudtrail",
     "policy": "AWS CloudTrail is not enabled in all regions"
   },
   {
@@ -31,6 +31,14 @@
     "id": "497f7e2c-b702-47c7-9a07-f0f6404ac896",
     "enabled": true,
     "resourceType": "kms",
+    "policy": "AWS Customer Master Key (CMK) rotation is not enabled"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation any null or $.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation anyFalse",
+    "id": "6ae8d0a5-4794-438c-aafa-200f94b45f1f",
+    "enabled": true,
+    "resourceType": "AWS Customer Master Key (CMK)",
     "policy": "AWS Customer Master Key (CMK) rotation is not enabled"
   },
   {
