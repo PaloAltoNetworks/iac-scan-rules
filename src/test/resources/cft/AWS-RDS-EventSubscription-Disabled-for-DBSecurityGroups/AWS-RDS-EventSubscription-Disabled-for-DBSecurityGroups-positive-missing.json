@@ -1,0 +1,62 @@
+{
+  "Resources": {
+    "MyDB": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "DBName": {
+          "Ref": "myDbInstance"
+        },
+        "AllocatedStorage": {
+          "Ref": "DBAllocatedStorage"
+        },
+        "DBInstanceClass": {
+          "Ref": "DBInstanceClass"
+        },
+        "Engine": "MySQL",
+        "EngineVersion": "5.7.22",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "My SQL Database"
+          }
+        ]
+      }
+    },
+    "myEventSubscription": {
+      "Type": "AWS::RDS::EventSubscription",
+      "Properties": {
+        "EventCategories": [
+          "configuration change",
+          "failure",
+          "deletion"
+        ],
+        "SnsTopicArn": "arn:aws:sns:us-west-2:123456789012:example-topic",
+        "SourceIds": [
+          "db-instance-1",
+          {
+            "Ref": "myDBInstance"
+          }
+        ],
+        "SourceType": "db-security-group"
+      }
+    },
+    "myEventSubscription2": {
+      "Type": "AWS::RDS::EventSubscription",
+      "Properties": {
+        "EventCategories": [
+          "configuration change",
+          "failure",
+          "deletion"
+        ],
+        "SnsTopicArn": "arn:aws:sns:us-west-2:123456789012:example-topic",
+        "SourceIds": [
+          "db-instance-1",
+          {
+            "Ref": "myDBInstance"
+          }
+        ],
+        "SourceType": "db-security-group"
+      }
+    }
+  }
+}
