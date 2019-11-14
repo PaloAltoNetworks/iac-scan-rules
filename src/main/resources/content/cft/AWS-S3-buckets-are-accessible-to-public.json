@@ -1,6 +1,6 @@
 {
   "severity": "high",
-  "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite) and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.WebsiteConfiguration any null",
+  "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite)",
   "id": "bbb01285-7fc6-4649-85c0-6ab9f08bde4f",
   "enabled": true,
   "resourceType": "s3",
