@@ -1,0 +1,8 @@
+{ 
+   "severity":"medium",
+   "resourceType":"AWS_IAM_policy ",
+   "policy":"AWS IAM policy attached to users",
+   "rule":"$.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users exists and $.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users[*] is not empty",
+   "id":"c441b20b-5daf-4862-b383-798b61c72819",
+   "enabled":true
+}
