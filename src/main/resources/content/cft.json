@@ -19,6 +19,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::CloudTrail::Trail')] size > 0 and  ($.Resources.*[?( @.Type == 'AWS::CloudTrail::Trail' )].Properties.KMSKeyId anyNull or $.Resources.*[?( @.Type == 'AWS::CloudTrail::Trail' )].Properties.KMSKeyId anyEmpty )",
+    "id": "7d618dd9-e061-4e14-bc7b-812c0394bbef",
+    "enabled": true,
+    "resourceType": "cloudtrail",
+    "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys"
+  },
+  {
+    "severity": "medium",
     "rule": "$.Resources.[*].Type equals AWS::KMS::Key and ($.Resources.[*].Properties.EnableKeyRotation does not exist or $.Resources.[*].Properties.EnableKeyRotation is false)",
     "id": "497f7e2c-b702-47c7-9a07-f0f6404ac896",
     "enabled": true,
