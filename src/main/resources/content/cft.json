@@ -82,6 +82,14 @@
     "policy": "AWS IAM policy attached to users"
   },
   {
+    "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and (not $.Resources.*[?(@.Type == 'AWS::RDS::EventSubscription')].Properties[?(@.SourceType == 'db-security-group')].Enabled anyTrue)",
+    "id": "5b3c12cf-eef5-42de-afbe-4e80e1dfe600",
+    "enabled": true,
+    "resourceType": "rds",
+    "policy": "AWS RDS event subscription disabled for DB security groups"
+  },
+  {
     "severity": "high",
     "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any equal false",
     "id": "34fa9efb-d18f-41e4-b93f-2f7e5378752c",
