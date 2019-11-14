@@ -58,6 +58,14 @@
     "policy": "AWS ECS task definition resource limits not set"
   },
   {
+    "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users exists and $.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users[*] is not empty",
+    "id": "c441b20b-5daf-4862-b383-798b61c72819",
+    "enabled": true,
+    "resourceType": "AWS_IAM_policy ",
+    "policy": "AWS IAM policy attached to users"
+  },
+  {
     "severity": "high",
     "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any equal false",
     "id": "34fa9efb-d18f-41e4-b93f-2f7e5378752c",
