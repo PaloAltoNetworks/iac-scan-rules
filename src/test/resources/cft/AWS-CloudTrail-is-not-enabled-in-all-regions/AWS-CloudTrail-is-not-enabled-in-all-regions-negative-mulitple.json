@@ -1,0 +1,24 @@
+{
+    "Resources": {
+        "myTrail": {
+            "Type": "AWS::CloudTrail::Trail",
+            "Properties": {
+                "S3BucketName": {
+                    "Ref": "S3Bucket"
+                },
+                "IsLogging": true,
+                "IsMultiRegionTrail": true
+            }
+        },
+        "myTrail2": {
+            "Type": "AWS::CloudTrail::Trail",
+            "Properties": {
+                "S3BucketName": {
+                    "Ref": "S3Bucket"
+                },
+                "IsLogging": true,
+                "IsMultiRegionTrail": true
+            }
+        }
+    }
+}

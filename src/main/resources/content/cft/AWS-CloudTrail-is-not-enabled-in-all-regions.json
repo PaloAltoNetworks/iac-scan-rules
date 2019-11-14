@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any null or $.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any equal false","id":"c1ad39ed-5341-43cb-8266-4d93a2033d75","enabled":true,"resourceType":"cloudtrail","policy":"AWS CloudTrail is not enabled in all regions"}
+{ 
+   "severity":"medium",
+   "rule":"$.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any null or $.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail anyFalse",
+   "id":"c1ad39ed-5341-43cb-8266-4d93a2033d75",
+   "enabled":true,
+   "resourceType":"AWS cloudtrail",
+   "policy":"AWS CloudTrail is not enabled in all regions"
+}
