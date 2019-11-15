@@ -24,7 +24,7 @@ public class TemplateStandardTest {
     ensureAtLeastOnePositiveAndAtLeastOneNegativeTestTemplateExists(TemplateType.TF);
   }
 
-  @Test (enabled = false)
+  @Test
   public void ensureTestTemplateStructureConventionAndStandardsForCFT() throws Exception {
     ensureTestTemplateFolderExists(TemplateType.CFT);
     ensureTemplateFileExtensionIsJson(getTemplatesPathByTemplateType(TemplateType.CFT));
