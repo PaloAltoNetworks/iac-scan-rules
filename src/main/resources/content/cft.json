@@ -75,6 +75,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions any null or ($.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions exists and $.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions.SubnetIds any null)",
+    "id": "3b745764-1d47-4adf-a023-18b95dcd713e",
+    "enabled": true,
+    "resourceType": "elasticsearch",
+    "policy": "AWS ElasticSearch cluster not in a VPC"
+  },
+  {
+    "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users exists and $.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users[*] is not empty",
     "id": "c441b20b-5daf-4862-b383-798b61c72819",
     "enabled": true,
@@ -147,7 +155,7 @@
   },
   {
     "severity": "high",
-    "rule": "$.Resources.[*].Type equals AWS::Redshift::Cluster and ($.Resources.[*].Properties.Encrypted does not exist or ($.Resources.[*].Properties.Encrypted exists and $.Resources.[*].Properties.Encrypted is false))",
+    "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.Encrypted any null or $.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.Encrypted anyFalse",
     "id": "0132bbb2-c733-4c36-9c5d-c58967c7d1a6",
     "enabled": true,
     "resourceType": "redshift",
@@ -163,7 +171,7 @@
   },
   {
     "severity": "high",
-    "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite) and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.WebsiteConfiguration any null",
+    "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite)",
     "id": "bbb01285-7fc6-4649-85c0-6ab9f08bde4f",
     "enabled": true,
     "resourceType": "s3",
