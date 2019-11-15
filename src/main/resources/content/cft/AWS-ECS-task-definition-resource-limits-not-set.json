@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any null","id":"44a82298-64d1-4b4b-a9ad-eeda02448975","enabled":true,"resourceType":"ecs","policy":"AWS ECS task definition resource limits not set"}
+{ 
+   "severity":"medium",
+   "rule":"$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any equal 0 or ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any null and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any null) or  ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any equal 0 and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any equal 0)",
+   "id":"44a82298-64d1-4b4b-a9ad-eeda02448975",
+   "enabled":true,
+   "resourceType":"ecs",
+   "policy":"AWS ECS task definition resource limits not set"
+}

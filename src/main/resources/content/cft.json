@@ -67,11 +67,19 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any null",
+    "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any equal 0 or ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any null and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any null) or  ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any equal 0 and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any equal 0)",
     "id": "44a82298-64d1-4b4b-a9ad-eeda02448975",
     "enabled": true,
     "resourceType": "ecs",
     "policy": "AWS ECS task definition resource limits not set"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions any null or ($.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions exists and $.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions.SubnetIds any null)",
+    "id": "3b745764-1d47-4adf-a023-18b95dcd713e",
+    "enabled": true,
+    "resourceType": "elasticsearch",
+    "policy": "AWS ElasticSearch cluster not in a VPC"
   },
   {
     "severity": "medium",
@@ -99,7 +107,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type equals AWS::RDS::DBInstance and ($.Resources.[*].Properties.MultiAZ does not exist or $.Resources.[*].Properties.MultiAZ is false)",
+    "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.MultiAZ any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.MultiAZ any false",
     "id": "f606fe0b-2950-42ce-a3b2-7f100ece5c3a",
     "enabled": true,
     "resourceType": "rds",
@@ -115,7 +123,7 @@
   },
   {
     "severity": "low",
-    "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.BackupRetentionPeriod any null",
+    "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.BackupRetentionPeriod any equal 0",
     "id": "f81d0239-3633-4828-a499-d2d1b1219a5c",
     "enabled": true,
     "resourceType": "rds",
@@ -123,7 +131,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type equals AWS::Redshift::Cluster and ($.Resources.[*].Properties.PubliclyAccessible exists and $.Resources.[*].Properties.PubliclyAccessible is true)",
+    "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.PubliclyAccessible any true",
     "id": "d65fd313-1c5c-42a1-98b2-a73bdeda19a6",
     "enabled": true,
     "resourceType": "redshift",
@@ -131,7 +139,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type equals AWS::Redshift::Cluster and ($.Resources.[*].Properties.LoggingProperties does not exist or $.Resources.[*].Properties.LoggingProperties is empty or $.Resources.[*].Properties.LoggingProperties.S3KeyPrefix does not exist or $.Resources.[*].Properties.LoggingProperties.S3KeyPrefix is empty)",
+    "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.LoggingProperties any null",
     "id": "91c941aa-d110-4b33-9934-aadd86b1a4d9",
     "enabled": true,
     "resourceType": "redshift",
@@ -147,7 +155,7 @@
   },
   {
     "severity": "high",
-    "rule": "$.Resources.[*].Type equals AWS::Redshift::Cluster and ($.Resources.[*].Properties.Encrypted does not exist or ($.Resources.[*].Properties.Encrypted exists and $.Resources.[*].Properties.Encrypted is false))",
+    "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.Encrypted any null or $.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.Encrypted anyFalse",
     "id": "0132bbb2-c733-4c36-9c5d-c58967c7d1a6",
     "enabled": true,
     "resourceType": "redshift",
@@ -155,7 +163,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type contains AWS::S3::Bucket and ($.Resources.[*].Properties.VersioningConfiguration does not exist or ($.Resources.[*].Properties.VersioningConfiguration exists and $.Resources.[*].Properties.VersioningConfiguration.Status does not equal Enabled))",
+    "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration does not exist or ($.Resources[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration exists and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration.Status contains Suspended)",
     "id": "8ec3f878-0f5e-4782-b4cd-98018b217be5",
     "enabled": true,
     "resourceType": "s3",
@@ -163,7 +171,7 @@
   },
   {
     "severity": "high",
-    "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite) and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.WebsiteConfiguration any null",
+    "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite)",
     "id": "bbb01285-7fc6-4649-85c0-6ab9f08bde4f",
     "enabled": true,
     "resourceType": "s3",
@@ -179,7 +187,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type equals AWS::SNS::Subscription and ($.Resources.[*].Properties.Protocol exists and $.Resources.[*].Properties.Protocol equals http)",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::SNS::Subscription')].Properties.Protocol contains http",
     "id": "b53e5177-96e1-4999-a9c8-6400190910bb",
     "enabled": true,
     "resourceType": "sns",
@@ -187,7 +195,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type equals AWS::SQS::Queue and ($.Resources.[*].Properties.KmsMasterKeyId exists and $.Resources.[*].Properties.KmsMasterKeyId contains alias/aws/sqs)",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::SQS::Queue')].Properties.KmsMasterKeyId contains alias/aws/sqs",
     "id": "0a626f64-d911-4366-b7dc-629a6557d7b5",
     "enabled": true,
     "resourceType": "sqs",
@@ -195,7 +203,7 @@
   },
   {
     "severity": "medium",
-    "rule": "$.Resources.[*].Type equals AWS::EC2::Subnet and ($.Resources.[*].Properties.MapPublicIpOnLaunch exists and $.Resources.[*].Properties.MapPublicIpOnLaunch is true)",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::EC2::Subnet')].Properties.MapPublicIpOnLaunch anyTrue",
     "id": "11743cd3-35e4-4639-91e1-bc87b52d4cf5",
     "enabled": true,
     "resourceType": "ec2",
@@ -208,6 +216,14 @@
     "enabled": true,
     "resourceType": "AWS security group ingress ports",
     "policy": "AWS security group allows traffic from blocked ports"
+  },
+  {
+    "severity": "high",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and $.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')].Properties.PubliclyAccessible anyTrue",
+    "id": "d68f9185-422e-42d3-b673-b1aef528012c",
+    "enabled": true,
+    "resourceType": "rds",
+    "policy": "AWS RDS snapshots are accessible to public"
   }
 ]
 }

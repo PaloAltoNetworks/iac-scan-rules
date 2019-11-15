@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.Resources.[*].Type equals AWS::RDS::DBInstance and ($.Resources.[*].Properties.MultiAZ does not exist or $.Resources.[*].Properties.MultiAZ is false)","id":"f606fe0b-2950-42ce-a3b2-7f100ece5c3a","enabled":true,"resourceType":"rds","policy":"AWS RDS instance with Multi-Availability Zone disabled"}
+{ 
+   "severity":"medium",
+   "rule":"$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.MultiAZ any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.MultiAZ any false",
+   "id":"f606fe0b-2950-42ce-a3b2-7f100ece5c3a",
+   "enabled":true,
+   "resourceType":"rds",
+   "policy":"AWS RDS instance with Multi-Availability Zone disabled"
+}
