@@ -122,6 +122,14 @@
     "policy": "AWS RDS instance without Automatic Backup setting"
   },
   {
+    "severity": "high",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and $.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')].Properties.PubliclyAccessible anyTrue",
+    "id": "d68f9185-422e-42d3-b673-b1aef528012c",
+    "enabled": true,
+    "resourceType": "rds",
+    "policy": "AWS RDS snapshots are accessible to public"
+  },
+  {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.PubliclyAccessible any true",
     "id": "d65fd313-1c5c-42a1-98b2-a73bdeda19a6",
@@ -200,14 +208,6 @@
     "enabled": true,
     "resourceType": "AWS security group ingress ports",
     "policy": "AWS security group allows traffic from blocked ports"
-  },
-  {
-    "severity": "high",
-    "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and $.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')].Properties.PubliclyAccessible anyTrue",
-    "id": "d68f9185-422e-42d3-b673-b1aef528012c",
-    "enabled": true,
-    "resourceType": "rds",
-    "policy": "AWS RDS snapshots are accessible to public"
   }
 ]
 }
