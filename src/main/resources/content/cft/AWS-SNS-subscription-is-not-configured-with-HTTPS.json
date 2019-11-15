@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.Resources.[*].Type equals AWS::SNS::Subscription and ($.Resources.[*].Properties.Protocol exists and $.Resources.[*].Properties.Protocol equals http)",
+  "rule": "$.Resources.*[?(@.Type == 'AWS::SNS::Subscription')].Properties.Protocol contains http",
   "id": "b53e5177-96e1-4999-a9c8-6400190910bb",
   "enabled": true,
   "resourceType": "sns",
