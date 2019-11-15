@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.Resources[*].Type contains AWS::S3::Bucket and ($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration does not exist or ($.Resources[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration exists and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration.Status contains Suspended))",
+  "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration does not exist or ($.Resources[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration exists and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration.Status contains Suspended)",
   "id": "8ec3f878-0f5e-4782-b4cd-98018b217be5",
   "enabled": true,
   "resourceType": "s3",
