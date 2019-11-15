@@ -1,0 +1,35 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "PublicRead",
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "Id": "GlacierRule",
+              "Prefix": "glacier",
+              "Status": "Enabled",
+              "ExpirationInDays": "365",
+              "Transitions": [
+                {
+                  "TransitionInDays": "1",
+                  "StorageClass": "GLACIER"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "BucketName": {
+      "Value": {
+        "Ref": "S3Bucket"
+      },
+      "Description": "Name of the sample Amazon S3 bucket with a lifecycle configuration."
+    }
+  }
+}
