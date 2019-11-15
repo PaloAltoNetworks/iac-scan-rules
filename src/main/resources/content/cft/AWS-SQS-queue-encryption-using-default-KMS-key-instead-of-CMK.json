@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.Resources.[*].Type equals AWS::SQS::Queue and ($.Resources.[*].Properties.KmsMasterKeyId exists and $.Resources.[*].Properties.KmsMasterKeyId contains alias/aws/sqs)","id":"0a626f64-d911-4366-b7dc-629a6557d7b5","enabled":true,"resourceType":"sqs","policy":"AWS SQS queue encryption using default KMS key instead of CMK"}
+{
+  "severity": "medium",
+  "rule": "$.Resources.*[?(@.Type == 'AWS::SQS::Queue')].Properties.KmsMasterKeyId contains alias/aws/sqs",
+  "id": "0a626f64-d911-4366-b7dc-629a6557d7b5",
+  "enabled": true,
+  "resourceType": "sqs",
+  "policy": "AWS SQS queue encryption using default KMS key instead of CMK"
+}

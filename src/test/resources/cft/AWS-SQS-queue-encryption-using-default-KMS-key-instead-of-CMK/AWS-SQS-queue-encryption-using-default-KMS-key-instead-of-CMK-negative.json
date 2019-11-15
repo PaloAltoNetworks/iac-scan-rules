@@ -1,0 +1,24 @@
+{
+  "Resources": {
+    "foobar": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "ContentBasedDeduplication": true,
+        "DelaySeconds": 5,
+        "FifoQueue": true,
+        "KmsDataKeyReusePeriodSeconds": 60,
+        "KmsMasterKeyId": "foobar"
+      }
+    },
+    "foobar2": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "ContentBasedDeduplication": true,
+        "DelaySeconds": 5,
+        "FifoQueue": true,
+        "KmsDataKeyReusePeriodSeconds": 60,
+        "KmsMasterKeyId": "alias/aws/cmk"
+      }
+    }
+  }
+}
