@@ -216,6 +216,14 @@
     "enabled": true,
     "resourceType": "AWS security group ingress ports",
     "policy": "AWS security group allows traffic from blocked ports"
+  },
+  {
+    "severity": "high",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and $.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')].Properties.PubliclyAccessible anyTrue",
+    "id": "d68f9185-422e-42d3-b673-b1aef528012c",
+    "enabled": true,
+    "resourceType": "rds",
+    "policy": "AWS RDS snapshots are accessible to public"
   }
 ]
 }
