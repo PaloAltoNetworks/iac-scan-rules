@@ -1,4 +1,4 @@
-i{ 
+{ 
    "Resources":{ 
       "taskdefinition": {
 	  "Type": "AWS::ECS::TaskDefinition",
