@@ -1,38 +1,75 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "S3 bucket with default encryption",
   "Resources": {
-    "EncryptedS3Bucket": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "BucketName": {
-          "Fn::Sub": "encryptedbucket-${AWS::Region}-${AWS::AccountId}"
-        },
-        "BucketEncryption": {
-          "ServerSideEncryptionConfiguration": [{
-            "ServerSideEncryptionByDefault": {
-              "SSEAlgorithm": "AES256"
-            }
-          }]
-        }
-      },
-      "DeletionPolicy": "Delete"
+    "CarSalesTopic": {
+      "Type": "AWS::SNS::Topic"
     },
-    "EncryptedS3Bucket2": {
-      "Type": "AWS::S3::Bucket",
+    "ERPSubscription": {
+      "Type": "AWS::SNS::Subscription",
       "Properties": {
-        "BucketName": {
-          "Fn::Sub": "encryptedbucket-${AWS::Region}-${AWS::AccountId}"
+        "TopicArn": {
+          "Ref": "CarSalesTopic"
         },
-        "BucketEncryption": {
-          "ServerSideEncryptionConfiguration": [{
-            "ServerSideEncryptionByDefault": {
-              "SSEAlgorithm": "AES256"
-            }
-          }]
+        "Endpoint": {
+          "Fn::GetAtt": ["ERPIntegrationQueue", "Arn"]
+        },
+        "Protocol": "sqs",
+        "RawMessageDelivery": "true"
+      }
+    },
+    "CRMSubscription": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "TopicArn": {
+          "Ref": "CarSalesTopic"
+        },
+        "Endpoint": {
+          "Fn::GetAtt": ["CRMIntegrationQueue", "Arn"]
+        },
+        "Protocol": "sqs",
+        "RawMessageDelivery": "true",
+        "FilterPolicy": {
+          "buyer-class": [
+            "vip"
+          ]
         }
-      },
-      "DeletionPolicy": "Delete"
+      }
+    },
+    "SCMSubscription": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "TopicArn": {
+          "Ref": "CarSalesTopic"
+        },
+        "Endpoint": {
+          "Ref": "myHttpEndpoint"
+        },
+        "Protocol": "sqs",
+        "DeliveryPolicy": {
+          "healthyRetryPolicy": {
+            "numRetries": 20,
+            "minDelayTarget": 10,
+            "maxDelayTarget": 30,
+            "numMinDelayRetries": 3,
+            "numMaxDelayRetries": 17,
+            "numNoDelayRetries": 0,
+            "backoffFunction": "exponential"
+          }
+        }
+      }
+    },
+    "ERPIntegrationQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {}
+    },
+    "CRMIntegrationQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {}
+    }
+  },
+  "Parameters": {
+    "myHttpEndpoint": {
+      "Type": "String"
     }
   }
 }
