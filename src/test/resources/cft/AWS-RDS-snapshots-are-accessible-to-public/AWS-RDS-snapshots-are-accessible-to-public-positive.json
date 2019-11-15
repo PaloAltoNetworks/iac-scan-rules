@@ -8,7 +8,7 @@
         "AllowMajorVersionUpgrade": "false",
         "DBInstanceClass": "db.t2.micro",
         "Port": "5432",
-        "PubliclyAccessible": "true",
+        "PubliclyAccessible": true,
         "StorageType": "gp2",
         "BackupRetentionPeriod": "0",
         "MasterUsername": "agoyal",
