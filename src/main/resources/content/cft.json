@@ -75,6 +75,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions any null or ($.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions exists and $.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions.SubnetIds any null)",
+    "id": "3b745764-1d47-4adf-a023-18b95dcd713e",
+    "enabled": true,
+    "resourceType": "elasticsearch",
+    "policy": "AWS ElasticSearch cluster not in a VPC"
+  },
+  {
+    "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users exists and $.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users[*] is not empty",
     "id": "c441b20b-5daf-4862-b383-798b61c72819",
     "enabled": true,
