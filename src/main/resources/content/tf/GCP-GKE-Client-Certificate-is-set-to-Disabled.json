@@ -1,0 +1,8 @@
+{
+  "severity": "low",
+  "resourceType": "kubernetes engine",
+  "policy": "GCP Kubernetes Engine Clusters Client Certificate is set to Disabled",
+  "rule": "$.Resources.*[?(@.Type == 'AWS::EC2::Subnet')].Properties.MapPublicIpOnLaunch anyTrue",
+  "id": "d07dbdce-2cd8-4b0c-b97e-ceb4d7e98952",
+  "enabled": true
+}
