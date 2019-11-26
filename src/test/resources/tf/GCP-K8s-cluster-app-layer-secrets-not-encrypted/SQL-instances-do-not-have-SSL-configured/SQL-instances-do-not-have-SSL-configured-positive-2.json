@@ -1,0 +1,42 @@
+{
+  "resource": [
+    {
+      "random_id": [
+        {
+          "db_name_suffix": [
+            {
+              "byte_length": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_sql_database_instance": [
+        {
+          "master": [
+            {
+              "name": "master-instance-${random_id.db_name_suffix.hex}",
+              "settings": [
+                {
+                  "tier": "D0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_sql_ssl_cert": [
+        {
+          "client_cert": [
+            {
+              "common_name": "client-name"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
