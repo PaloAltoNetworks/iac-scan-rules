@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].google_compute_subnetwork[*].*.*.log_config !exists and (($.resource[*].google_compute_subnetwork[*].*.*.purpose does not exist ) or ($.resource[*].google_compute_subnetwork[*].*.*.purpose exists and $.resource[*].google_compute_subnetwork[*].*.*.purpose does not equal 'INTERNAL_HTTPS_LOAD_BALANCER'))",
+  "id": "dfc1628d-ffb6-4915-84af-afd113937e1f",
+  "enabled": true,
+  "resourceType": "Google Compute Subnetwork ",
+  "policy": "GCP VPC Flow logs for the subnet is set to off"
+}

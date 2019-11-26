@@ -1,0 +1,30 @@
+{
+  "resource": [
+    {
+      "google_compute_subnetwork": [
+        {
+          "subnet-with-logging": [
+            {
+              "ip_cidr_range": "10.2.0.0/16",
+              "name": "log-test-subnetwork",
+              "network": "google_compute_network.custom-test.self_link",
+              "region": "us-central1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_compute_network": [
+        {
+          "custom-test": [
+            {
+              "auto_create_subnetworks": false,
+              "name": "log-test-network"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
