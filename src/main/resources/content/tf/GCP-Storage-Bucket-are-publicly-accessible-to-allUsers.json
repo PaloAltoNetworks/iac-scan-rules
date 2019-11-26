@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].google_storage_bucket_access_control[*].*[*].entity contains allUsers",
+  "id": "0716cf97-9f82-46ae-8b35-09f2ee41d136",
+  "enabled": true,
+  "resourceType": "google_storage_bucket_access_control",
+  "policy": "GCP storage bucket are publicly accessible to all users"
+}
