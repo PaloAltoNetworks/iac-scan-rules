@@ -298,6 +298,14 @@
     "policy": "GCP Kubernetes cluster istioConfig not enabled"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].google_container_cluster.*[*].*.pod_security_policy_config anyNull or $.resource[*].google_container_cluster.*[*].*.pod_security_policy_config.enabled anyFalse",
+    "id": "b24c52e5-948c-4335-b8e0-c44b86b69538",
+    "enabled": true,
+    "resourceType": "GCP k8s pod_security",
+    "policy": "GCP Kubernetes Engine Clusters have pod security policy disabled"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*].disabled anyFalse",
     "id": "243d8c63-97cf-434a-b75e-2a84c57fdc37",
