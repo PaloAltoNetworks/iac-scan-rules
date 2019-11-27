@@ -1,0 +1,43 @@
+{
+  "locals": [
+    {
+      "test_description": "Two google_container_cluster resources with both enable_private_nodes true"
+    }
+  ],
+  "resource": [
+    {
+      "google_container_cluster": [
+        {
+          "primary": [
+            {
+              "location": "us-central1",
+              "name": "my-gke-cluster",
+              "private_cluster_config": [
+                {
+                  "enable_private_nodes": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_container_cluster": [
+        {
+          "secondary": [
+            {
+              "location": "us-central2",
+              "name": "my-gke-cluster-2",
+              "private_cluster_config": [
+                {
+                  "enable_private_nodes": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
