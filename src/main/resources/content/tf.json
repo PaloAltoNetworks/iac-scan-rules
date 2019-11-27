@@ -282,6 +282,14 @@
     "policy": "GCP Kubernetes Engine Clusters have Network policy disabled"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].google_container_cluster exists and  ($.resource[*].google_container_cluster.*[*].*.private_cluster_config anyNull or $.resource[*].google_container_cluster.*[*].*.private_cluster_config[*].enable_private_nodes anyNull or $.resource[*].google_container_cluster.*[*].*.private_cluster_config[*].enable_private_nodes anyFalse) ",
+    "id": "33a04b8d-970b-43c3-b584-c704695178ed",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters not configured with private cluster"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
