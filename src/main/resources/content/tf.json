@@ -331,6 +331,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyNull or $.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyFalse",
+    "id": "1af7b784-5c6c-43c0-a736-dc5e47cc235a",
+    "enabled": true,
+    "resourceType": "google compute subnetwork",
+    "policy": "GCP VPC network subnets have Private Google access disabled"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].azurerm_storage_account exists and ($.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyNull or $.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyFalse)",
     "id": "80f6dc01-4aaa-4712-a7bf-70e103fea4a3",
     "enabled": true,
