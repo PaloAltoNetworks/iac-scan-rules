@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "resourceType": "kubernetes engine",
+  "policy": "GCP Kubernetes Engine Clusters have Legacy Authorization enabled",
+  "rule": "$.resource[*].google_container_cluster.*.*[*].enable_legacy_abac anyTrue",
+  "id": "3a8dde2f-ee02-4d51-bcd1-b119c0207226",
+  "enabled": true
+}
