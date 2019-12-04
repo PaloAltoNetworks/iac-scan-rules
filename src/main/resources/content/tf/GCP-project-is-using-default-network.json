@@ -1,0 +1,8 @@
+{ 
+   "severity":"medium",
+   "rule":"$.resource[*].google_project[*].*[*].auto_create_network anyTrue or  $.resource[*].google_project[*].*[*].auto_create_network anyNull",
+   "id":"2d372220-3125-48ec-915b-30f0fc5220fb",
+   "enabled":true,
+   "resourceType":"Google Project",
+   "policy":"GCP project is using default network"
+}
