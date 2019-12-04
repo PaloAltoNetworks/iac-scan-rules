@@ -1,0 +1,8 @@
+{ 
+   "severity":"medium",
+   "rule":"$.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyNull or $.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyFalse",
+   "id":"1af7b784-5c6c-43c0-a736-dc5e47cc235a",
+   "enabled":true,
+   "resourceType":"google compute subnetwork",
+   "policy":"GCP VPC network subnets have Private Google access disabled"
+}

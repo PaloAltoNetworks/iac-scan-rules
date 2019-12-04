@@ -1,0 +1,52 @@
+{
+  "resource": [
+    {
+      "google_compute_subnetwork": [
+        {
+          "subnet-with-logging": [
+            {
+              "ip_cidr_range": "10.2.0.0/16",
+              "log_config": [
+                {
+                  "aggregation_interval": "INTERVAL_10_MIN",
+                  "flow_sampling": 0.5,
+                  "metadata": "INCLUDE_ALL_METADATA"
+                }
+              ],
+              "name": "log-test-subnetwork",
+              "network": "google_compute_network.custom-test.self_link",
+              "private_ip_google_access": true,
+              "region": "us-central1"
+            },
+            {
+              "ip_cidr_range": "10.2.0.0/16",
+              "log_config": [
+                {
+                  "aggregation_interval": "INTERVAL_10_MIN",
+                  "flow_sampling": 0.5,
+                  "metadata": "INCLUDE_ALL_METADATA"
+                }
+              ],
+              "name": "log-test-subnetwork",
+              "network": "google_compute_network.custom-test.self_link",
+              "private_ip_google_access": false,
+              "region": "us-central1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_compute_network": [
+        {
+          "custom-test": [
+            {
+              "auto_create_subnetworks": false,
+              "name": "log-test-network"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
