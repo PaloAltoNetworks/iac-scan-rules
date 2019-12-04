@@ -1,7 +1,7 @@
 {
   "severity": "low",
   "resourceType": "kubernetes engine",
-  "policy": "GCP Kubernetes Engine Clusters Client Certificate is set to Disabled",
+  "policy": "GCP Kubernetes Engine Clusters Client Certificate is set to Enabled",
   "rule": "$.resource[*].google_container_cluster[*].*.*.master_auth[*].client_certificate_config[*].issue_client_certificate anyTrue",
   "id": "d07dbdce-2cd8-4b0c-b97e-ceb4d7e98952",
   "enabled": true
