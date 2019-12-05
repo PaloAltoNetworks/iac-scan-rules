@@ -81,7 +81,7 @@
 	               }
 	            }
 	         ],
-	         "EnableKeyRotation":true
+	         "EnableKeyRotation":false
 	      }
 	   }
    }

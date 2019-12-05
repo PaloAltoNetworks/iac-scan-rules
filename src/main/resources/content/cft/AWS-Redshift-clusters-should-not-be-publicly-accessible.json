@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.Resources.[*].Type equals AWS::Redshift::Cluster and ($.Resources.[*].Properties.PubliclyAccessible exists and $.Resources.[*].Properties.PubliclyAccessible is true)","id":"d65fd313-1c5c-42a1-98b2-a73bdeda19a6","enabled":true,"resourceType":"redshift","policy":"AWS Redshift clusters should not be publicly accessible"}
+{ 
+   "severity":"medium",
+   "rule":"$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.PubliclyAccessible any true",
+   "id":"d65fd313-1c5c-42a1-98b2-a73bdeda19a6",
+   "enabled":true,
+   "resourceType":"redshift",
+   "policy":"AWS Redshift clusters should not be publicly accessible"
+}

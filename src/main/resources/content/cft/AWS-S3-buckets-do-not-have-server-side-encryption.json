@@ -1,1 +1,8 @@
-{"severity":"low","rule":"$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption any null or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption.ServerSideEncryptionConfiguration[*].ServerSideEncryptionByDefault.SSEAlgorithm any null","id":"ff6a3231-bb09-4fba-82ea-46ee3228a9f2","enabled":true,"resourceType":"s3","policy":"AWS S3 buckets do not have server side encryption"}
+{
+  "severity": "low",
+  "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption any null or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption.ServerSideEncryptionConfiguration[*].ServerSideEncryptionByDefault.SSEAlgorithm any null",
+  "id": "ff6a3231-bb09-4fba-82ea-46ee3228a9f2",
+  "enabled": true,
+  "resourceType": "s3",
+  "policy": "AWS S3 buckets do not have server side encryption"
+}

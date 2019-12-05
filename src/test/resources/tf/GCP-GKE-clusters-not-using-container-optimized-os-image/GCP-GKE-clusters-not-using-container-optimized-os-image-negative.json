@@ -1,0 +1,47 @@
+{
+  "locals": [
+    {
+      "test_description": "No google_container_node_pool"
+    }
+  ],
+  "resource": [
+    {
+      "not_google_container_node_pool": [
+        {
+          "primary_nodes": [
+            {
+              "cluster": "google_container_cluster.primary.name",
+              "location": "us-central1",
+              "name": "my-node-pool",
+              "node_config": [
+                {
+                  "image_type": "c1os"
+                }
+              ],
+              "node_count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "not_google_container_node_pool": [
+        {
+          "secondary_nodes": [
+            {
+              "cluster": "google_container_cluster.primary.name2",
+              "location": "us-central2",
+              "name": "my-node-pool2",
+              "node_config": [
+                {
+                  "image_type": "123_containerd"
+                }
+              ],
+              "node_count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

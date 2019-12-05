@@ -1,0 +1,28 @@
+{
+  "resource": [
+    {
+      "google_project": [
+        {
+          "project": [
+            {
+              "auto_create_network": true,
+              "folder_id": "something",
+              "name": "dummy",
+              "project_id": "abc"
+            }
+          ]
+        },
+         {
+          "project": [
+            {
+              "auto_create_network": false,
+              "folder_id": "something",
+              "name": "dummy",
+              "project_id": "abc"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
