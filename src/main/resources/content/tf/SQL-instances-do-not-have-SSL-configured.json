@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource[*].google_sql_ssl_cert !exists",
+  "rule": "$.resource[*].google_sql_ssl_cert !exists or ($.resource[*].google_sql_ssl_cert exists and $.resource[*].google_sql_ssl_cert[*].client_cert.*.instance anyNull )",
   "id": "06362923-51f1-4cc7-95bf-86ecf96b63e8",
   "enabled": true,
   "resourceType": "Google SQL instances",
