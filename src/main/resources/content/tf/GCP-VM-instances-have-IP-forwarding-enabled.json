@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
+  "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward exists and $.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
   "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
   "enabled": true,
   "resourceType": "GCP VM instances",
