@@ -334,8 +334,16 @@
     "rule": "$.resource[*].google_container_cluster[*].*[*].node_config anyNull or $.resource[*].google_container_cluster[*].*[*].node_config[*].service_account anyNull",
     "id": "f125951d-f5c0-4ca6-aab2-d443485e04a1",
     "enabled": true,
-    "resourceType": "k8s conatiner cluster service account",
+    "resourceType": "k8s container cluster service account",
     "policy": "GCP Kubernetes Engine Cluster Nodes have default Service accounts for project access"
+  },
+  {
+    "severity": "low",
+    "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster[*].*.*.ip_allocation_policy does not exist",
+    "id": "33104909-45f5-4533-8b71-d54716dc7184",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters have Alias IP disabled"
   },
   {
     "severity": "low",
