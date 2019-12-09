@@ -1,0 +1,52 @@
+{
+  "resource": [
+    {
+      "google_sql_database_instance": [
+        {
+          "instance": [
+            {
+              "name": "tf-lw-0612",
+              "region": "us-central",
+              "settings": [
+                {
+                  "activation_policy": "ON_DEMAND",
+                  "backup_configuration": [
+                    {
+                      "enabled": "true",
+                      "start_time": "19:19"
+                    }
+                  ],
+                  "crash_safe_replication": false,
+                  "ip_configuration": [
+                    {
+                      "authorized_networks": [
+                        {
+                          "expiration_time": "2017-11-15T16:19:00.094Z",
+                          "name": "misc",
+                          "value": "0.0.0.0/0"
+                        },
+                        {
+                          "expiration_time": "2017-11-15T16:19:00.094Z",
+                          "name": "another",
+                          "value": "101.0.0.0/16"
+                        }
+                      ],
+                      "ipv4_enabled": "true"
+                    }
+                  ],
+                  "location_preference": [
+                    {
+                      "zone": "us-central1-f"
+                    }
+                  ],
+                  "replication_type": "ASYNCHRONOUS",
+                  "tier": "D0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
