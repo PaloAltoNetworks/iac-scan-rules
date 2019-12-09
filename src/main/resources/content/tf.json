@@ -379,6 +379,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
+    "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
+    "enabled": true,
+    "resourceType": "GCP VM instances",
+    "policy": "GCP VM instances have IP forwarding enabled"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyNull or $.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyFalse",
     "id": "1af7b784-5c6c-43c0-a736-dc5e47cc235a",
     "enabled": true,
