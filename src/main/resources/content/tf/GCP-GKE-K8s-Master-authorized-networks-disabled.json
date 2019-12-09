@@ -2,7 +2,7 @@
   "severity": "medium",
   "resourceType": "kubernetes engine",
   "policy": "GCP Kubernetes Engine Clusters have Master authorized networks disabled",
-  "rule": "$.resource[*].google_container_cluster[*].*.*.master_authorized_networks_config is empty",
+  "rule": "$.resource[*].google_container_cluster[*].*.*.master_authorized_networks_config anyNull",
   "id": "48ed0930-8a52-4426-b196-d0a3969bde11",
   "enabled": true
 }
