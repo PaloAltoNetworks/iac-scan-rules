@@ -1,0 +1,92 @@
+{
+  "locals": [
+    {
+      "test_description": "google_iam_policy binding assigned user a specified role"
+    }
+  ],
+  "data": [
+    {
+      "google_iam_policy": [
+        {
+          "x": [
+            {
+              "binding": [
+                {
+                  "members":  ["user:c@d.com"],
+                  "role": "xroles/editor"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "y": [
+            {
+              "binding": [
+                {
+                  "member":  "user:a@b.com",
+                  "role": "roles/editor"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "resource": [
+    {
+      "google_organization_iam_binding": [
+        {
+          "binding": [
+            {
+              "member": "user:alice@gmail.com",
+              "org_id": "123456789",
+              "role": "xroles/editor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_organization_iam_member": [
+        {
+          "binding": [
+            {
+              "member": "user:alice@gmail.com",
+              "org_id": "0123456789",
+              "role": "xroles/editor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_project_iam_binding": [
+        {
+          "project": [
+            {
+              "member": "user:alice@gmail.com",
+              "project": "your-project-id",
+              "role": "xroles/editor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "google_project_iam_member": [
+        {
+          "project": [
+            {
+              "member": "user:jane@example.com",
+              "project": "your-project-id",
+              "role": "xroles/editor"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
