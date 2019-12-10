@@ -338,6 +338,14 @@
     "policy": "GCP IAM user has service account privileges"
   },
   {
+    "severity": "low",
+    "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\"  or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/cloudkms.admin')].member startsWith \"user:\"  or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\"",
+    "id": "54839df2-74d6-4642-a12f-807638f89842",
+    "enabled": true,
+    "resourceType": "IAM",
+    "policy": "GCP IAM user have overly permissive cloud KMS role"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
