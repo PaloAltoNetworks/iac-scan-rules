@@ -322,6 +322,14 @@
     "policy": "GCP IAM service account has admin privileges"
   },
   {
+    "severity": "low",
+    "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\"  or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\" or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\"  or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\"",
+    "id": "9f562f72-2bd6-445b-8d51-ed1212056417",
+    "enabled": true,
+    "resourceType": "IAM",
+    "policy": "GCP IAM user has service account privileges"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
