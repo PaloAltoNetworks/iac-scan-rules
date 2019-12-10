@@ -82,6 +82,12 @@
                   "username": ""
                 }
               ],
+              "master_authorized_networks_config": [
+                {
+                  "cidr_blocks": [
+                  ]
+                }
+              ],
               "name": "marcellus-wallace",
               "node_config": [
                 {
