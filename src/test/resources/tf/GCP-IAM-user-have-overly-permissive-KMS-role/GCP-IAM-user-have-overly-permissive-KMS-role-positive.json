@@ -13,7 +13,7 @@
               "binding": [
                 {
                   "members":  ["user:c@d.com"],
-                  "role": "xroles/editor"
+                  "role": "xroles/cloudkms.admin"
                 }
               ]
             }
@@ -25,7 +25,7 @@
               "binding": [
                 {
                   "member":  "user:a@b.com",
-                  "role": "roles/editor"
+                  "role": "roles/cloudkms.admin"
                 }
               ]
             }
@@ -43,7 +43,7 @@
             {
               "member": "user:alice@gmail.com",
               "org_id": "123456789",
-              "role": "xroles/editor"
+              "role": "xroles/cloudkms.admin"
             }
           ]
         }
@@ -56,7 +56,7 @@
             {
               "member": "user:alice@gmail.com",
               "org_id": "0123456789",
-              "role": "xroles/editor"
+              "role": "xroles/cloudkms.admin"
             }
           ]
         }
@@ -69,7 +69,7 @@
             {
               "member": "user:alice@gmail.com",
               "project": "your-project-id",
-              "role": "xroles/editor"
+              "role": "xroles/cloudkms.admin"
             }
           ]
         }
@@ -82,7 +82,7 @@
             {
               "member": "user:jane@example.com",
               "project": "your-project-id",
-              "role": "xroles/editor"
+              "role": "xroles/cloudkms.admin"
             }
           ]
         }
