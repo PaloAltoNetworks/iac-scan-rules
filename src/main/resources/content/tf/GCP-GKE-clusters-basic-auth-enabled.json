@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "resourceType": "kubernetes engine",
+  "policy": "GCP Kubernetes engine clusters have enabled basic authentication",
+  "rule": "$.resource.*.google_container_cluster.*.*.*.master_auth exists and not ($.resource.*.google_container_cluster.*.*.*.master_auth.*.password is empty and $.resource.*.google_container_cluster.*.*.*.master_auth.*.username is empty)",
+  "id": "b6b3b461-767c-43f5-b608-b84e8c40fa88",
+  "enabled": true
+}

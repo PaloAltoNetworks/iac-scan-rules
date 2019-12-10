@@ -266,6 +266,22 @@
     "policy": "Azure Network Security Group (NSG) allows SSH traffic from internet on port 22"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource[*].google_container_cluster.*.*[*].enable_legacy_abac anyTrue",
+    "id": "3a8dde2f-ee02-4d51-bcd1-b119c0207226",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters have Legacy Authorization enabled"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource.*.google_container_cluster.*.*.*.master_auth exists and not ($.resource.*.google_container_cluster.*.*.*.master_auth.*.password is empty and $.resource.*.google_container_cluster.*.*.*.master_auth.*.username is empty)",
+    "id": "b6b3b461-767c-43f5-b608-b84e8c40fa88",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes engine clusters have enabled basic authentication"
+  },
+  {
     "severity": "low",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*].disabled anyTrue)",
     "id": "afb8ee15-96a4-4f32-83a5-c5f60c49de75",
@@ -318,8 +334,16 @@
     "rule": "$.resource[*].google_container_cluster[*].*[*].node_config anyNull or $.resource[*].google_container_cluster[*].*[*].node_config[*].service_account anyNull",
     "id": "f125951d-f5c0-4ca6-aab2-d443485e04a1",
     "enabled": true,
-    "resourceType": "k8s conatiner cluster service account",
+    "resourceType": "k8s container cluster service account",
     "policy": "GCP Kubernetes Engine Cluster Nodes have default Service accounts for project access"
+  },
+  {
+    "severity": "low",
+    "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster[*].*.*.ip_allocation_policy does not exist",
+    "id": "33104909-45f5-4533-8b71-d54716dc7184",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters have Alias IP disabled"
   },
   {
     "severity": "low",
@@ -355,11 +379,35 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
+    "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
+    "enabled": true,
+    "resourceType": "GCP VM instances",
+    "policy": "GCP VM instances have IP forwarding enabled"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyNull or $.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyFalse",
     "id": "1af7b784-5c6c-43c0-a736-dc5e47cc235a",
     "enabled": true,
     "resourceType": "google compute subnetwork",
     "policy": "GCP VPC network subnets have Private Google access disabled"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].google_project[*].*[*].auto_create_network anyTrue or  $.resource[*].google_project[*].*[*].auto_create_network anyNull",
+    "id": "2d372220-3125-48ec-915b-30f0fc5220fb",
+    "enabled": true,
+    "resourceType": "Google Project",
+    "policy": "GCP project is using default network"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual 0.0.0.0/0 or $.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual ::/0",
+    "id": "32865329-308b-4a18-bcf5-fe71423d8770",
+    "enabled": true,
+    "resourceType": "GCP SQL DB Instance",
+    "policy": "SQL instances with network authorization exposing them to the internet"
   },
   {
     "severity": "medium",

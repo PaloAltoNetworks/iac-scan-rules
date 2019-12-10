@@ -1,0 +1,8 @@
+{ 
+   "severity":"medium",
+   "rule":"$.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual 0.0.0.0/0 or $.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual ::/0",
+   "id":"32865329-308b-4a18-bcf5-fe71423d8770",
+   "enabled":true,
+   "resourceType":"GCP SQL DB Instance",
+   "policy":"SQL instances with network authorization exposing them to the internet"
+}
