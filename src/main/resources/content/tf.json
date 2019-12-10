@@ -403,6 +403,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_sql_database_instance exists and $.resource[*].google_sql_ssl_cert !exists",
+    "id": "06362923-51f1-4cc7-95bf-86ecf96b63e8",
+    "enabled": true,
+    "resourceType": "Google SQL instances",
+    "policy": "SQL instances do not have SSL configured"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual 0.0.0.0/0 or $.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual ::/0",
     "id": "32865329-308b-4a18-bcf5-fe71423d8770",
     "enabled": true,
