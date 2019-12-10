@@ -315,6 +315,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\"  or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\" or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\"  or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\"",
+    "id": "acf7e81a-e901-4475-9cdb-d730a1c658bf",
+    "enabled": true,
+    "resourceType": "IAM",
+    "policy": "GCP IAM service account has admin privileges"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
     "enabled": true,
