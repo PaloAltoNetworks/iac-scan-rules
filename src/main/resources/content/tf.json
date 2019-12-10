@@ -275,6 +275,14 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_container_cluster[*].*.*.master_authorized_networks_config anyNull",
+    "id": "48ed0930-8a52-4426-b196-d0a3969bde11",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters have Master authorized networks disabled"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.google_container_cluster.*.*.*.master_auth exists and not ($.resource.*.google_container_cluster.*.*.*.master_auth.*.password is empty and $.resource.*.google_container_cluster.*.*.*.master_auth.*.username is empty)",
     "id": "b6b3b461-767c-43f5-b608-b84e8c40fa88",
     "enabled": true,
