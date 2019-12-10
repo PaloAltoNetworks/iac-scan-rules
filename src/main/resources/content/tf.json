@@ -266,6 +266,14 @@
     "policy": "Azure Network Security Group (NSG) allows SSH traffic from internet on port 22"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].google_container_cluster[*].*.*.master_auth[*].client_certificate_config[*].issue_client_certificate anyTrue",
+    "id": "d07dbdce-2cd8-4b0c-b97e-ceb4d7e98952",
+    "enabled": true,
+    "resourceType": "kubernetes engine",
+    "policy": "GCP Kubernetes Engine Clusters Client Certificate is set to Enabled"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster.*.*[*].enable_legacy_abac anyTrue",
     "id": "3a8dde2f-ee02-4d51-bcd1-b119c0207226",
