@@ -1,0 +1,8 @@
+{
+  "severity": "low",
+  "resourceType": "IAM",
+  "policy": "GCP IAM user have overly permissive cloud KMS role",
+  "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\"  or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/cloudkms.admin')].member startsWith \"user:\"  or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\"",
+  "id": "54839df2-74d6-4642-a12f-807638f89842",
+  "enabled": true
+}
