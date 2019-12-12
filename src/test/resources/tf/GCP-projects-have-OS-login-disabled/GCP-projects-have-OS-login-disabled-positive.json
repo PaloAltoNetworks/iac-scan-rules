@@ -6,7 +6,7 @@
           "oslogin": [
             {
               "key": "enable-oslogin",
-              "project": "<project ID>",
+              "project": "project ID",
               "value": "FALSE"
             }
           ]
