@@ -1,0 +1,8 @@
+{
+  "severity": "low",
+  "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
+  "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
+  "enabled": true,
+  "resourceType": "storage",
+  "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
+}

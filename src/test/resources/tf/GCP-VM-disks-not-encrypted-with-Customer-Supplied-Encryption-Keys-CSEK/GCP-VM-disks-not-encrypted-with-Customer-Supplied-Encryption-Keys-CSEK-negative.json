@@ -1,0 +1,27 @@
+{
+  "resource": [
+    {
+      "google_compute_disk": [
+        {
+          "default": [
+            {
+              "image": "debian-8-jessie-v20170523",
+              "labels": [
+                {
+                  "environment": "dev"
+                }
+              ],
+              "name": "test-disk",
+              "physical_block_size_bytes": 4096,
+              "type": "pd-ssd",
+              "zone": "us-central1-a",
+              "disk_encrypt_key": "true"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
