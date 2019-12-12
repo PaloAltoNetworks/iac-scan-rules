@@ -1,5 +1,7 @@
- "severity": "medium",
+ {
+  "severity": "medium",
   "rule": "$.resource[*].google_compute_project_metadata_item.[*].[*].[*].key exists and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].key == enable-oslogin and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].value exists and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].value == FALSE",
   "id": "6cb4c384-15fc-4b06-8a45-0542144ad8d9",
   "enabled": true,
-  "resourceType": "google_compute_project",
+  "resourceType": "google_compute_project"
+}
