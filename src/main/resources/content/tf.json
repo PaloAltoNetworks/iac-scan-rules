@@ -426,6 +426,14 @@
     "policy": "GCP User managed service accounts have user managed service account keys"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
+    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
+    "enabled": true,
+    "resourceType": "storage",
+    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
     "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
@@ -448,6 +456,14 @@
     "enabled": true,
     "resourceType": "Google Project",
     "policy": "GCP project is using default network"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource[*].google_compute_project_metadata_item.[*].[*].[*].key exists and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].key == enable-oslogin and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].value exists and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].value == FALSE",
+    "id": "6cb4c384-15fc-4b06-8a45-0542144ad8d9",
+    "enabled": true,
+    "resourceType": "google_compute_project",
+    "policy": "GCP projects have OS login disabled"
   },
   {
     "severity": "medium",
