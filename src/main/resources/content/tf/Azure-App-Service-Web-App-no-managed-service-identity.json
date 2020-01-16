@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_app_service[*].*[*].identity anyNull",
+  "id": "d18a4314-cb4d-40f7-b21b-47287690771f",
+  "enabled": true,
+  "resourceType": "App Service",
+  "policy": "Azure App Service Web App doesn't have a Managed Service Identity"
+}
