@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].azurerm_app_service.*.*.*.https_only size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only is empty or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
+  "id": "514a40c7-a7c4-49d4-a001-b949459ba8c9",
+  "enabled": true,
+  "resourceType": "azurerm_app_service",
+  "policy": "Azure App Service Web app doesn't use HTTP 2.0"
+}
