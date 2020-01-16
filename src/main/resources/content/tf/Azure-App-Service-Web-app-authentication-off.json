@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_app_service[*].*[*].auth_settings[*].enabled anyFalse or $.resource.*.azurerm_app_service[*].*[*].auth_settings anyNull ",
+  "id": "d8d4a039-2b04-48c9-80fc-70341eba5c34",
+  "enabled": true,
+  "resourceType": "App Service",
+  "policy": "Azure App Service Web App authentication is off"
+}
