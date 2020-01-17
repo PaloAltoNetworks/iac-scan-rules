@@ -1,0 +1,68 @@
+{
+  "resource": [
+    {
+      "azurerm_resource_group": [
+        {
+          "example": [
+            {
+              "location": "West US",
+              "name": "acceptanceTestResourceGroup1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "azurerm_sql_server": [
+        {
+          "example": [
+            {
+              "administrator_login": "4dm1n157r470r",
+              "administrator_login_password": "4-v3ry-53cr37-p455w0rd",
+              "location": "azurerm_resource_group.example.location",
+              "name": "mysqlserver",
+              "resource_group_name": "azurerm_resource_group.example.name",
+              "version": "12.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "NOT-azurerm_mssql_server_security_alert_policy": [
+        {
+          "example": [
+            {
+              "disabled_alerts": [
+                "Sql_Injection",
+                "Data_Exfiltration"
+              ],
+              "resource_group_name": "azurerm_resource_group.example.name",
+              "retention_days": 20,
+              "server_name": "azurerm_sql_server.example.name",
+              "state": "Enabled"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "NOT-azurerm_mssql_server_security_alert_policy": [
+        {
+          "example2": [
+            {
+              "disabled_alerts": [
+                "Sql_Injection",
+                "Data_Exfiltration"
+              ],
+              "resource_group_name": "azurerm_resource_group.example.name",
+              "retention_days": 20,
+              "server_name": "azurerm_sql_server.example.name",
+              "state": "Enaabled"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

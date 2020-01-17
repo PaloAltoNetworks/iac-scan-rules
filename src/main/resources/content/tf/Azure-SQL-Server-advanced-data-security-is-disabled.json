@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": " $.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_mssql_server_security_alert_policy size == 0 or  $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].state anyEqual \"Disabled\" or $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].retention_days anyNull )",
+  "id": "049cb412-96a9-4c93-8561-35857eaf3d78",
+  "enabled": true,
+  "resourceType": "Azure SQL Server",
+  "policy": "Azure SQL Server advanced data security is disabled",
+  "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers."
+}
