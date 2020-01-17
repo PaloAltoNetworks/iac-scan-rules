@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only anyNull or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
+  "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.http2_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.http2_enabled anyFalse)",
   "id": "514a40c7-a7c4-49d4-a001-b949459ba8c9",
   "enabled": true,
   "resourceType": "azurerm_app_service",
