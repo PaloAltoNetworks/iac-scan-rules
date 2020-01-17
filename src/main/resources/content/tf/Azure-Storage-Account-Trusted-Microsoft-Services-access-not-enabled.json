@@ -1,0 +1,8 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_storage_account size greater than 0 and ($.resource.*.azurerm_storage_account[*].*[*].network_rules anyNull or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].bypass anyNull or not ( $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].bypass allEqual \"AzureServices\" ))",
+  "id": "3b26ab70-6d7e-4f8f-808f-d41d3709f02f",
+  "enabled": true,
+  "resourceType": "Azure Storage Account",
+  "policy": "Azure Storage Account 'Trusted Microsoft Services' access not enabled"
+}
