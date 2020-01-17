@@ -49,7 +49,7 @@
                   "value": "Server=some-server.mydomain.com;Integrated Security=SSPI"
                 }
               ],
-              "https_only": true,
+              "http2_enabled": true,
               "location": "${azurerm_resource_group.example.location}",
               "name": "example-app-service",
               "resource_group_name": "${azurerm_resource_group.example.name}",
@@ -85,7 +85,7 @@
               "location": "${azurerm_resource_group.example.location}",
               "name": "example-app-service",
               "resource_group_name": "${azurerm_resource_group.example.name}",
-              "https_only": true,
+              "http2_enabled": true,
               "site_config": [
                 {
                   "dotnet_framework_version": "v4.0",

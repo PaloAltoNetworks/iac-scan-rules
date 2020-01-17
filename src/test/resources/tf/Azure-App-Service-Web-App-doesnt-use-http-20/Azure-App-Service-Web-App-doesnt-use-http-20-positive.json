@@ -49,6 +49,7 @@
                   "value": "Server=some-server.mydomain.com;Integrated Security=SSPI"
                 }
               ],
+              "http2_enabled": true,
               "location": "${azurerm_resource_group.example.location}",
               "name": "example-app-service",
               "resource_group_name": "${azurerm_resource_group.example.name}",
