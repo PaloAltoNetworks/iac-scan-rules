@@ -4,5 +4,6 @@
   "id": "8f9c12f8-1373-4c93-9da1-cccd7f3a33c9",
   "enabled": true,
   "resourceType": "nsg",
-  "policy": "Azure Network Security Group (NSG) allows traffic from internet on port 3389"
+  "policy": "Azure Network Security Group (NSG) allows traffic from internet on port 3389",
+  "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransomware."
 }
