@@ -4,5 +4,6 @@
   "id": "3b26ab70-6d7e-4f8f-808f-d41d3709f02f",
   "enabled": true,
   "resourceType": "Azure Storage Account",
-  "policy": "Azure Storage Account 'Trusted Microsoft Services' access not enabled"
+  "policy": "Azure Storage Account 'Trusted Microsoft Services' access not enabled",
+  "description": "Some Microsoft services that interact with storage accounts operate from networks that can't be granted access through network rules. To help this type of service work as intended, allow the set of trusted Microsoft services to bypass the network rules. These services will then use strong authentication to access the storage account. If the Allow trusted Microsoft services exception is enabled, the following services: Azure Backup, Azure Site Recovery, Azure DevTest Labs, Azure Event Grid, Azure Event Hubs, Azure Networking, Azure Monitor and Azure SQL Data Warehouse (when registered in the subscription), are granted access to the storage account."
 }
