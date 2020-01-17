@@ -4,5 +4,6 @@
   "id": "514a40c7-a7c4-49d4-a001-b949459ba8c9",
   "enabled": true,
   "resourceType": "azurerm_app_service",
-  "policy": "Azure App Service Web app doesn't use HTTP 2.0"
+  "policy": "Azure App Service Web app doesn't use HTTP 2.0",
+  "description": "HTTP 2.0 has additional performance improvements on the head-of-line blocking problem of old HTTP version, header compression, and prioritization of requests. HTTP 2.0 no longer supports HTTP 1.1's chunked transfer encoding mechanism, as it provides its own, more efficient, mechanisms for data streaming."
 }
