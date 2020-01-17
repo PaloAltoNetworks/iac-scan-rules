@@ -1,0 +1,64 @@
+{
+  "resource": [
+    {
+      "azurerm_resource_group": [
+        {
+          "example": [
+            {
+              "location": "West Europe",
+              "name": "example-resources"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "azurerm_kubernetes_cluster": [
+        {
+          "example": [
+            {
+              "default_node_pool": [
+                {
+                  "name": "default",
+                  "node_count": 1,
+                  "vm_size": "Standard_D2_v2"
+                }
+              ],
+              "dns_prefix": "exampleaks1",
+              "name": "example-aks1",
+              "role_based_access_control": [
+                {
+                  "enabled": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "azurerm_kubernetes_cluster": [
+        {
+          "example2": [
+            {
+              "default_node_pool": [
+                {
+                  "name": "default",
+                  "node_count": 1,
+                  "vm_size": "Standard_D2_v2"
+                }
+              ],
+              "dns_prefix": "exampleaks2",
+              "name": "example-aks2",
+              "role_based_access_control": [
+                {
+                  "enabled": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
