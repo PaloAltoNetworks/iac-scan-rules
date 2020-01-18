@@ -258,6 +258,15 @@
     "policy": "AWS security group allows traffic from blocked ports"
   },
   {
+    "severity": "high",
+    "rule": "$.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control anyNull or $.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control[*].enabled anyFalse",
+    "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.\n\nThis policy checks your AKS cluster RBAC setting and alerts if disabled.",
+    "id": "996f840b-49bf-4340-a117-803e96aa84d0",
+    "enabled": true,
+    "resourceType": "AKS",
+    "policy": "Azure AKS enable role-based access control (RBAC) not enforced"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only anyNull or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
     "description": "Azure Web Apps allows sites to run under both HTTP and HTTPS by default. Web apps can be accessed by anyone using non-secure HTTP links by default. Non-secure HTTP requests can be restricted and all HTTP requests redirected to the secure HTTPS port. It is recommended to enforce HTTPS-only traffic.",
@@ -453,20 +462,20 @@
     "policy": "GCP User managed service accounts have user managed service account keys"
   },
   {
-    "severity": "low",
-    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
-    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
-    "enabled": true,
-    "resourceType": "storage",
-    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
-  },
-  {
     "severity": "medium",
     "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
     "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
     "enabled": true,
     "resourceType": "GCP VM instances",
     "policy": "GCP VM instances have IP forwarding enabled"
+  },
+  {
+    "severity": "low",
+    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
+    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
+    "enabled": true,
+    "resourceType": "storage",
+    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
   },
   {
     "severity": "medium",
