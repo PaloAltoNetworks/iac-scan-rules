@@ -276,6 +276,15 @@
     "policy": "Azure App Service Web app doesn't redirect HTTP to HTTPS"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_app_service[*].*[*].identity anyNull",
+    "description": "Managed service identity in App Service makes the app more secure by eliminating secrets from the app, such as credentials in the connection strings. When registering with Azure Active Directory in the app service, the app will connect to other Azure services securely without the need of username and passwords.",
+    "id": "d18a4314-cb4d-40f7-b21b-47287690771f",
+    "enabled": true,
+    "resourceType": "App Service",
+    "policy": "Azure App Service Web App doesn't have a Managed Service Identity"
+  },
+  {
     "severity": "high",
     "rule": "($.resource[*].azurerm_network_security_rule exists and ($.resource[*].azurerm_network_security_rule.*[*].*.access contains Allow and $.resource[*].azurerm_network_security_rule.*[*].*.destination_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.source_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.destination_port_range contains 22 and $.resource[*].azurerm_network_security_rule.*[*].*.direction contains Inbound))",
     "id": "1eb0cd02-789a-4b96-8463-fb5583e40585",
@@ -454,6 +463,14 @@
     "policy": "GCP Storage log buckets have object versioning disabled"
   },
   {
+    "severity": "low",
+    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
+    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
+    "enabled": true,
+    "resourceType": "storage",
+    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
+  },
+  {
     "severity": "medium",
     "rule": "$.resource[*].google_service_account_key[*].*[*].service_account_id contains google_service_account or $.resource[*].google_service_account_key[*].*[*].service_account_id any end with iam.gserviceaccount.com",
     "id": "0173b3d8-91b5-4a10-8105-e92b1f3b5914",
@@ -468,14 +485,6 @@
     "enabled": true,
     "resourceType": "GCP VM instances",
     "policy": "GCP VM instances have IP forwarding enabled"
-  },
-  {
-    "severity": "low",
-    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
-    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
-    "enabled": true,
-    "resourceType": "storage",
-    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
   },
   {
     "severity": "medium",
