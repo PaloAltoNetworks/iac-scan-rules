@@ -312,6 +312,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains  3389  or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals  3389",
+    "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransomware.",
+    "id": "8f9c12f8-1373-4c93-9da1-cccd7f3a33c9",
+    "enabled": true,
+    "resourceType": "nsg",
+    "policy": "Azure Network Security Group (NSG) allows traffic from internet on port 3389"
+  },
+  {
+    "severity": "medium",
     "rule": " $.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_mssql_server_security_alert_policy size == 0 or  $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].state anyEqual \"Disabled\" or $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].retention_days anyNull )",
     "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers.",
     "id": "049cb412-96a9-4c93-8561-35857eaf3d78",
