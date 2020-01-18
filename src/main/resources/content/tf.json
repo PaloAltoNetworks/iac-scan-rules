@@ -277,6 +277,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.http2_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.http2_enabled anyFalse)",
+    "description": "HTTP 2.0 has additional performance improvements on the head-of-line blocking problem of old HTTP version, header compression, and prioritization of requests. HTTP 2.0 no longer supports HTTP 1.1's chunked transfer encoding mechanism, as it provides its own, more efficient, mechanisms for data streaming.",
+    "id": "514a40c7-a7c4-49d4-a001-b949459ba8c9",
+    "enabled": true,
+    "resourceType": "azurerm_app_service",
+    "policy": "Azure App Service Web app doesn't use HTTP 2.0"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].identity anyNull",
     "description": "Managed service identity in App Service makes the app more secure by eliminating secrets from the app, such as credentials in the connection strings. When registering with Azure Active Directory in the app service, the app will connect to other Azure services securely without the need of username and passwords.",
     "id": "d18a4314-cb4d-40f7-b21b-47287690771f",
@@ -463,20 +472,20 @@
     "policy": "GCP Storage log buckets have object versioning disabled"
   },
   {
-    "severity": "low",
-    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
-    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
-    "enabled": true,
-    "resourceType": "storage",
-    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
-  },
-  {
     "severity": "medium",
     "rule": "$.resource[*].google_service_account_key[*].*[*].service_account_id contains google_service_account or $.resource[*].google_service_account_key[*].*[*].service_account_id any end with iam.gserviceaccount.com",
     "id": "0173b3d8-91b5-4a10-8105-e92b1f3b5914",
     "enabled": true,
     "resourceType": "service account key",
     "policy": "GCP User managed service accounts have user managed service account keys"
+  },
+  {
+    "severity": "low",
+    "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
+    "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
+    "enabled": true,
+    "resourceType": "storage",
+    "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
   },
   {
     "severity": "medium",
