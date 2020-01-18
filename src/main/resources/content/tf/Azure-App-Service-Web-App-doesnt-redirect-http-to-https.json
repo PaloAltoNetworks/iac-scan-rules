@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only anyNull or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
+  "id": "3555e091-5af1-4ad2-b77e-5b1867d2d496",
+  "enabled": true,
+  "resourceType": "azurerm_app_service",
+  "policy": "Azure App Service Web app doesn't redirect HTTP to HTTPS",
+  "description": "Azure Web Apps allows sites to run under both HTTP and HTTPS by default. Web apps can be accessed by anyone using non-secure HTTP links by default. Non-secure HTTP requests can be restricted and all HTTP requests redirected to the secure HTTPS port. It is recommended to enforce HTTPS-only traffic."
+}
