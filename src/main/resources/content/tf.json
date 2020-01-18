@@ -294,6 +294,15 @@
     "policy": "Azure App Service Web App doesn't have a Managed Service Identity"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_app_service[*].*[*].auth_settings[*].enabled anyFalse or $.resource.*.azurerm_app_service[*].*[*].auth_settings anyNull ",
+    "description": "Azure App Service Authentication is a feature that can prevent anonymous HTTP requests from reaching the API app, or authenticate those that have tokens before they reach the API app. If an anonymous request is received from a browser, App Service will redirect to a logon page. To handle the logon process, a choice from a set of identity providers can be made, or a custom authentication mechanism can be implemented.",
+    "id": "d8d4a039-2b04-48c9-80fc-70341eba5c34",
+    "enabled": true,
+    "resourceType": "App Service",
+    "policy": "Azure App Service Web app authentication is off"
+  },
+  {
     "severity": "high",
     "rule": "($.resource[*].azurerm_network_security_rule exists and ($.resource[*].azurerm_network_security_rule.*[*].*.access contains Allow and $.resource[*].azurerm_network_security_rule.*[*].*.destination_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.source_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.destination_port_range contains 22 and $.resource[*].azurerm_network_security_rule.*[*].*.direction contains Inbound))",
     "id": "1eb0cd02-789a-4b96-8463-fb5583e40585",
