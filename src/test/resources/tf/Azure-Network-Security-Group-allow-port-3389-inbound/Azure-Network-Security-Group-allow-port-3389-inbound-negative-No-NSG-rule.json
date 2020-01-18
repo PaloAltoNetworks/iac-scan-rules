@@ -1,0 +1,82 @@
+{
+  "provider": [
+    {
+      "azurerm": [
+        {
+          "subscription_id": "abcde"
+        }
+      ]
+    }
+  ],
+  "resource": [
+    {
+      "azurerm_resource_group": [
+        {
+          "xltest": [
+            {
+              "location": "Central US",
+              "name": "xltestuscentral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "azurerm_network_security_group": [
+        {
+          "xltest": [
+            {
+              "location": "${azurerm_resource_group.xltest.location}",
+              "name": "acceptanceTestSecurityGroup1",
+              "resource_group_name": "${azurerm_resource_group.xltest.name}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "NOT_azurerm_network_security_rule": [
+        {
+          "xltest": [
+            {
+              "access": "Allow",
+              "destination_address_prefix": "*",
+              "destination_port_range": "3389",
+              "direction": "Inbound",
+              "name": "test123",
+              "network_security_group_name": "${azurerm_network_security_group.xltest.name}",
+              "priority": 100,
+              "protocol": "Udp",
+              "resource_group_name": "${azurerm_resource_group.xltest.name}",
+              "source_address_prefix": "*",
+              "source_port_range": "*"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "NOT_azurerm_network_security_rule": [
+        {
+          "xltest2": [
+            {
+              "access": "Allow",
+              "destination_address_prefix": "*",
+              "destination_port_ranges": [
+                "1-4000"
+              ],
+              "direction": "Inbound",
+              "name": "test2",
+              "network_security_group_name": "${azurerm_network_security_group.xltest.name}",
+              "priority": 101,
+              "protocol": "Udp",
+              "resource_group_name": "${azurerm_resource_group.xltest.name}",
+              "source_address_prefix": "*",
+              "source_port_range": "*"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
