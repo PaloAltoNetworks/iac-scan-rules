@@ -4,5 +4,6 @@
   "id": "22df2129-f6bf-4a10-9118-42b8d5d922a9",
   "enabled": true,
   "resourceType": "storage",
-  "policy": "Storage Bucket does not have Access and Storage Logging enabled"
+  "policy": "Storage Bucket does not have Access and Storage Logging enabled",
+  "description": "Checks to verify that the configuration on the Storage Buckets is enabled for access logs and storage logs."
 }

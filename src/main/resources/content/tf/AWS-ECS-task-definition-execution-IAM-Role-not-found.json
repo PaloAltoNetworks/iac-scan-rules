@@ -1,7 +1,8 @@
 {
   "severity": "medium",
   "resourceType": "ecs",
-  "policy": "AWS ECS task definition execution IAM Role not found",
+  "policy": "AWS ECS/ Fargate task definition execution IAM Role not found",
+  "description": "The execution IAM Role is required by tasks to pull container images and publish container logs to Amazon CloudWatch on your behalf. This policy generates an alert if a task execution role is not found in your task definition.",
   "rule": " $.resource[*].aws_ecs_task_definition exists and $.resource[*].aws_ecs_task_definition[*].*[*].container_definitions exists and ($.resource[*].aws_ecs_task_definition[*].*[*].execution_role_arn anyNull or $.resource[*].aws_ecs_task_definition[*].*[*].execution_role_arn anyEmpty)",
   "id": "a76c8132-7cc3-40b1-a417-d3a41fc44f89",
   "enabled": true

@@ -4,5 +4,6 @@
    "id":"b24c52e5-948c-4335-b8e0-c44b86b69538",
    "enabled":true,
    "resourceType":"GCP k8s pod_security",
-   "policy":"GCP Kubernetes Engine Clusters have pod security policy disabled"
+   "policy":"GCP Kubernetes Engine Clusters have pod security policy disabled",
+   "description": "This policy identifies Kubernetes Engine Clusters which have pod security policy disabled. The Pod Security Policy defines a set of conditions that pods must meet to be accepted by the cluster; when a request to create or update a pod does not meet the conditions in the pod security policy, that request is rejected and an error is returned."
 }

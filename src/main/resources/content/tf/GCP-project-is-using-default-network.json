@@ -4,5 +4,6 @@
    "id":"2d372220-3125-48ec-915b-30f0fc5220fb",
    "enabled":true,
    "resourceType":"Google Project",
-   "policy":"GCP project is using default network"
+   "policy":"GCP Kubernetes Engine Clusters using the default network",
+   "description": "This policy identifies Google Kubernetes Engine (GKE) clusters that are configured to use the default network. Because GKE uses this network when creating routes and firewalls for the cluster, as a best practice define a network configuration that meets your security and networking requirements for ingress and egress traffic, instead of using the default network."
 }

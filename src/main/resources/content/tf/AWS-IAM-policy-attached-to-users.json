@@ -2,6 +2,7 @@
    "severity":"low",
    "resourceType":"iam_policy_attachment",
    "policy":"AWS IAM policy attached to users",
+   "description": "This policy identifies IAM policies attached to user.By default, IAM users, groups, and roles have no access to AWS resources. IAM policies are the means by which privileges are granted to users, groups, or roles. It is recommended that IAM policies be applied directly to groups and roles but not users.",
    "rule":"$.resource[*].aws_iam_policy_attachment[*].*[*].users exists and $.resource[*].aws_iam_policy_attachment[*].*[*].users[*] is not empty",
    "id":"1903f355-b68f-4d9c-84dd-c46abe4f8673",
    "enabled":true

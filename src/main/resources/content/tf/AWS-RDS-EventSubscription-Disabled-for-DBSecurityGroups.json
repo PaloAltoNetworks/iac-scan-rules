@@ -4,5 +4,6 @@
   "id": "b81ceb53-e21a-4456-a35b-ece94323637b",
   "enabled": true,
   "resourceType": "aws_db_event_subscription",
-  "policy": "AWS RDS event subscription disabled for DB security groups"
+  "policy": "AWS RDS event subscription disabled for DB security groups",
+  "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups."
 }

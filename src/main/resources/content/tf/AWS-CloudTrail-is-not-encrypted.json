@@ -4,5 +4,6 @@
   "id": "07a06f60-1532-4e2e-b91c-8f972a96f1a9",
   "enabled": true,
   "resourceType": "cloudtrail",
-  "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys"
+  "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys (CMKs)",
+  "description": "Checks to ensure that CloudTrail logs are encrypted. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to encrypt the CloudTrail data since it may contain sensitive information."
 }

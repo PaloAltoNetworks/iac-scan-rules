@@ -4,5 +4,6 @@
   "id": "c8f6a525-e4ba-4499-b015-15153c797143",
   "enabled": true,
   "resourceType": "security group",
-  "policy": "AWS Default Security Group does not restrict all traffic"
+  "policy": "AWS Default Security Group does not restrict all traffic",
+  "description": "This policy identifies the default security group which does not restrict all inbound and outbound traffic. A VPC comes with a default security group whose initial configuration deny all inbound traffic from internet and allow all outbound traffic. If you do not specify a security group when you launch an instance, the instance is automatically assigned to this default security group. As a result, the instance may accidentally send outbound traffic."
 }

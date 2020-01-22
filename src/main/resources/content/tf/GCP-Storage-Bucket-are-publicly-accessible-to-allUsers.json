@@ -4,5 +4,6 @@
   "id": "0716cf97-9f82-46ae-8b35-09f2ee41d136",
   "enabled": true,
   "resourceType": "google_storage_bucket_access_control",
-  "policy": "GCP storage bucket are publicly accessible to all users"
+  "policy": "GCP Storage buckets are publicly accessible to all authenticated users",
+  "description": "This policy identifies the buckets which are publicly accessible to all authenticated users. Enabling public access to Storage Buckets enables anybody with a web association to access sensitive information that is critical to business. Access over a whole bucket is controlled by IAM. Access to individual objects within the bucket is controlled by its ACLs."
 }

@@ -4,5 +4,6 @@
   "id": "054e0760-d0e2-454a-8898-015e9e9fbc1a",
   "enabled": true,
   "resourceType": "rds",
-  "policy": "AWS RDS snapshots are accessible to public"
+  "policy": "AWS RDS snapshots are accessible to public",
+  "description": "This policy identifies AWS RDS snapshots which are accessible to public. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to setup and manage databases. If RDS snapshots are inadvertently shared to public, any unauthorized user with AWS console access can gain access to the snapshots and gain access to sensitive data."
 }    
