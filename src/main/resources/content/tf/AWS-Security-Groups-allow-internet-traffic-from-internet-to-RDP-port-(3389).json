@@ -4,5 +4,6 @@
   "id": "1796efe6-802d-4768-8c17-7491c560b686",
   "enabled": true,
   "resourceType": "security group",
-  "policy": "AWS Security Groups allow internet traffic from internet to RDP port (3389)"
+  "policy": "AWS Security Groups allow internet traffic from internet to RDP port (3389)",
+  "description": "This policy identifies the security groups which is exposing RDP port (3389) to the internet. Security Groups do not allow inbound traffic on RDP port (3389) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network."
 }

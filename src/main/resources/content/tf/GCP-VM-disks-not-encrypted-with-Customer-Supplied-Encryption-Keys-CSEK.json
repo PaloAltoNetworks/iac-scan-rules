@@ -4,5 +4,6 @@
   "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
   "enabled": true,
   "resourceType": "storage",
-  "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
+  "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)",
+  "description": "This policy identifies VM disks which are not encrypted with Customer-Supplied Encryption Keys (CSEK). If you provide your own encryption keys, Compute Engine uses your key to protect the Google-generated keys used to encrypt and decrypt your data. It is recommended to use VM disks encrypted with CSEK for business-critical VM instances."
 }

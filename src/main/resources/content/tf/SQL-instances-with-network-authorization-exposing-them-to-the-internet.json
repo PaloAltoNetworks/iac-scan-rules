@@ -4,5 +4,6 @@
    "id":"32865329-308b-4a18-bcf5-fe71423d8770",
    "enabled":true,
    "resourceType":"GCP SQL DB Instance",
-   "policy":"SQL instances with network authorization exposing them to the internet"
+   "policy":"SQL Instances with network authorization exposing them to the Internet",
+   "description": "Checks to verify that the SQL instance should not have any authorization to allow network traffic to the internet."
 }

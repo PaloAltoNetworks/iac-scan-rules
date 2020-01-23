@@ -1,7 +1,8 @@
 {
   "severity": "low",
   "resourceType": "kubernetes engine",
-  "policy": "GCP Kubernetes Engine Clusters not using container optimized OS for node image",
+  "policy": "GCP Kubernetes Engine Clusters not using Container-Optimized OS for Node image",
+  "description": "This policy identifies Kubernetes Engine Clusters which do not have a container-optimized operating system for node image. Container-Optimized OS is an operating system image for your Compute Engine VMs that is optimized for running Docker containers. By using Container-Optimized OS for node image, you can bring up your Docker containers on Google Cloud Platform quickly, efficiently, and securely. The Container-Optimized OS node image is based on a recent version of the Linux kernel and is optimized to enhance node security. It is also regularly updated with features, security fixes, and patches. The Container-Optimized OS image provides better support, security, and stability than other images.",
   "rule": "$.resource[*].google_container_node_pool exists and  ($.resource[*].google_container_node_pool.*[*].*.node_config anyNull or $.resource[*].google_container_node_pool.*[*].*.node_config[*].image_type anyNull or  not $.resource[*].google_container_node_pool.*[*].*.node_config[*].image_type allStartWith  cos ) ",
   "id": "b80d079e-9db6-440e-a35a-64e53e47e6fc",
   "enabled": true

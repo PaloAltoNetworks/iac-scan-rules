@@ -4,5 +4,6 @@
   "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
   "enabled": true,
   "resourceType": "GCP VM instances",
-  "policy": "GCP VM instances have IP forwarding enabled"
+  "policy": "GCP VM instances have IP forwarding enabled",
+  "description": "This policy identifies VM instances have IP forwarding enabled. IP Forwarding could open unintended and undesirable communication paths and allows VM instances to send and receive packets with the non-matching destination or source IPs. To enable source and destination IP match check, disable the IP Forwarding."
 }

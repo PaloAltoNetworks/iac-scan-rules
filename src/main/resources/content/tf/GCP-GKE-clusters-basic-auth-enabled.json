@@ -1,7 +1,8 @@
 {
   "severity": "medium",
   "resourceType": "kubernetes engine",
-  "policy": "GCP Kubernetes engine clusters have enabled basic authentication",
+  "policy": "GCP Kubernetes Engine Clusters Basic Authentication is set to Enabled",
+  "description": "This policy identifies Kubernetes Engine Clusters which have enabled Basic authentication. Basic authentication allows a user to authenticate to the cluster with a username and password. Disabling Basic authentication will prevent attacks like brute force. Authenticate using client certificate or IAM.",
   "rule": "$.resource.*.google_container_cluster.*.*.*.master_auth exists and not ($.resource.*.google_container_cluster.*.*.*.master_auth.*.password is empty and $.resource.*.google_container_cluster.*.*.*.master_auth.*.username is empty)",
   "id": "b6b3b461-767c-43f5-b608-b84e8c40fa88",
   "enabled": true

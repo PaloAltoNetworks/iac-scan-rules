@@ -2,6 +2,7 @@
   "severity": "low",
   "resourceType": "AWS S3 cloudtrail logging",
   "policy": "AWS S3 CloudTrail buckets for which access logging is disabled",
+  "description": "This policy identifies S3 CloudTrail buckets for which access is disabled.S3 Bucket access logging generates access records for each request made to your S3 bucket. An access log record contains information such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket",
   "rule": "$.resource[*].aws_cloudtrail[*].*[*].enable_logging anyFalse",
   "id": "82578260-f754-4e0e-ba6b-a06b9e36ad5b",
   "enabled": true
