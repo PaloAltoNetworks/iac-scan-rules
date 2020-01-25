@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource[*].azurerm_app_service[*].*.*.client_cert_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.client_cert_enabled anyFalse",
+  "rule": "$.resource[*].azurerm_app_service exists and ($.resource[*].azurerm_app_service[*].*.*.client_cert_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.client_cert_enabled anyFalse)",
   "id": "45d877f2-7215-473c-8684- b7fa129ac491",
   "enabled": true,
   "resourceType": "azurerm_app_service",
