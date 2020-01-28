@@ -4,5 +4,6 @@
   "id": "ff6a3231-bb09-4fba-82ea-46ee3228a9f2",
   "enabled": true,
   "resourceType": "s3",
-  "policy": "AWS S3 buckets do not have server side encryption"
+  "policy": "AWS S3 buckets do not have server side encryption",
+  "description": "Customers can protect the data in S3 buckets using the AWS server-side encryption. If the server-side encryption is not turned on for S3 buckets with sensitive data, in the event of a data breach, malicious users can gain access to the data.\n\nNOTE: Do NOT enable this policy if you are using 'Server-Side Encryption with Customer-Provided Encryption Keys (SSE-C).'"
 }

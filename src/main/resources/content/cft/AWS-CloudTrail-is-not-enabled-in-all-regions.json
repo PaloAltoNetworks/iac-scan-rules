@@ -4,5 +4,6 @@
    "id":"c1ad39ed-5341-43cb-8266-4d93a2033d75",
    "enabled":true,
    "resourceType":"AWS cloudtrail",
-   "policy":"AWS CloudTrail is not enabled in all regions"
+   "policy":"AWS CloudTrail is not enabled in all regions",
+   "description": "Checks to ensure that CloudTrail is enabled across all regions. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to turn on CloudTrail across different regions to get a complete audit trail of activities across various services. "
 }

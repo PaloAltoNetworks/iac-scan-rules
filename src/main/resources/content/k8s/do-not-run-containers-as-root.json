@@ -1,1 +1,8 @@
-{"severity":"high","rule":"$.spec.template.spec.securityContext.runAsUser < 1","id":"314eba46-a376-43f6-9a0a-8517818301f1","enabled":true,"resourceType":"k8s","policy":"do not run containers as root"}
+{
+  "severity": "high",
+  "rule": "$.spec.template.spec.securityContext.runAsUser < 1",
+  "id": "314eba46-a376-43f6-9a0a-8517818301f1",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "do not run containers as root"
+}

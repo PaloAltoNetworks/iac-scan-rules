@@ -4,5 +4,6 @@
    "id":"0132bbb2-c733-4c36-9c5d-c58967c7d1a6",
    "enabled":true,
    "resourceType":"redshift",
-   "policy":"AWS Redshift instances are not encrypted"
+   "policy":"AWS Redshift instances are not encrypted"m
+   "description": "This policy identifies AWS Redshift instances which are not encrypted. These instances should be encrypted for clusters to help protect data at rest which otherwise can result in a data breach."
 }

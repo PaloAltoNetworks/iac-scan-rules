@@ -1,7 +1,8 @@
 { 
    "severity":"medium",
    "resourceType":"AWS Customer Master Key (CMK)",
-   "policy":"AWS Customer Master Key (CMK) rotation is not enabled",
+   "policy": "AWS Customer Master Key (CMK) rotation is not enabled",
+   "description": "Checks to ensure that CMKs are rotated periodically. AWS KMS (Key Management Service) allows customers to create master keys to encrypt sensitive data in different services. As a security best practice, it is important to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys",
    "rule":"$.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation any null or $.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation anyFalse",
    "id":"6ae8d0a5-4794-438c-aafa-200f94b45f1f",
    "enabled":true

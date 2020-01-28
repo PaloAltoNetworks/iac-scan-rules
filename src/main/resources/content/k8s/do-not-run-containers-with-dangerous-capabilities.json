@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.spec.template.spec.containers[*].securityContext.capabilities exists and $.spec.template.spec.containers[*].securityContext.capabilities.add[*] is member of (FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE)","id":"135420a6-3206-4c29-b944-846f65cea43e","enabled":true,"resourceType":"k8s","policy":"do not run containers with dangerous capabilities"}
+{
+  "severity": "medium",
+  "rule": "$.spec.template.spec.containers[*].securityContext.capabilities exists and $.spec.template.spec.containers[*].securityContext.capabilities.add[*] is member of (FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE)",
+  "id": "135420a6-3206-4c29-b944-846f65cea43e",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "do not run containers with dangerous capabilities"
+}

@@ -4,5 +4,6 @@
    "id":"d65fd313-1c5c-42a1-98b2-a73bdeda19a6",
    "enabled":true,
    "resourceType":"redshift",
-   "policy":"AWS Redshift clusters should not be publicly accessible"
+   "policy":"AWS Redshift clusters should not be publicly accessible",
+   "description": "This policy identifies AWS Redshift clusters which are accessible publicly."
 }

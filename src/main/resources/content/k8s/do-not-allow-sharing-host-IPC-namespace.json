@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.spec.template.spec.hostIPC is true","id":"344fb01c-7195-3e9f-47e1-c640733af43f","enabled":true,"resourceType":"k8s","policy":"do not allow sharing host IPC namespace"}
+{
+  "severity": "medium",
+  "rule": "$.spec.template.spec.hostIPC is true",
+  "id": "344fb01c-7195-3e9f-47e1-c640733af43f",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "do not allow sharing host IPC namespace"
+}

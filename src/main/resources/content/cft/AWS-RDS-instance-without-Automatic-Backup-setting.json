@@ -4,5 +4,6 @@
    "id":"f81d0239-3633-4828-a499-d2d1b1219a5c",
    "enabled":true,
    "resourceType":"rds",
-   "policy":"AWS RDS instance without Automatic Backup setting"
+   "policy":"AWS RDS instance without Automatic Backup setting",
+   "description": "This policy identifies RDS instances which are not set with the Automatic Backup setting. If Automatic Backup is set, RDS creates a storage volume snapshot of your DB instance, backing up the entire DB instance and not just individual databases which provide for point-in-time recovery. The automatic backup will happen during the specified backup window time and keeps the backups for a limited period of time as defined in the retention period. It is recommended to set Automatic backups for your critical RDS servers that will help in the data restoration process."
 }

@@ -1,1 +1,8 @@
-{"severity":"medium","rule":"$.spec.template.spec.containers[*].securityContext.runAsUser < 9999","id":"6e06b1a6-7eea-4730-91c2-9ac3fb676dce","enabled":true,"resourceType":"k8s","policy":"entrypoint of the container must be run with a user with a high ID"}
+{
+  "severity": "medium",
+  "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and  is false",
+  "id": "c448b01c-7f95-4e9f-97e1-c640733af44f",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "ensure containers are immutable "
+}

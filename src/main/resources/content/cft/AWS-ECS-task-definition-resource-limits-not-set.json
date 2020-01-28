@@ -4,5 +4,6 @@
    "id":"44a82298-64d1-4b4b-a9ad-eeda02448975",
    "enabled":true,
    "resourceType":"ecs",
-   "policy":"AWS ECS task definition resource limits not set"
+   "policy":"AWS ECS task definition resource limits not set",
+   "description": "Check if AWS ECS task definition resource limits are set"
 }

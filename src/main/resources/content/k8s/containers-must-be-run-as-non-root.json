@@ -1,1 +1,8 @@
-{"severity":"high","rule":"$.spec.template.spec.containers[*].securityContext.runAsNonRoot exists and is false","id":"2e22737c-a5b8-4808-8a8b-d99fc7e99505","enabled":true,"resourceType":"k8s","policy":"containers must be run as non-root"}
+{
+  "severity": "high",
+  "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot exists and is false",
+  "id": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "containers must be run as non-root"
+}

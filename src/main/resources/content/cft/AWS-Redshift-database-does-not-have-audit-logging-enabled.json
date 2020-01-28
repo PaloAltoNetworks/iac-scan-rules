@@ -4,5 +4,6 @@
    "id":"91c941aa-d110-4b33-9934-aadd86b1a4d9",
    "enabled":true,
    "resourceType":"redshift",
-   "policy":"AWS Redshift database does not have audit logging enabled"
+   "policy":"AWS Redshift database does not have audit logging enabled",
+   "description": "Audit logging is not enabled by default in Amazon Redshift. When you enable logging on your cluster, Amazon Redshift creates and uploads logs to Amazon S3 that capture data from the creation of the cluster to the present time."
 }
