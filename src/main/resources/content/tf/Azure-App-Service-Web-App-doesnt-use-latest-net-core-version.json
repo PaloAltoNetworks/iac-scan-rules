@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0",
+  "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0 or $.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v2.0' && @.dotnet_framework_version )] size greater than 0",
   "id": "80db150d-f437-4d0a-b7ef-a93ac2fbe6da",
   "enabled": true,
   "resourceType": "azurerm_app_service",
