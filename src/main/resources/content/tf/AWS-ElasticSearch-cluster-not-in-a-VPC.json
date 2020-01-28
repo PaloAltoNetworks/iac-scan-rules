@@ -4,5 +4,6 @@
   "id": "28ee2708-305a-4b23-acf0-535ab45b96ab",
   "enabled": true,
   "resourceType": "elasticsearch",
-  "policy": "AWS ElasticSearch cluster not in a VPC"
+  "policy": "AWS ElasticSearch cluster not in a VPC",
+  "description": "VPC support for Amazon ES is easy to configure, reliable, and offers an extra layer of security. With VPC support, traffic between other services and Amazon ES stays entirely within the AWS network, isolated from the public Internet. You can manage network access using existing VPC security groups, and you can use AWS Identity and Access Management (IAM) policies for additional protection. VPC support for Amazon ES domains is available at no additional charge."
 }

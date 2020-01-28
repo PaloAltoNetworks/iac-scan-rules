@@ -1,7 +1,8 @@
 {
   "severity": "medium",
   "resourceType": "kubernetes engine",
-  "policy": "GCP Kubernetes Engine Clusters have Network policy disabled",
+  "policy": "GCP Kubernetes Engine Clusters have Network policy disableds",
+  "description": "This policy identifies Kubernetes Engine Clusters which have disabled Network policy. A network policy defines how groups of pods are allowed to communicate with each other and other network endpoints. By enabling network policy in a namespace for a pod, it will reject any connections that are not allowed by the network policy.",
   "rule": "$.resource[*].google_container_cluster exists and  ($.resource[*].google_container_cluster.*[*].*.network_policy anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled anyTrue) ",
   "id": "ca78ea0f-83ec-4401-9c33-300215ebe7b3",
   "enabled": true

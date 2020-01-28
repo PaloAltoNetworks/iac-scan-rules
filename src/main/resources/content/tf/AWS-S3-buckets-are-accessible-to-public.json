@@ -4,5 +4,6 @@
   "id": "ded75b65-7ef6-4239-a08f-d4d9a4eb218b",
   "enabled": true,
   "resourceType": "s3",
-  "policy": "AWS S3 buckets are accessible to public"
+  "policy": "AWS S3 buckets are accessible to public",
+  "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks."
 }

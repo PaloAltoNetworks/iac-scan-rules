@@ -2,6 +2,7 @@
   "severity": "medium",
   "resourceType": "kubernetes engine",
   "policy": "GCP Kubernetes Engine Clusters have Legacy Authorization enabled",
+  "description": "This policy identifies GCP Kubernetes Engine Clusters which have enabled legacy authorizer. The legacy authorizer in Kubernetes Engine grants broad and statically defined permissions to all cluster users. After legacy authorizer setting is disabled, RBAC can limit permissions for authorized users based on need.",
   "rule": "$.resource[*].google_container_cluster.*.*[*].enable_legacy_abac anyTrue",
   "id": "3a8dde2f-ee02-4d51-bcd1-b119c0207226",
   "enabled": true

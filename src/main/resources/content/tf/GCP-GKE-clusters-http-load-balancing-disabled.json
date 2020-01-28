@@ -2,6 +2,7 @@
   "severity": "low",
   "resourceType": "kubernetes engine",
   "policy": "GCP Kubernetes Engine Clusters have HTTP load balancing disabled",
+  "description": "This policy identifies GCP Kubernetes Engine Clusters which have disabled HTTP load balancing. HTTP/HTTPS load balancing provides global load balancing for HTTP/HTTPS requests destined for your instances. Enabling HTTP/HTTPS load balancers will let the Kubernetes Engine to terminate unauthorized HTTP/HTTPS requests and make better context-aware load balancing decisions.",
   "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*].disabled anyTrue)",
   "id": "afb8ee15-96a4-4f32-83a5-c5f60c49de75",
   "enabled": true

@@ -3,6 +3,7 @@
   "rule": "($.resource[*].azurerm_network_security_rule exists and ($.resource[*].azurerm_network_security_rule.*[*].*.access contains Allow and $.resource[*].azurerm_network_security_rule.*[*].*.destination_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.source_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.destination_port_range contains 22 and $.resource[*].azurerm_network_security_rule.*[*].*.direction contains Inbound))",
   "id": "1eb0cd02-789a-4b96-8463-fb5583e40585",
   "enabled": true,
-  "resourceType": "nsg",
-  "policy": "Azure Network Security Group (NSG) allows SSH traffic from internet on port 22"
+  "resourceType": "Azure Network Security Group",
+  "policy": "Azure Network Security Group (NSG) allows SSH traffic from internet on port 22",
+  "description": "Blocking SSH port 22 will protect users from attacks like Account compromise."
 }

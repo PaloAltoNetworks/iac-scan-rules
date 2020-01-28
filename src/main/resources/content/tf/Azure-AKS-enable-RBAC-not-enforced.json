@@ -1,0 +1,9 @@
+{
+  "severity": "high",
+  "rule": "$.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control anyNull or $.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control[*].enabled anyFalse",
+  "id": "996f840b-49bf-4340-a117-803e96aa84d0",
+  "enabled": true,
+  "resourceType": "AKS",
+  "policy": "Azure AKS enable role-based access control (RBAC) not enforced",
+  "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.\n\nThis policy checks your AKS cluster RBAC setting and alerts if disabled."
+}
