@@ -4,54 +4,61 @@
   {
     "severity": "high",
     "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and !contains all",
+    "description": "Ensure that all capabilities are dropped.",
     "id": "4682a6f1-2a1b-4f5a-938c-cdd3fa421a63",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "all capabilities should be dropped"
+    "policy": "All capabilities should be dropped"
   },
   {
     "severity": "high",
     "rule": "$.spec.template.spec.containers[*].securityContext.privileged is true",
+    "description": "Ensure containers' privileged is false.",
     "id": "92714c07-d12b-4635-ae6a-514c5c428c5a",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "avoid running privileged containers "
+    "policy": "Avoid running privileged containers "
   },
   {
     "severity": "high",
     "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot exists and is false",
+    "description": "Ensure containers run as non-root.",
     "id": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "containers must be run as non-root"
+    "policy": "Containers must be run as non-root"
   },
   {
     "severity": "medium",
     "rule": "$.spec.template.spec.hostIPC is true",
+    "description": "Ensure not allowing sharing host IPC namespace.",
     "id": "344fb01c-7195-3e9f-47e1-c640733af43f",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "do not allow sharing host IPC namespace"
+    "policy": "Do not allow sharing host IPC namespace"
   },
   {
     "severity": "medium",
     "rule": "$.spec.template.spec.hostPID is true",
+    "description": "Ensure not allowing sharing host PID namespace.",
     "id": "4c5d00c1-8f60-40bc-9566-a5b4e019752a",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "do not allow sharing host PID namespace"
+    "policy": "Do not allow sharing host PID namespace"
   },
   {
     "severity": "low",
     "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes == ReadOnlyMany",
+    "description": "Ensure not allowing volume claims to be read by many nodes.",
     "id": "802f2ed9-0b0d-4627-bf1a-7cb0ccfdd71c",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "do not allow volume claims to be read by many nodes"
+    "policy": "Do not allow volume claims to be read by many nodes"
   },
   {
     "severity": "medium",
     "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes == ReadWriteMany",
+    "description": "Ensure not allowing volume claims to be read-write by many nodes.",
     "id": "f9bcb4b8-3f22-448a-8521-9e09e3a994e0",
     "enabled": true,
     "resourceType": "k8s",
@@ -60,38 +67,43 @@
   {
     "severity": "high",
     "rule": "$.spec.template.spec.securityContext.runAsUser < 1",
+    "description": "Ensure running containers as non-root.",
     "id": "314eba46-a376-43f6-9a0a-8517818301f1",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "do not run containers as root"
+    "policy": "Do not run containers as root"
   },
   {
     "severity": "medium",
     "rule": "$.spec.template.spec.containers[*].securityContext.capabilities exists and $.spec.template.spec.containers[*].securityContext.capabilities.add[*] is member of (FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE)",
+    "description": "Ensure not running containers with dangerous capabilities.",
     "id": "135420a6-3206-4c29-b944-846f65cea43e",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "do not run containers with dangerous capabilities"
+    "policy": "Do not run containers with dangerous capabilities"
   },
   {
     "severity": "high",
     "rule": "$.spec.template.spec.hostNetwork is true",
+    "description": "Ensure not sharing host network with containers.",
     "id": "99544e17-fc8f-4c77-963e-083ab80c53b0 ",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "do not share host network with containers"
+    "policy": "Do not share host network with containers"
   },
   {
     "severity": "medium",
     "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and  is false",
+    "description": "Ensure containers are immutable.",
     "id": "c448b01c-7f95-4e9f-97e1-c640733af44f",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "ensure containers are immutable "
+    "policy": "Ensure containers are immutable "
   },
   {
     "severity": "medium",
     "rule": "$.spec.template.spec.containers[*].securityContext.runAsUser < 9999",
+    "description": "Ensure entrypoint of the container runs with a user with a high ID.",
     "id": "6e06b1a6-7eea-4730-91c2-9ac3fb676dce",
     "enabled": true,
     "resourceType": "k8s",

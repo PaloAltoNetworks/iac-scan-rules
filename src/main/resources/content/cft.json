@@ -4,14 +4,16 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.LoggingConfiguration any null",
+    "description": "This policy identifies S3 CloudTrail buckets for which access is disabled.S3 Bucket access logging generates access records for each request made to your S3 bucket. An access log record contains information such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket",
     "id": "4daa435b-fa46-457a-9359-6a4b4a43a442",
     "enabled": true,
     "resourceType": "s3",
-    "policy": "AWS Access logging not enabled on S3 buckets"
+    "policy": "AWS S3 CloudTrail buckets for which access logging is disabled"
   },
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail any null or $.Resources.*[?(@.Type=='AWS::CloudTrail::Trail')].Properties.IsMultiRegionTrail anyFalse",
+    "description": "Checks to ensure that CloudTrail is enabled across all regions. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to turn on CloudTrail across different regions to get a complete audit trail of activities across various services. ",
     "id": "c1ad39ed-5341-43cb-8266-4d93a2033d75",
     "enabled": true,
     "resourceType": "AWS cloudtrail",
@@ -20,13 +22,15 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type == 'AWS::CloudTrail::Trail')] size > 0 and  ($.Resources.*[?( @.Type == 'AWS::CloudTrail::Trail' )].Properties.KMSKeyId anyNull or $.Resources.*[?( @.Type == 'AWS::CloudTrail::Trail' )].Properties.KMSKeyId anyEmpty )",
+    "description": "Checks to ensure that CloudTrail logs are encrypted. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to encrypt the CloudTrail data since it may contain sensitive information.",
     "id": "7d618dd9-e061-4e14-bc7b-812c0394bbef",
     "enabled": true,
     "resourceType": "cloudtrail",
-    "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys"
+    "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys (CMKs)"
   },
   {
     "severity": "medium",
+    "description": "Checks to ensure that CMKs are rotated periodically. AWS KMS (Key Management Service) allows customers to create master keys to encrypt sensitive data in different services. As a security best practice, it is important to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys",
     "rule": "$.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation any null or $.Resources.*[?(@.Type=='AWS::KMS::Key')].Properties.EnableKeyRotation anyFalse",
     "id": "6ae8d0a5-4794-438c-aafa-200f94b45f1f",
     "enabled": true,
@@ -36,6 +40,7 @@
   {
     "severity": "high",
     "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Privileged any equal true",
+    "description": "Ensure your ECS containers are not given elevated privileges on the host container instance.\n\nWhen the Privileged parameter is true, the container is given elevated privileges on the host container instance (similar to the root user).\n\nThis policy checks the security configuration of your task definition and alerts if elevated privileges are enabled.\n\nNote: This parameter is not supported for Windows containers or tasks using the Fargate launch type.",
     "id": "38026e84-451b-4290-a008-562eeb36212a",
     "enabled": true,
     "resourceType": "ecs",
@@ -44,6 +49,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].LogConfiguration any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].LogConfiguration.LogDriver any null",
+    "description": "Check if AWS ECS task definition logging is enabled",
     "id": "404b49c0-ad7e-41a7-94ae-587901872524",
     "enabled": true,
     "resourceType": "ecs",
@@ -52,6 +58,7 @@
   {
     "severity": "low",
     "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].ReadonlyRootFilesystem any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].ReadonlyRootFilesystem any equal false",
+    "description": "Check if AWS ECS task definition readonlyRootFilesystem is enabled",
     "id": "0f4959be-5d2d-41cf-aa45-08bb4c13121f",
     "enabled": true,
     "resourceType": "ecs",
@@ -60,6 +67,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any equal 0 or ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any null and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any null) or  ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any equal 0 and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any equal 0)",
+    "description": "Check if AWS ECS task definition resource limits are set",
     "id": "44a82298-64d1-4b4b-a9ad-eeda02448975",
     "enabled": true,
     "resourceType": "ecs",
@@ -67,6 +75,7 @@
   },
   {
     "severity": "medium",
+    "description": "VPC support for Amazon ES is easy to configure, reliable, and offers an extra layer of security. With VPC support, traffic between other services and Amazon ES stays entirely within the AWS network, isolated from the public Internet. You can manage network access using existing VPC security groups, and you can use AWS Identity and Access Management (IAM) policies for additional protection. VPC support for Amazon ES domains is available at no additional charge.",
     "rule": "$.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions any null or ($.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions exists and $.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions.SubnetIds any null)",
     "id": "3b745764-1d47-4adf-a023-18b95dcd713e",
     "enabled": true,
@@ -75,6 +84,7 @@
   },
   {
     "severity": "medium",
+    "description": "This policy identifies IAM policies attached to user.By default, IAM users, groups, and roles have no access to AWS resources. IAM policies are the means by which privileges are granted to users, groups, or roles. It is recommended that IAM policies be applied directly to groups and roles but not users.",
     "rule": "$.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users exists and $.Resources.*[?(@.Type=='AWS::IAM::Policy')].Properties.Users[*] is not empty",
     "id": "c441b20b-5daf-4862-b383-798b61c72819",
     "enabled": true,
@@ -83,6 +93,7 @@
   },
   {
     "severity": "medium",
+    "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups.",
     "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] size greater than 0 and (not $.Resources.*[?(@.Type == 'AWS::RDS::EventSubscription')].Properties[?(@.SourceType == 'db-security-group')].Enabled anyTrue)",
     "id": "5b3c12cf-eef5-42de-afbe-4e80e1dfe600",
     "enabled": false,
@@ -92,6 +103,7 @@
   {
     "severity": "high",
     "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.StorageEncrypted any equal false",
+    "description": "This policy identifies AWS RDS instances which are not encrypted. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up and manage databases. Amazon allows customers to turn on encryption for RDS which is recommended for compliance and security reasons.",
     "id": "34fa9efb-d18f-41e4-b93f-2f7e5378752c",
     "enabled": true,
     "resourceType": "rds",
@@ -100,6 +112,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.MultiAZ any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.MultiAZ any false",
+    "description": "This policy identifies RDS instances which have Multi-Availability Zone(Multi-AZ) disabled. When RDS DB instance is enabled with Multi-AZ, RDS automatically creates a primary DB Instance and synchronously replicates the data to a standby instance in a different availability zone. These Multi-AZ deployments will improve primary node reachability by providing read replica in case of network connectivity loss or loss of availability in the primary\u2019s availability zone for read/write operations, so by making them the best fit for production database workloads.",
     "id": "f606fe0b-2950-42ce-a3b2-7f100ece5c3a",
     "enabled": true,
     "resourceType": "rds",
@@ -108,6 +121,7 @@
   {
     "severity": "low",
     "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.CopyTagsToSnapshot any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.CopyTagsToSnapshot any equal false",
+    "description": "This policy identifies RDS instances which have copy tags to snapshots disabled. Copy tags to snapshots copies all the user-defined tags from the DB instance to snapshots. Copying tags allow you to add metadata and apply access policies to your Amazon RDS resources.",
     "id": "8a910436-344a-4bd9-9359-239a3ca13b99",
     "enabled": true,
     "resourceType": "rds",
@@ -116,6 +130,7 @@
   {
     "severity": "low",
     "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.BackupRetentionPeriod any equal 0",
+    "description": "This policy identifies RDS instances which are not set with the Automatic Backup setting. If Automatic Backup is set, RDS creates a storage volume snapshot of your DB instance, backing up the entire DB instance and not just individual databases which provide for point-in-time recovery. The automatic backup will happen during the specified backup window time and keeps the backups for a limited period of time as defined in the retention period. It is recommended to set Automatic backups for your critical RDS servers that will help in the data restoration process.",
     "id": "f81d0239-3633-4828-a499-d2d1b1219a5c",
     "enabled": true,
     "resourceType": "rds",
@@ -123,6 +138,7 @@
   },
   {
     "severity": "high",
+    "description": "This policy identifies AWS RDS snapshots which are accessible to public. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to setup and manage databases. If RDS snapshots are inadvertently shared to public, any unauthorized user with AWS console access can gain access to the snapshots and gain access to sensitive data.",
     "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and $.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')].Properties.PubliclyAccessible anyTrue",
     "id": "d68f9185-422e-42d3-b673-b1aef528012c",
     "enabled": true,
@@ -132,6 +148,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.PubliclyAccessible any true",
+    "description": "This policy identifies AWS Redshift clusters which are accessible publicly.",
     "id": "d65fd313-1c5c-42a1-98b2-a73bdeda19a6",
     "enabled": true,
     "resourceType": "redshift",
@@ -140,6 +157,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.LoggingProperties any null",
+    "description": "Audit logging is not enabled by default in Amazon Redshift. When you enable logging on your cluster, Amazon Redshift creates and uploads logs to Amazon S3 that capture data from the creation of the cluster to the present time.",
     "id": "91c941aa-d110-4b33-9934-aadd86b1a4d9",
     "enabled": true,
     "resourceType": "redshift",
@@ -148,6 +166,7 @@
   {
     "severity": "high",
     "rule": "$.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.Encrypted any null or $.Resources.*[?(@.Type=='AWS::Redshift::Cluster')].Properties.Encrypted anyFalse",
+    "description": "This policy identifies AWS Redshift instances which are not encrypted. These instances should be encrypted for clusters to help protect data at rest which otherwise can result in a data breach.",
     "id": "0132bbb2-c733-4c36-9c5d-c58967c7d1a6",
     "enabled": true,
     "resourceType": "redshift",
@@ -156,6 +175,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration does not exist or ($.Resources[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration exists and $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.VersioningConfiguration.Status contains Suspended)",
+    "description": "This policy identifies the S3 buckets which have Object Versioning disabled. S3 Object Versioning is an important capability in protecting your data within a bucket. Once you enable Object Versioning, you cannot remove it; you can suspend Object Versioning at any time on a bucket if you do not wish for it to persist. It is recommended to enable Object Versioning on S3.",
     "id": "8ec3f878-0f5e-4782-b4cd-98018b217be5",
     "enabled": true,
     "resourceType": "s3",
@@ -164,6 +184,7 @@
   {
     "severity": "high",
     "rule": "($.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicRead or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.AccessControl any equal PublicReadWrite)",
+    "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks.",
     "id": "bbb01285-7fc6-4649-85c0-6ab9f08bde4f",
     "enabled": true,
     "resourceType": "s3",
@@ -172,6 +193,7 @@
   {
     "severity": "low",
     "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption any null or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption.ServerSideEncryptionConfiguration[*].ServerSideEncryptionByDefault.SSEAlgorithm any null",
+    "description": "Customers can protect the data in S3 buckets using the AWS server-side encryption. If the server-side encryption is not turned on for S3 buckets with sensitive data, in the event of a data breach, malicious users can gain access to the data.\n\nNOTE: Do NOT enable this policy if you are using 'Server-Side Encryption with Customer-Provided Encryption Keys (SSE-C).'",
     "id": "ff6a3231-bb09-4fba-82ea-46ee3228a9f2",
     "enabled": true,
     "resourceType": "s3",
@@ -180,6 +202,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type == 'AWS::SNS::Subscription')].Properties.Protocol contains http",
+    "description": "This policy identifies SNS subscriptions using HTTP instead of HTTPS as the delivery protocol in order to enforce SSL encryption for all subscription requests. It is strongly recommended use only HTTPS-based subscriptions by implementing secure SNS topic policies.",
     "id": "b53e5177-96e1-4999-a9c8-6400190910bb",
     "enabled": true,
     "resourceType": "sns",
@@ -188,6 +211,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type == 'AWS::SQS::Queue')].Properties.KmsMasterKeyId contains alias/aws/sqs",
+    "description": "This policy identifies SQS queues which are encrypted with default KMS keys and not with Customer Master Keys(CMKs). It is a best practice to use customer managed Master Keys to encrypt your SQS queue messages. It gives you full control over the encrypted messages data.",
     "id": "0a626f64-d911-4366-b7dc-629a6557d7b5",
     "enabled": true,
     "resourceType": "sqs",
@@ -196,6 +220,7 @@
   {
     "severity": "medium",
     "rule": "$.Resources.*[?(@.Type == 'AWS::EC2::Subnet')].Properties.MapPublicIpOnLaunch anyTrue",
+    "description": "This policy identifies VPC subnets which allow automatic public IP assignment. VPC subnet is a part of the VPC having its own rules for traffic. Assigning the Public IP to the subnet automatically (on launch) can accidentally expose the instances within this subnet to internet and should be edited to 'No' post creation of the Subnet.",
     "id": "11743cd3-35e4-4639-91e1-bc87b52d4cf5",
     "enabled": true,
     "resourceType": "ec2",
@@ -203,11 +228,12 @@
   },
   {
     "severity": "medium",
+    "description": "Check if AWS security group allow ingress traffic from blocked ports - 21,22,135,137-139,445,69",
     "rule": "$.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '22' && @.ToPort == '22' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '22' && @.ToPort == '22' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '21' && @.ToPort == '21' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '21' && @.ToPort == '21' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '5800' && @.ToPort == '5800' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '5800' && @.ToPort == '5800' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '5900' && @.ToPort == '5900' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '5900' && @.ToPort == '5900' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '2323' && @.ToPort == '2323' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '2323' && @.ToPort == '2323' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '23' && @.ToPort == '23' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '23' && @.ToPort == '23' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '25' && @.ToPort == '25' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '25' && @.ToPort == '25' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '110' && @.ToPort == '110' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '110' && @.ToPort == '110' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '143' && @.ToPort == '143' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '143' && @.ToPort == '143' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == '-1' && @.FromPort == '53' && @.ToPort == '53' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '53' && @.ToPort == '53' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'udp' && @.FromPort == '135' && @.ToPort == '135' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '135' && @.ToPort == '135' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == '-1' && @.FromPort == '137' && @.ToPort == '137' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '137' && @.ToPort == '137' && @.CidrIp6 == '::/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'udp' && @.FromPort == '69' && @.ToPort == '69' && @.CidrIp == '0.0.0.0/0')] size greater than 0 or $.Resources.*[?(@.Type == 'AWS::EC2::SecurityGroup')].Properties.SecurityGroupIngress[?(@.IpProtocol == 'tcp' && @.FromPort == '69' && @.ToPort == '69' && @.CidrIp6 == '::/0')] size greater than 0",
     "id": "b95c4df5-7881-4dda-85ea-fb8c83600d03",
     "enabled": true,
-    "resourceType": "AWS security group ingress ports",
-    "policy": "AWS security group allows traffic from blocked ports"
+    "resourceType": "security group",
+    "policy": "AWS security group allow ingress traffic from blocked ports - 21,22,135,137-139,445,69"
   }
 ]
 }
