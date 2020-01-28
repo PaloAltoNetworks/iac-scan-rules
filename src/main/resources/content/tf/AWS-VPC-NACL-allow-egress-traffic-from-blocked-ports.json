@@ -1,7 +1,8 @@
 {
   "severity": "medium",
   "resourceType": "AWS NACL egress rules",
-  "policy": "AWS VPC NACL allow egress traffic from blocked ports",
+  "policy": "AWS VPC NACL allows egress traffic from blocked ports",
+  "description": "Ensure AWS VPC NACL blocks egress traffic from blocked ports",
   "rule": "$.resource[*].aws_network_acl exists and $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].action==allow",
   "id": "de727ef6-60b0-46b9-a056-29830952c986",
   "enabled": true
