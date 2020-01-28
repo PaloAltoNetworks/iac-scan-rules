@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0",
+  "id": "80db150d-f437-4d0a-b7ef-a93ac2fbe6da",
+  "enabled": true,
+  "resourceType": "azurerm_app_service",
+  "policy": "Azure App Service Web app doesn't use latest .Net Core version",
+  "description": "Periodically, newer versions are released for .Net Core software either due to security flaws or to include additional functionality. Using the latest .Net Core version for web apps is recommended in order to take advantage of security fixes, if any."
+}
