@@ -4,5 +4,6 @@
   "id": "4682a6f1-2a1b-4f5a-938c-cdd3fa421a63",
   "enabled": true,
   "resourceType": "k8s",
-  "policy": "all capabilities should be dropped"
+  "policy": "All capabilities should be dropped",
+  "description": "Ensure that all capabilities are dropped."
 }

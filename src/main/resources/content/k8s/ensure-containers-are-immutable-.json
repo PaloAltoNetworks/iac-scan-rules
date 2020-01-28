@@ -4,5 +4,6 @@
   "id": "c448b01c-7f95-4e9f-97e1-c640733af44f",
   "enabled": true,
   "resourceType": "k8s",
-  "policy": "ensure containers are immutable "
+  "policy": "Ensure containers are immutable ",
+  "description": "Ensure containers are immutable."
 }

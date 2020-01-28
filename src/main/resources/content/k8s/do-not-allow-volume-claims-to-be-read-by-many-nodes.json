@@ -4,5 +4,6 @@
   "id": "802f2ed9-0b0d-4627-bf1a-7cb0ccfdd71c",
   "enabled": true,
   "resourceType": "k8s",
-  "policy": "do not allow volume claims to be read by many nodes"
+  "policy": "Do not allow volume claims to be read by many nodes",
+  "description": "Ensure not allowing volume claims to be read by many nodes."
 }

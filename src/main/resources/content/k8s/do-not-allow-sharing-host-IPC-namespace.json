@@ -4,5 +4,6 @@
   "id": "344fb01c-7195-3e9f-47e1-c640733af43f",
   "enabled": true,
   "resourceType": "k8s",
-  "policy": "do not allow sharing host IPC namespace"
+  "policy": "Do not allow sharing host IPC namespace",
+  "description": "Ensure not allowing sharing host IPC namespace."
 }

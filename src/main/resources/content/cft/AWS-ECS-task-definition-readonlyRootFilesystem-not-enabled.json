@@ -4,5 +4,6 @@
   "id": "0f4959be-5d2d-41cf-aa45-08bb4c13121f",
   "enabled": true,
   "resourceType": "ecs",
-  "policy": "AWS ECS task definition readonlyRootFilesystem not enabled"
+  "policy": "AWS ECS task definition readonlyRootFilesystem not enabled",
+  "description": "Check if AWS ECS task definition readonlyRootFilesystem is enabled"
 }

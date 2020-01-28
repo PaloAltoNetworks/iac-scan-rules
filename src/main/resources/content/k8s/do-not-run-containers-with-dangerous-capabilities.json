@@ -4,5 +4,6 @@
   "id": "135420a6-3206-4c29-b944-846f65cea43e",
   "enabled": true,
   "resourceType": "k8s",
-  "policy": "do not run containers with dangerous capabilities"
+  "policy": "Do not run containers with dangerous capabilities",
+  "description": "Ensure not running containers with dangerous capabilities."
 }
