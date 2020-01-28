@@ -1,1 +1,9 @@
-{"severity":"high","rule":"$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and !contains all","id":"4682a6f1-2a1b-4f5a-938c-cdd3fa421a63","enabled":true,"resourceType":"k8s","policy":"all capabilities should be dropped"}
+{
+  "severity": "high",
+  "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and !contains all",
+  "id": "4682a6f1-2a1b-4f5a-938c-cdd3fa421a63",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "All capabilities should be dropped",
+  "description": "Ensure that all capabilities are dropped."
+}

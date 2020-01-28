@@ -1,1 +1,9 @@
-{"severity":"medium","rule":"$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.LoggingConfiguration any null","id":"4daa435b-fa46-457a-9359-6a4b4a43a442","enabled":true,"resourceType":"s3","policy":"AWS Access logging not enabled on S3 buckets"}
+{
+  "severity": "medium",
+  "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.LoggingConfiguration any null",
+  "id": "4daa435b-fa46-457a-9359-6a4b4a43a442",
+  "enabled": true,
+  "resourceType": "s3",
+  "policy": "AWS S3 CloudTrail buckets for which access logging is disabled",
+  "description": "This policy identifies S3 CloudTrail buckets for which access is disabled.S3 Bucket access logging generates access records for each request made to your S3 bucket. An access log record contains information such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket"
+}

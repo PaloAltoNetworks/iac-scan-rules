@@ -4,5 +4,6 @@
   "id": "b53e5177-96e1-4999-a9c8-6400190910bb",
   "enabled": true,
   "resourceType": "sns",
-  "policy": "AWS SNS subscription is not configured with HTTPS"
+  "policy": "AWS SNS subscription is not configured with HTTPS",
+  "description": "This policy identifies SNS subscriptions using HTTP instead of HTTPS as the delivery protocol in order to enforce SSL encryption for all subscription requests. It is strongly recommended use only HTTPS-based subscriptions by implementing secure SNS topic policies."
 }

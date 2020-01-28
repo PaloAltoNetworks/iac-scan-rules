@@ -1,1 +1,9 @@
-{"severity":"low","rule":"$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.CopyTagsToSnapshot any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.CopyTagsToSnapshot any equal false","id":"8a910436-344a-4bd9-9359-239a3ca13b99","enabled":true,"resourceType":"rds","policy":"AWS RDS instance with copy tags to snapshots disabled"}
+{
+  "severity": "low",
+  "rule": "$.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.CopyTagsToSnapshot any null or $.Resources.*[?(@.Type=='AWS::RDS::DBInstance')].Properties.CopyTagsToSnapshot any equal false",
+  "id": "8a910436-344a-4bd9-9359-239a3ca13b99",
+  "enabled": true,
+  "resourceType": "rds",
+  "policy": "AWS RDS instance with copy tags to snapshots disabled",
+  "description": "This policy identifies RDS instances which have copy tags to snapshots disabled. Copy tags to snapshots copies all the user-defined tags from the DB instance to snapshots. Copying tags allow you to add metadata and apply access policies to your Amazon RDS resources."
+}

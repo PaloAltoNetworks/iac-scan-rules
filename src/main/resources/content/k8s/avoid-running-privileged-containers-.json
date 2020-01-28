@@ -1,1 +1,9 @@
-{"severity":"high","rule":"$.spec.template.spec.containers[*].securityContext.privileged is true","id":"92714c07-d12b-4635-ae6a-514c5c428c5a","enabled":true,"resourceType":"k8s","policy":"avoid running privileged containers "}
+{
+  "severity": "high",
+  "rule": "$.spec.template.spec.containers[*].securityContext.privileged is true",
+  "id": "92714c07-d12b-4635-ae6a-514c5c428c5a",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "Avoid running privileged containers ",
+  "description": "Ensure containers' privileged is false."
+}

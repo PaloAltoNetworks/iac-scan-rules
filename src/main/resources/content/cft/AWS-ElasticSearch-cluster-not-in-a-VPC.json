@@ -2,6 +2,7 @@
 	"severity": "medium",
 	"resourceType": "elasticsearch",
 	"policy": "AWS ElasticSearch cluster not in a VPC",
+	"description": "VPC support for Amazon ES is easy to configure, reliable, and offers an extra layer of security. With VPC support, traffic between other services and Amazon ES stays entirely within the AWS network, isolated from the public Internet. You can manage network access using existing VPC security groups, and you can use AWS Identity and Access Management (IAM) policies for additional protection. VPC support for Amazon ES domains is available at no additional charge.",
 	"rule": "$.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions any null or ($.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions exists and $.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions.SubnetIds any null)",
 	"id": "3b745764-1d47-4adf-a023-18b95dcd713e",
 	"enabled": true

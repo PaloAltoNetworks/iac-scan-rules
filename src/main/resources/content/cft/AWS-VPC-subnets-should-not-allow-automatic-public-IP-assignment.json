@@ -4,5 +4,6 @@
   "id": "11743cd3-35e4-4639-91e1-bc87b52d4cf5",
   "enabled": true,
   "resourceType": "ec2",
-  "policy": "AWS VPC subnets should not allow automatic public IP assignment"
+  "policy": "AWS VPC subnets should not allow automatic public IP assignment",
+  "description": "This policy identifies VPC subnets which allow automatic public IP assignment. VPC subnet is a part of the VPC having its own rules for traffic. Assigning the Public IP to the subnet automatically (on launch) can accidentally expose the instances within this subnet to internet and should be edited to 'No' post creation of the Subnet."
 }
