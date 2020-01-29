@@ -1,0 +1,42 @@
+{
+  "resource": [
+    {
+      "azurerm_key_vault_secret": [
+        {
+          "example": [
+            {
+              "key_vault_id": "${azurerm_key_vault.example.id}",
+              "name": "secret-sauce",
+              "tags": [
+                {
+                  "environment": "Production"
+                }
+              ],
+              "expiration_date": "2020-01-01",
+              "value": "szechuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "azurerm_key_vault_secret": [
+        {
+          "example2": [
+            {
+              "key_vault_id": "${azurerm_key_vault.example.id}",
+              "name": "secret-sauce-2",
+              "tags": [
+                {
+                  "environment": "Production"
+                }
+              ],
+              "expiration_date": "2020-01-01",
+              "value": "szechuan-2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
