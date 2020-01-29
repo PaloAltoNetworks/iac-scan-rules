@@ -75,6 +75,10 @@ public class ContentTest {
         Assert.fail("policy not defined in file: "+ file + ", rule: " + rule.toString());
       }
 
+      if (isEmpty(rule.getDescription())) {
+        Assert.fail("Description not defined in file: "+ file + ", in rule: " + rule.toString());
+      }
+
       if (isEmpty(rule.getSeverity())) {
         Assert.fail("Severity not defined in file: "+ file + ", in rule: " + rule.toString());
       }
