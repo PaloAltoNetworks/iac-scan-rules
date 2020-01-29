@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?(  @.min_tls_version!='1.2' && @.min_tls_version )] size greater than 0",
+  "id": "92eeece2-1cbd-4a64-8e15-439a2712e04b",
+  "enabled": true,
+  "resourceType": "App Service",
+  "policy": "Azure App Service Web app doesn't use latest TLS version",
+  "description": "Check if Azure app service uses latest TLS version"
+}
