@@ -300,6 +300,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_monitor_log_profile size greater than 0 and ( $.resource.*.azurerm_monitor_log_profile[*].*[*].retention_policy size equals 0 or $.resource.*.azurerm_monitor_log_profile[*].*[*].retention_policy[*].enabled anyFalse or $.resource.*.azurerm_monitor_log_profile[*].*[*].retention_policy[?(@.days<365)] size greater than 0 )",
+    "description": "A Log Profile controls how your Activity Log is exported and retained. Since the average time to detect a breach is over 200 days, it is recommended to retain your activity log for 365 days or more in order to have time to respond to any incidents.",
+    "id": "57f993df-20ae-4953-9548-537023d43e8e",
+    "enabled": true,
+    "resourceType": "Azure Activity Log",
+    "policy": "Activity Log Retention should not be set to less than 365 days"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only anyNull or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
     "description": "Azure Web Apps allows sites to run under both HTTP and HTTPS by default. Web apps can be accessed by anyone using non-secure HTTP links by default. Non-secure HTTP requests can be restricted and all HTTP requests redirected to the secure HTTPS port. It is recommended to enforce HTTPS-only traffic.",
     "id": "3555e091-5af1-4ad2-b77e-5b1867d2d496",
