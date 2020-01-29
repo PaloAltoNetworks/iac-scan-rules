@@ -1,0 +1,43 @@
+{
+  "resource": [
+    {
+      "azurerm_sql_database": [
+        {
+          "test2": [
+            {
+              "location": "North Central US",
+              "name": "sqldbtf01",
+              "provisioner": [
+                {
+                  "local-exec": [
+                    {
+                      "command": "Set-AzureRmSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName dummyresourcename  -ServerName dummyservername -DatabaseName 'sqldbsrvrtf01' -WeeklyRetention P12W -YearlyRetention P5Y -WeekOfYear 16 ",
+                      "interpreter": [
+                        "PowerShell",
+                        "-Command"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "resource_group_name": "dummyresourcename",
+              "server_name": "dummyservername",
+              "threat_detection_policy": [
+                {
+                  "email_addresses": [
+                    "dbgrl93@gmail.com"
+                  ],
+                  "retention_days": 91,
+                  "state": "Enabled",
+                  "storage_account_access_key": "dummystorageaccountaccesskey",
+                  "storage_endpoint": "dummystorageenpoint",
+                  "use_server_default": "Enabled"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
