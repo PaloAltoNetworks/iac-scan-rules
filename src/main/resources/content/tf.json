@@ -327,6 +327,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?(  @.min_tls_version!='1.2' && @.min_tls_version )] size greater than 0",
+    "description": "Check if Azure app service uses latest TLS version",
+    "id": "92eeece2-1cbd-4a64-8e15-439a2712e04b",
+    "enabled": true,
+    "resourceType": "App Service",
+    "policy": "Azure App Service Web app doesn't use latest TLS version"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].auth_settings[*].enabled anyFalse or $.resource.*.azurerm_app_service[*].*[*].auth_settings anyNull ",
     "description": "Azure App Service Authentication is a feature that can prevent anonymous HTTP requests from reaching the API app, or authenticate those that have tokens before they reach the API app. If an anonymous request is received from a browser, App Service will redirect to a logon page. To handle the logon process, a choice from a set of identity providers can be made, or a custom authentication mechanism can be implemented.",
     "id": "d8d4a039-2b04-48c9-80fc-70341eba5c34",
@@ -372,12 +381,30 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_sql_active_directory_administrator size equals 0)",
+    "description": "Checks to ensure that SQL servers are configured with Active Directory admin authentication. Azure Active Directory authentication is a mechanism of connecting to Microsoft Azure SQL Database and SQL Data Warehouse by using identities in Azure Active Directory (Azure AD). With Azure AD authentication, you can centrally manage the identities of database users and other Microsoft services in one central location.",
+    "id": "48aeadef-967d-46eb-b28c-48c1cca76689",
+    "enabled": true,
+    "resourceType": "Azure SQL Server",
+    "policy": "SQL servers which do not have Azure Active Directory admin configured"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_storage_account size greater than 0 and ($.resource.*.azurerm_storage_account[*].*[*].network_rules anyNull or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].bypass anyNull or not ( $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].bypass allEqual \"AzureServices\" ))",
     "description": "Some Microsoft services that interact with storage accounts operate from networks that can't be granted access through network rules. To help this type of service work as intended, allow the set of trusted Microsoft services to bypass the network rules. These services will then use strong authentication to access the storage account. If the Allow trusted Microsoft services exception is enabled, the following services: Azure Backup, Azure Site Recovery, Azure DevTest Labs, Azure Event Grid, Azure Event Hubs, Azure Networking, Azure Monitor and Azure SQL Data Warehouse (when registered in the subscription), are granted access to the storage account.",
     "id": "3b26ab70-6d7e-4f8f-808f-d41d3709f02f",
     "enabled": true,
     "resourceType": "Azure Storage Account",
     "policy": "Azure Storage Account 'Trusted Microsoft Services' access not enabled"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_virtual_machine size greater than 0 and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointSecurity and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain TrendMicroDSA and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain Antimalware and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointProtection and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain SCWPAgent and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain PortalProtectExtension and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain FileSecurity",
+    "description": "This policy identifies Azure Virtual Machines (VMs) that do not have endpoint protection installed. Installing endpoint protection systems (like Antimalware for Azure) provides for real-time protection capability that helps identify and remove viruses, spyware, and other malicious software. As a best practice, install endpoint protection on all VMs and computers to help identify and remove viruses, spyware, and other malicious software.",
+    "id": "8a44e87f-7d8c-4867-977e-8d2a500d205d",
+    "enabled": true,
+    "resourceType": "Azure Virtual Machine",
+    "policy": "Azure Virtual Machine does not have endpoint protection installed"
   },
   {
     "severity": "low",
@@ -498,6 +525,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
+    "description": "This policy identifies VM instances have IP forwarding enabled. IP Forwarding could open unintended and undesirable communication paths and allows VM instances to send and receive packets with the non-matching destination or source IPs. To enable source and destination IP match check, disable the IP Forwarding.",
+    "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
+    "enabled": true,
+    "resourceType": "GCP VM instances",
+    "policy": "GCP VM instances have IP forwarding enabled"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource[*].google_container_cluster[*].*[*].node_config anyNull or $.resource[*].google_container_cluster[*].*[*].node_config[*].service_account anyNull",
     "description": "This policy identifies Kubernetes Engine Cluster Nodes which have default Service account for Project access. By default, Kubernetes Engine nodes are given the Compute Engine default service account. This account has broad access and more permissions than are required to run your Kubernetes Engine cluster. You should create and use a least privileged service account to run your Kubernetes Engine cluster instead of using the Compute Engine default service account. If you are not creating a separate service account for your nodes, you should limit the scopes of the node service account to reduce the possibility of a privilege escalation in an attack.",
     "id": "f125951d-f5c0-4ca6-aab2-d443485e04a1",
@@ -567,15 +603,6 @@
     "enabled": true,
     "resourceType": "storage",
     "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)"
-  },
-  {
-    "severity": "medium",
-    "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
-    "description": "This policy identifies VM instances have IP forwarding enabled. IP Forwarding could open unintended and undesirable communication paths and allows VM instances to send and receive packets with the non-matching destination or source IPs. To enable source and destination IP match check, disable the IP Forwarding.",
-    "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
-    "enabled": true,
-    "resourceType": "GCP VM instances",
-    "policy": "GCP VM instances have IP forwarding enabled"
   },
   {
     "severity": "medium",
