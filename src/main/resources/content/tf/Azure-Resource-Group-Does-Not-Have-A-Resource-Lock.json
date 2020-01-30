@@ -1,0 +1,9 @@
+ {
+ "severity": "low",
+ "rule": "$.resource[*].azurerm_resource_group exist and $.resource[*].azurerm_management_lock does not exist",
+ "id": "09b349bc-1bf4-40e3-9781-a88041f72c3a",
+ "enabled": true,
+ "resourceType": "Azure Resource Manager",
+ "policy": "Azure Resource Group Does Not Have A Resource Lock",
+ "description": "Azure Resource Manager locks provide a way to lock down Azure resources from being deleted or modified. The lock level can be set to either 'CanNotDelete' or 'ReadOnly'. When you apply a lock at a parent scope, all resources within the scope inherit the same lock, and the most restrictive lock takes precedence.This policy identifies Azure Resource Groups that do not have a lock set. As a best practice, place a lock on important resources to prevent accidental or malicious modification or deletion by unauthorized users."
+}
