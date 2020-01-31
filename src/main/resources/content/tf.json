@@ -336,6 +336,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0",
+    "description": "Periodically, newer versions are released for .Net Core software either due to security flaws or to include additional functionality. Using the latest .Net Core version for web apps is recommended in order to take advantage of security fixes, if any.",
+    "id": "80db150d-f437-4d0a-b7ef-a93ac2fbe6da",
+    "enabled": true,
+    "resourceType": "azurerm_app_service",
+    "policy": "Azure App Service Web app doesn't use latest .Net Core version"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].identity anyNull",
     "description": "Managed service identity in App Service makes the app more secure by eliminating secrets from the app, such as credentials in the connection strings. When registering with Azure Active Directory in the app service, the app will connect to other Azure services securely without the need of username and passwords.",
     "id": "d18a4314-cb4d-40f7-b21b-47287690771f",
