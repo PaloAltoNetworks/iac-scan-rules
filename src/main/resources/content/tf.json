@@ -462,6 +462,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_storage_account size greater than 0 and (  $.resource.*.azurerm_storage_account_network_rules[*].*[*].default_action anyEqual \"Allow\" or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].default_action  anyEqual \"Allow\" )",
+    "description": "Restricting default network access helps to provide a new layer of security, since storage accounts accept connections from clients on any network. To limit access to selected networks, the default action must be changed.",
+    "id": "33a61dcf-b5fd-4ec4-a63a-626d487147a9",
+    "enabled": true,
+    "resourceType": "Azure Storage Account",
+    "policy": "Azure Storage Account default network access is set to 'Allow'"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_virtual_machine size greater than 0 and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointSecurity and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain TrendMicroDSA and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain Antimalware and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointProtection and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain SCWPAgent and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain PortalProtectExtension and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain FileSecurity",
     "description": "This policy identifies Azure Virtual Machines (VMs) that do not have endpoint protection installed. Installing endpoint protection systems (like Antimalware for Azure) provides for real-time protection capability that helps identify and remove viruses, spyware, and other malicious software. As a best practice, install endpoint protection on all VMs and computers to help identify and remove viruses, spyware, and other malicious software.",
     "id": "8a44e87f-7d8c-4867-977e-8d2a500d205d",
