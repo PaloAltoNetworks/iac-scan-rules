@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_addresses  anyNull",
+  "id": "62aca69d-f97b-4c86-b6cb-15b1a5f034ff",
+  "enabled": true,
+  "resourceType": "Azure SQL Server",
+  "policy": "Azure SQL Server advanced data security does not have an email alert recipient",
+  "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL Servers that do not have an email address configured for ADS alert notifications. As a best practice, provide one or more email addresses where you want to receive alerts for any anomalous activities detected on SQL Servers."
+}
