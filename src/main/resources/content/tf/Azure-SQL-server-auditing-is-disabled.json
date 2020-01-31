@@ -1,0 +1,9 @@
+{
+  "severity": "high",
+  "rule": "$.resource.*.azurerm_sql_database size greater than 0 and ($.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled)",
+  "id": "93d51bdf-8b83-4d51-b478-b4775f24e517",
+  "enabled": true,
+  "resourceType": "Azure SQL Server",
+  "policy": "Azure SQL server auditing is disabled",
+  "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings."
+} 
