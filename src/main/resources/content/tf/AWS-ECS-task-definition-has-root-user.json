@@ -2,7 +2,7 @@
   "severity": "low",
   "resourceType": "ECS task definition",
   "policy": "AWS ECS/ Fargate task definition root user found",
-  "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.\n\nThe User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run\n\nNote: This parameter is not supported for Windows containers.",
+  "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.The User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run.Note: This parameter is not supported for Windows containers.",
   "rule": "$.resource[*].aws_ecs_task_definition[*].*[*].container_definitions[?(@.user=='root')] exists",
   "id": "d7cf6d0e-e515-4d0f-b93d-c88932c60172",
   "enabled": true
