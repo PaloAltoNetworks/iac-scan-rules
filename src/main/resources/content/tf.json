@@ -416,6 +416,15 @@
     "policy": "Azure SQL Server advanced data security is disabled"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins  anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins anyFalse",
+    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators\u2014service and co-administrator\u2014can receive email alerts when anomalous activities are detected on the SQL Servers.",
+    "id": "a314dc57-c167-4cc4-99cd-da2652a9d79a",
+    "enabled": true,
+    "resourceType": "Azure SQL Server",
+    "policy": "Azure SQL Server advanced data security does not send alerts to service and co-administrators"
+  },
+  {
     "severity": "high",
     "rule": "$.resource.*.azurerm_sql_database size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy size greater than 0 and ($.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].retention_days anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[?( @.retention_days<91 )] size greater than 0)",
     "description": "Audit Logs can help you find suspicious events, unusual activity, and trends. Auditing the SQL server, at the server-level, allows you to track all existing and newly created databases on the instance. This policy identifies SQL servers which do not retain audit logs for more than 90 days. As a best practice, configure the audit logs retention time period to be greater than 90 days.",
