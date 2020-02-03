@@ -40,7 +40,7 @@
   {
     "severity": "high",
     "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Privileged any equal true",
-    "description": "Ensure your ECS containers are not given elevated privileges on the host container instance.\n\nWhen the Privileged parameter is true, the container is given elevated privileges on the host container instance (similar to the root user).\n\nThis policy checks the security configuration of your task definition and alerts if elevated privileges are enabled.\n\nNote: This parameter is not supported for Windows containers or tasks using the Fargate launch type.",
+    "description": "Ensure your ECS containers are not given elevated privileges on the host container instance.When the Privileged parameter is true, the container is given elevated privileges on the host container instance (similar to the root user).This policy checks the security configuration of your task definition and alerts if elevated privileges are enabled.Note: This parameter is not supported for Windows containers or tasks using the Fargate launch type.",
     "id": "38026e84-451b-4290-a008-562eeb36212a",
     "enabled": true,
     "resourceType": "ecs",
@@ -193,7 +193,7 @@
   {
     "severity": "low",
     "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption any null or $.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.BucketEncryption.ServerSideEncryptionConfiguration[*].ServerSideEncryptionByDefault.SSEAlgorithm any null",
-    "description": "Customers can protect the data in S3 buckets using the AWS server-side encryption. If the server-side encryption is not turned on for S3 buckets with sensitive data, in the event of a data breach, malicious users can gain access to the data.\n\nNOTE: Do NOT enable this policy if you are using 'Server-Side Encryption with Customer-Provided Encryption Keys (SSE-C).'",
+    "description": "Customers can protect the data in S3 buckets using the AWS server-side encryption. If the server-side encryption is not turned on for S3 buckets with sensitive data, in the event of a data breach, malicious users can gain access to the data.NOTE: Do NOT enable this policy if you are using 'Server-Side Encryption with Customer-Provided Encryption Keys (SSE-C).'",
     "id": "ff6a3231-bb09-4fba-82ea-46ee3228a9f2",
     "enabled": true,
     "resourceType": "s3",

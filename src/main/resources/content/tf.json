@@ -66,7 +66,7 @@
   },
   {
     "severity": "low",
-    "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.\n\nThe User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run\n\nNote: This parameter is not supported for Windows containers.",
+    "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.The User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run.Note: This parameter is not supported for Windows containers.",
     "rule": "$.resource[*].aws_ecs_task_definition[*].*[*].container_definitions[?(@.user=='root')] exists",
     "id": "d7cf6d0e-e515-4d0f-b93d-c88932c60172",
     "enabled": true,
@@ -292,7 +292,7 @@
   {
     "severity": "high",
     "rule": "$.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control anyNull or $.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control[*].enabled anyFalse",
-    "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.\n\nThis policy checks your AKS cluster RBAC setting and alerts if disabled.",
+    "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.This policy checks your AKS cluster RBAC setting and alerts if disabled.",
     "id": "996f840b-49bf-4340-a117-803e96aa84d0",
     "enabled": true,
     "resourceType": "AKS",
@@ -373,7 +373,7 @@
   {
     "severity": "medium",
     "rule": "$.resource.*.azurerm_key_vault_secret[*].*[*].expiration_date anyNull",
-    "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly.\n\nBefore you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html\n\nAlternatively, run the following command on the Azure cloud shell:\naz keyvault list | jq '.[].name' | xargs -I {} az keyvault set-policy --name {} --certificate-permissions list listissuers --key-permissions list --secret-permissions list --spn <redlock_app_id>",
+    "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly Before you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html",
     "id": "b8905f18-5d8a-4d4a-aded-e139a3432fa7",
     "enabled": true,
     "resourceType": "Azure Key Vault Key",
@@ -409,7 +409,7 @@
   {
     "severity": "medium",
     "rule": " $.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_mssql_server_security_alert_policy size == 0 or  $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].state anyEqual \"Disabled\" or $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].retention_days anyNull )",
-    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers.",
+    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.This policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers.",
     "id": "049cb412-96a9-4c93-8561-35857eaf3d78",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -477,6 +477,15 @@
     "enabled": true,
     "resourceType": "Azure Virtual Machine",
     "policy": "Azure Virtual Machine does not have endpoint protection installed"
+  },
+  {
+    "severity": "high",
+    "rule": "$.resource.*.azurerm_storage_blob size greater than 0 and $.resource.*.azurerm_storage_container size greater than 0 and $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual blob or $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual container",
+    "description": "This policy identifies blob containers within an Azure storage account that allow anonymous/public access ('CONTAINER' or 'BLOB'). As a best practice, do not allow anonymous/public access to blob containers unless you have a very good reason. Instead, you should consider using a shared access signature token for providing controlled and time-limited access to blob containers.",
+    "id": "752634a3-943b-4cc7-b378-2c1ec5fd59f6",
+    "enabled": true,
+    "resourceType": "azurerm_storage_blob",
+    "policy": "Azure storage accounts has blob container(s) with public access"
   },
   {
     "severity": "low",
@@ -579,7 +588,7 @@
   },
   {
     "severity": "medium",
-    "description": "Application-layer Secrets Encryption provides an additional layer of security for sensitive data, such as Secrets, stored in etcd. Using this functionality, you can use a key, that you manage in Cloud KMS, to encrypt data at the application layer. This protects against attackers who gain access to an offline copy of etcd.\n\nThis policy checks your cluster for the Application-layer Secrets Encryption security feature and alerts if it is not enabled.",
+    "description": "Application-layer Secrets Encryption provides an additional layer of security for sensitive data, such as Secrets, stored in etcd. Using this functionality, you can use a key, that you manage in Cloud KMS, to encrypt data at the application layer. This protects against attackers who gain access to an offline copy of etcd.This policy checks your cluster for the Application-layer Secrets Encryption security feature and alerts if it is not enabled.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
     "enabled": true,
@@ -588,7 +597,7 @@
   },
   {
     "severity": "medium",
-    "description": "Istio is an open service mesh that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic flows between services, enforcing access policies, and aggregating telemetry data, all without requiring changes to the microservice code.\n\nThis policy checks your cluster for the Istio add-on feature and alerts if it is not enabled.",
+    "description": "Istio is an open service mesh that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic flows between services, enforcing access policies, and aggregating telemetry data, all without requiring changes to the microservice code.This policy checks your cluster for the Istio add-on feature and alerts if it is not enabled.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] anyNull  or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyNull or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyTrue)",
     "id": "6afc115a-d9f9-45e8-9716-6a4204621074",
     "enabled": true,
@@ -706,7 +715,7 @@
   {
     "severity": "medium",
     "rule": "$.resource[*].google_sql_database_instance exists and $.resource[*].google_sql_ssl_cert !exists",
-    "description": "Checks to verify that the SSL configuration for the SQL instance is valid with an unexpired SSL certificate.\n        Cloud SQL supports connecting to an instance using the Secure Socket Layer (SSL) protocol. If you are not connecting to an instance by using Cloud SQL Proxy, you should use SSL, so that the data you send and receive from Google Cloud SQL is secure.",
+    "description": "Checks to verify that the SSL configuration for the SQL instance is valid with an unexpired SSL certificate. Cloud SQL supports connecting to an instance using the Secure Socket Layer (SSL) protocol. If you are not connecting to an instance by using Cloud SQL Proxy, you should use SSL, so that the data you send and receive from Google Cloud SQL is secure.",
     "id": "06362923-51f1-4cc7-95bf-86ecf96b63e8",
     "enabled": true,
     "resourceType": "Google SQL instances",
