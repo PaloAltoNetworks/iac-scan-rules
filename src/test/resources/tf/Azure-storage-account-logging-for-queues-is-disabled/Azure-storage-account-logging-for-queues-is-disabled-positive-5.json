@@ -1,0 +1,136 @@
+{
+    "resource": [
+        {
+            "azurerm_resource_group": [
+                {
+                    "example": [
+                        {
+                            "location": "West Europe",
+                            "name": "example-resources"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "azurerm_virtual_network": [
+                {
+                    "example": [
+                        {
+                            "address_space": [
+                                "10.0.0.0/16"
+                            ],
+                            "location": "${azurerm_resource_group.example.location}",
+                            "name": "virtnetname",
+                            "resource_group_name": "${azurerm_resource_group.example.name}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "azurerm_subnet": [
+                {
+                    "example": [
+                        {
+                            "address_prefix": "10.0.2.0/24",
+                            "name": "subnetname",
+                            "resource_group_name": "${azurerm_resource_group.example.name}",
+                            "service_endpoints": [
+                                "Microsoft.Sql",
+                                "Microsoft.Storage"
+                            ],
+                            "virtual_network_name": "${azurerm_virtual_network.example.name}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "azurerm_storage_account": [
+                {
+                    "example": [
+                        {
+                            "account_replication_type": "LRS",
+                            "account_tier": "Standard",
+                            "location": "${azurerm_resource_group.example.location}",
+                            "name": "storageaccountname",
+                            "network_rules": [
+                                {
+                                    "default_action": "Deny",
+                                    "ip_rules": [
+                                        "100.0.0.1"
+                                    ],
+                                    "virtual_network_subnet_ids": [
+                                        "${azurerm_subnet.example.id}"
+                                    ]
+                                }
+                            ],
+                            "queue_properties": [
+                                {
+                                    "logging": [
+                                        {
+                                            "delete": true,
+                                            "read": true,
+                                            "version": true,
+                                            "write": true
+                                        }
+                                    ]
+                                }
+                            ],
+                            "resource_group_name": "${azurerm_resource_group.example.name}",
+                            "tags": [
+                                {
+                                    "environment": "staging"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "azurerm_storage_account": [
+                {
+                    "example2": [
+                        {
+                            "account_replication_type": "LRS",
+                            "account_tier": "Standard",
+                            "location": "${azurerm_resource_group.example.location}",
+                            "name": "storageaccountname",
+                            "network_rules": [
+                                {
+                                    "default_action": "Deny",
+                                    "ip_rules": [
+                                        "100.0.0.1"
+                                    ],
+                                    "virtual_network_subnet_ids": [
+                                        "${azurerm_subnet.example.id}"
+                                    ]
+                                }
+                            ],
+                            "queue_properties": [
+                                {
+                                    "logging": [
+                                        {
+                                            "delete": false,
+                                            "read": true,
+                                            "version": true,
+                                            "write": true
+                                        }
+                                    ]
+                                }
+                            ],
+                            "resource_group_name": "${azurerm_resource_group.example.name}",
+                            "tags": [
+                                {
+                                    "environment": "staging"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
