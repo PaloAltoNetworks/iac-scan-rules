@@ -5,5 +5,5 @@
   "enabled": true,
   "resourceType": "Azure SQL Server",
   "policy": "Azure SQL Server advanced data security does not send alerts to service and co-administrators",
-  "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators—service and co-administrator—can receive email alerts when anomalous activities are detected on the SQL Servers."
+  "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification. This policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators—service and co-administrator—can receive email alerts when anomalous activities are detected on the SQL Servers."
 }
