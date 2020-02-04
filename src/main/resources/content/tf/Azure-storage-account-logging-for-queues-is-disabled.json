@@ -1,6 +1,6 @@
  {
  "severity": "Medium",
- "rule": "$.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.* size > 0 and ($.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.delete isFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.read isFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.write isFalse )",
+ "rule": "$.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.* size > 0 and ($.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.delete anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.read anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.write anyFalse )",
  "id": "1e4ec093-3bd8-4853-a539-f8b95d89882e",
  "enabled": true,
  "resourceType": "Azure Storage Account",
