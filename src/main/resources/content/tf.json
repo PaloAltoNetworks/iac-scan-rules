@@ -418,7 +418,7 @@
   {
     "severity": "medium",
     "rule": "$.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins  anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins anyFalse",
-    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators\u2014service and co-administrator\u2014can receive email alerts when anomalous activities are detected on the SQL Servers.",
+    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification. This policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators\u2014service and co-administrator\u2014can receive email alerts when anomalous activities are detected on the SQL Servers.",
     "id": "a314dc57-c167-4cc4-99cd-da2652a9d79a",
     "enabled": true,
     "resourceType": "Azure SQL Server",
