@@ -1,6 +1,6 @@
  {
  "severity": "low",
- "rule": "$.resource[*].azurerm_resource_group exist and $.resource[*].azurerm_management_lock does not exist",
+ "rule": "$.resource[*].azurerm_resource_group exists and $.resource[*].azurerm_management_lock does not exist",
  "id": "09b349bc-1bf4-40e3-9781-a88041f72c3a",
  "enabled": true,
  "resourceType": "Azure Resource Manager",
