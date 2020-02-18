@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_storage_account size greater than 0 and (  $.resource.*.azurerm_storage_account_network_rules[*].*[*].default_action anyEqual \"Allow\" or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].default_action  anyEqual \"Allow\" )",
+  "id": "33a61dcf-b5fd-4ec4-a63a-626d487147a9",
+  "enabled": true,
+  "resourceType": "Azure Storage Account",
+  "policy": "Azure Storage Account default network access is set to 'Allow'",
+  "description": "Restricting default network access helps to provide a new layer of security, since storage accounts accept connections from clients on any network. To limit access to selected networks, the default action must be changed."
+}

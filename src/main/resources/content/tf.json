@@ -66,7 +66,7 @@
   },
   {
     "severity": "low",
-    "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.\n\nThe User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run\n\nNote: This parameter is not supported for Windows containers.",
+    "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.The User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run.Note: This parameter is not supported for Windows containers.",
     "rule": "$.resource[*].aws_ecs_task_definition[*].*[*].container_definitions[?(@.user=='root')] exists",
     "id": "d7cf6d0e-e515-4d0f-b93d-c88932c60172",
     "enabled": true,
@@ -292,7 +292,7 @@
   {
     "severity": "high",
     "rule": "$.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control anyNull or $.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control[*].enabled anyFalse",
-    "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.\n\nThis policy checks your AKS cluster RBAC setting and alerts if disabled.",
+    "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.This policy checks your AKS cluster RBAC setting and alerts if disabled.",
     "id": "996f840b-49bf-4340-a117-803e96aa84d0",
     "enabled": true,
     "resourceType": "AKS",
@@ -336,6 +336,15 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0",
+    "description": "Periodically, newer versions are released for .Net Core software either due to security flaws or to include additional functionality. Using the latest .Net Core version for web apps is recommended in order to take advantage of security fixes, if any.",
+    "id": "80db150d-f437-4d0a-b7ef-a93ac2fbe6da",
+    "enabled": true,
+    "resourceType": "azurerm_app_service",
+    "policy": "Azure App Service Web app doesn't use latest .Net Core version"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].identity anyNull",
     "description": "Managed service identity in App Service makes the app more secure by eliminating secrets from the app, such as credentials in the connection strings. When registering with Azure Active Directory in the app service, the app will connect to other Azure services securely without the need of username and passwords.",
     "id": "d18a4314-cb4d-40f7-b21b-47287690771f",
@@ -362,6 +371,15 @@
     "policy": "Azure App Service Web app authentication is off"
   },
   {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_key_vault_secret[*].*[*].expiration_date anyNull",
+    "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly Before you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html",
+    "id": "b8905f18-5d8a-4d4a-aded-e139a3432fa7",
+    "enabled": true,
+    "resourceType": "Azure Key Vault Key",
+    "policy": "Azure Key Vault secrets have no expiration date"
+  },
+  {
     "severity": "high",
     "rule": "($.resource[*].azurerm_network_security_rule exists and ($.resource[*].azurerm_network_security_rule.*[*].*.access contains Allow and $.resource[*].azurerm_network_security_rule.*[*].*.destination_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.source_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.destination_port_range contains 22 and $.resource[*].azurerm_network_security_rule.*[*].*.direction contains Inbound))",
     "description": "Blocking SSH port 22 will protect users from attacks like Account compromise.",
@@ -382,7 +400,7 @@
   {
     "severity": "medium",
     "rule": "$.resource.*.azurerm_network_security_group size greater than 0 and ($.resource.*.azurerm_network_watcher_flow_log size equals 0 or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].enabled anyNull or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].enabled anyFalse or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].retention_policy[*].enabled anyFalse or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].retention_policy[?( @.days<90 )] size greater than 0)",
-    "description": "This policy identifies Azure Network Security Groups (NSG) for which flow logs retention period is 90 days or less. To perform this check, enable this action on the Azure Service Principal: 'Microsoft.Network/networkWatchers/queryFlowLogStatus/action'.\n\nNSG flow logs, a feature of the Network Watcher app, enable you to view information about ingress and egress IP traffic through an NSG. The flow logs include information such as:\n- Outbound and inbound flows on a per-rule basis.\n- Network interface to which the flow applies.\n- 5-tuple information about the flow (source/destination IP, source/destination port, protocol).\n- Whether the traffic was allowed or denied.\n\nAs a best practice, enable NSG flow logs and set the log retention period to at least 90 days.",
+    "description": "This policy identifies Azure Network Security Groups (NSG) for which flow logs retention period is 90 days or less. To perform this check, enable this action on the Azure Service Principal: 'Microsoft.Network/networkWatchers/queryFlowLogStatus/action'. NSG flow logs, a feature of the Network Watcher app, enable you to view information about ingress and egress IP traffic through an NSG. As a best practice, enable NSG flow logs and set the log retention period to at least 90 days.",
     "id": "25f2b8ba-1044-470b-95dc-1d096e7b21c2",
     "enabled": true,
     "resourceType": "Azure Network Security Group",
@@ -391,11 +409,47 @@
   {
     "severity": "medium",
     "rule": " $.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_mssql_server_security_alert_policy size == 0 or  $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].state anyEqual \"Disabled\" or $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].retention_days anyNull )",
-    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.\n\nThis policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers.",
+    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.This policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers.",
     "id": "049cb412-96a9-4c93-8561-35857eaf3d78",
     "enabled": true,
     "resourceType": "Azure SQL Server",
     "policy": "Azure SQL Server advanced data security is disabled"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins  anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins anyFalse",
+    "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification. This policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators\u2014service and co-administrator\u2014can receive email alerts when anomalous activities are detected on the SQL Servers.",
+    "id": "a314dc57-c167-4cc4-99cd-da2652a9d79a",
+    "enabled": true,
+    "resourceType": "Azure SQL Server",
+    "policy": "Azure SQL Server advanced data security does not send alerts to service and co-administrators"
+  },
+  {
+    "severity": "high",
+    "rule": "$.resource.*.azurerm_sql_database size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy size greater than 0 and ($.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].retention_days anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[?( @.retention_days<91 )] size greater than 0)",
+    "description": "Audit Logs can help you find suspicious events, unusual activity, and trends. Auditing the SQL server, at the server-level, allows you to track all existing and newly created databases on the instance. This policy identifies SQL servers which do not retain audit logs for more than 90 days. As a best practice, configure the audit logs retention time period to be greater than 90 days.",
+    "id": "49f063ea-ea5f-443c-9453-1aa3b3360476",
+    "enabled": true,
+    "resourceType": "Azure SQL Server",
+    "policy": "Azure SQL Server audit log retention is less than 91 days"
+  },
+  {
+    "severity": "medium",
+    "rule": "$.resource.*.azurerm_sql_database size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].disabled_alerts[*] size greater than 0",
+    "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings.",
+    "id": "16513a66-2427-4fcf-a228-1b14a8e83dc2",
+    "enabled": true,
+    "resourceType": "Azure SQL Server",
+    "policy": "Azure SQL Server threat detection alerts not enabled for all threat types"
+  },
+  {
+    "severity": "high",
+    "rule": "$.resource.*.azurerm_sql_database size greater than 0 and ($.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled)",
+    "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings.",
+    "id": "93d51bdf-8b83-4d51-b478-b4775f24e517",
+    "enabled": true,
+    "resourceType": "Azure SQL Server",
+    "policy": "Azure SQL server auditing is disabled"
   },
   {
     "severity": "medium",
@@ -417,12 +471,39 @@
   },
   {
     "severity": "medium",
+    "rule": "$.resource.*.azurerm_storage_account size greater than 0 and (  $.resource.*.azurerm_storage_account_network_rules[*].*[*].default_action anyEqual \"Allow\" or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].default_action  anyEqual \"Allow\" )",
+    "description": "Restricting default network access helps to provide a new layer of security, since storage accounts accept connections from clients on any network. To limit access to selected networks, the default action must be changed.",
+    "id": "33a61dcf-b5fd-4ec4-a63a-626d487147a9",
+    "enabled": true,
+    "resourceType": "Azure Storage Account",
+    "policy": "Azure Storage Account default network access is set to 'Allow'"
+  },
+  {
+    "severity": "medium",
     "rule": "$.resource.*.azurerm_virtual_machine size greater than 0 and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointSecurity and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain TrendMicroDSA and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain Antimalware and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointProtection and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain SCWPAgent and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain PortalProtectExtension and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain FileSecurity",
     "description": "This policy identifies Azure Virtual Machines (VMs) that do not have endpoint protection installed. Installing endpoint protection systems (like Antimalware for Azure) provides for real-time protection capability that helps identify and remove viruses, spyware, and other malicious software. As a best practice, install endpoint protection on all VMs and computers to help identify and remove viruses, spyware, and other malicious software.",
     "id": "8a44e87f-7d8c-4867-977e-8d2a500d205d",
     "enabled": true,
     "resourceType": "Azure Virtual Machine",
     "policy": "Azure Virtual Machine does not have endpoint protection installed"
+  },
+  {
+    "severity": "Medium",
+    "rule": "$.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.* size > 0 and ($.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.delete anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.read anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.write anyFalse )",
+    "description": "Storage Logging records details of requests (read, write, and delete operations) against your Azure queues. The logs include additional information such as: 1) Tming and server latency. 2) Success or failure, and HTTP status code. 3) Authentication details This policy identifies Azure storage accounts that do not have logging enabled for queues. As a best practice, enable logging for read, write, and delete request types on queues.",
+    "id": "1e4ec093-3bd8-4853-a539-f8b95d89882e",
+    "enabled": true,
+    "resourceType": "Azure Storage Account",
+    "policy": "Azure storage account logging for queues is disabled"
+  },
+  {
+    "severity": "high",
+    "rule": "$.resource.*.azurerm_storage_blob size greater than 0 and $.resource.*.azurerm_storage_container size greater than 0 and $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual blob or $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual container",
+    "description": "This policy identifies blob containers within an Azure storage account that allow anonymous/public access ('CONTAINER' or 'BLOB'). As a best practice, do not allow anonymous/public access to blob containers unless you have a very good reason. Instead, you should consider using a shared access signature token for providing controlled and time-limited access to blob containers.",
+    "id": "752634a3-943b-4cc7-b378-2c1ec5fd59f6",
+    "enabled": true,
+    "resourceType": "azurerm_storage_blob",
+    "policy": "Azure storage accounts has blob container(s) with public access"
   },
   {
     "severity": "low",
@@ -525,7 +606,7 @@
   },
   {
     "severity": "medium",
-    "description": "Application-layer Secrets Encryption provides an additional layer of security for sensitive data, such as Secrets, stored in etcd. Using this functionality, you can use a key, that you manage in Cloud KMS, to encrypt data at the application layer. This protects against attackers who gain access to an offline copy of etcd.\n\nThis policy checks your cluster for the Application-layer Secrets Encryption security feature and alerts if it is not enabled.",
+    "description": "Application-layer Secrets Encryption provides an additional layer of security for sensitive data, such as Secrets, stored in etcd. Using this functionality, you can use a key, that you manage in Cloud KMS, to encrypt data at the application layer. This protects against attackers who gain access to an offline copy of etcd.This policy checks your cluster for the Application-layer Secrets Encryption security feature and alerts if it is not enabled.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
     "enabled": true,
@@ -534,7 +615,7 @@
   },
   {
     "severity": "medium",
-    "description": "Istio is an open service mesh that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic flows between services, enforcing access policies, and aggregating telemetry data, all without requiring changes to the microservice code.\n\nThis policy checks your cluster for the Istio add-on feature and alerts if it is not enabled.",
+    "description": "Istio is an open service mesh that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic flows between services, enforcing access policies, and aggregating telemetry data, all without requiring changes to the microservice code.This policy checks your cluster for the Istio add-on feature and alerts if it is not enabled.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] anyNull  or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyNull or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyTrue)",
     "id": "6afc115a-d9f9-45e8-9716-6a4204621074",
     "enabled": true,
@@ -652,7 +733,7 @@
   {
     "severity": "medium",
     "rule": "$.resource[*].google_sql_database_instance exists and $.resource[*].google_sql_ssl_cert !exists",
-    "description": "Checks to verify that the SSL configuration for the SQL instance is valid with an unexpired SSL certificate.\n        Cloud SQL supports connecting to an instance using the Secure Socket Layer (SSL) protocol. If you are not connecting to an instance by using Cloud SQL Proxy, you should use SSL, so that the data you send and receive from Google Cloud SQL is secure.",
+    "description": "Checks to verify that the SSL configuration for the SQL instance is valid with an unexpired SSL certificate. Cloud SQL supports connecting to an instance using the Secure Socket Layer (SSL) protocol. If you are not connecting to an instance by using Cloud SQL Proxy, you should use SSL, so that the data you send and receive from Google Cloud SQL is secure.",
     "id": "06362923-51f1-4cc7-95bf-86ecf96b63e8",
     "enabled": true,
     "resourceType": "Google SQL instances",

@@ -1,0 +1,9 @@
+{
+  "severity": "medium",
+  "rule": "$.resource.*.azurerm_key_vault_secret[*].*[*].expiration_date anyNull",
+  "id": "b8905f18-5d8a-4d4a-aded-e139a3432fa7",
+  "enabled": true,
+  "resourceType": "Azure Key Vault Key",
+  "policy": "Azure Key Vault secrets have no expiration date",
+  "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly Before you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html"
+}

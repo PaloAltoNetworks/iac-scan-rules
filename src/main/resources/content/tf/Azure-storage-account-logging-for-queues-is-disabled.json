@@ -1,0 +1,9 @@
+ {
+ "severity": "Medium",
+ "rule": "$.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.* size > 0 and ($.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.delete anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.read anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.write anyFalse )",
+ "id": "1e4ec093-3bd8-4853-a539-f8b95d89882e",
+ "enabled": true,
+ "resourceType": "Azure Storage Account",
+ "policy": "Azure storage account logging for queues is disabled",
+ "description": "Storage Logging records details of requests (read, write, and delete operations) against your Azure queues. The logs include additional information such as: 1) Tming and server latency. 2) Success or failure, and HTTP status code. 3) Authentication details This policy identifies Azure storage accounts that do not have logging enabled for queues. As a best practice, enable logging for read, write, and delete request types on queues."
+ }
