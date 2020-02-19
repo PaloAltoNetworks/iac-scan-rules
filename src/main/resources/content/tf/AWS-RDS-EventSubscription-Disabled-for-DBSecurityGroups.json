@@ -3,7 +3,12 @@
   "rule": "$.resource[*].aws_db_instance exists and ( $.resource[*].aws_db_event_subscription !exists or $.resource[*].aws_db_event_subscription[*].*[?(@.source_type=='db-security-group')] anyNull  or not $.resource[*].aws_db_event_subscription[*].*[?(@.source_type=='db-security-group')].enabled anyNull or $.resource[*].aws_db_event_subscription[*].*[?(@.source_type=='db-security-group')].enabled anyTrue )",
   "id": "b81ceb53-e21a-4456-a35b-ece94323637b",
   "enabled": true,
-  "resourceType": "aws_db_event_subscription",
+  "resourceType": "AWS RDS",
   "policy": "AWS RDS event subscription disabled for DB security groups",
-  "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups."
+  "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups.",
+  "recommendation":{
+    "name":"Recommended solution for enabling RDS event subscription for DB security group.",
+    "description":"Ensure that RDS event subscription is enabled for DB security group. Please make sure your template have \"enabled\" set to true for \"aws_db_event_subscription\" block.",
+    "snippet":"{\n      \"aws_db_event_subscription\": [\n        {\n          \"default\": [\n            {\n              \"event_categories\": [\n                \"availability\",\n                \"deletion\"\n              ],\n              \"name\": \"event-sub1\",\n              \"enabled\": true,\n              \"sns_topic\": \"${aws_sns_topic.default.arn}\",\n              \"source_ids\": [\n                \"${aws_db_instance.default.id}\"\n              ],\n              \"source_type\": \"db-security-group\"\n            }\n          ]\n        }\n      ]\n    }"
+  }
 }

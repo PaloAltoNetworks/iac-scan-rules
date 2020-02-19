@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "eks",
   "policy": "AWS EKS unsupported Master node version",
-  "description": "Ensure your EKS Master node version is supported. This policy checks your EKS master node version and generates an alert if the version running is unsupported."
+  "description": "Ensure your EKS Master node version is supported. This policy checks your EKS master node version and generates an alert if the version running is unsupported.",
+  "recommendation":{
+    "name":"Recommended solution for making sure EKS Master node version is supported.",
+    "description":"Ensure your EKS Master node version is supported. Please make sure your template does not have \"version\" attribute which has value starting with 1.9",
+    "snippet":"{\n      \"not_aws_eks_cluster\": [\n        {\n          \"example2\": [\n            {\n              \"name\": \"example\",\n              \"role_arn\": \"${aws_iam_role.example.arn}\",\n              \"version\": \"1.9.1\",\n              \"vpc_config\": [\n                {\n                  \"subnet_ids\": [\n                    \"${aws_subnet.example1.id}\",\n                    \"${aws_subnet.example2.id}\"\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }"
+  }
 }
