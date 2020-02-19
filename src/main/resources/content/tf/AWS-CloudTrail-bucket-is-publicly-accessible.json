@@ -5,5 +5,10 @@
    "description": "This policy identifies publicly accessible S3 buckets that store CloudTrail data. These buckets contains sensitive audit data and only authorized users and applications should have access.",
    "rule":"$.resource[*].aws_cloudtrail exists and $.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name equals $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket and  ($.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_acls isFalse or  $.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_policy isFalse)",
    "id":"fc24c16c-f3cc-43b0-aa0e-ba32f5e234d3",
-   "enabled":true
+   "enabled":true,
+   "recommendation":{
+      "name":"Recommended solution for disable public access to AWS S3 CloudTrail buckets.",
+      "description":"It is recommended that S3 bucket should not have public access. To do so, please make sure your template has the \"aws_s3_bucket_public_access_block\"block defined and \"block_public_acls\" attribute in it is set to true.",
+      "snippet":"{\n      \"aws_s3_bucket_public_access_block\": [\n        {\n          \"foo\": [\n            {\n              \"block_public_acls\": true,\n              \"block_public_policy\": true,\n              \"bucket\": \"${aws_s3_bucket.foo.id}\"\n            }\n          ]\n        }\n      ]\n    }"
+   }
 }
