@@ -3,7 +3,12 @@
   "rule": "($.resource[*].aws_security_group exists and ($.resource[*].aws_security_group.*[*].*.ingress[*].protocol equals -1 and ($.resource[*].aws_security_group.*[*].*.ingress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[*].ipv6_cidr_blocks[*] contains ::/0))) or ($.resource[*].aws_security_group_rule exists and ($.resource[*].aws_security_group_rule.*[*].*.protocol equals -1 and $.resource[*].aws_security_group_rule.*[*].*.type equals ingress and ($.resource[*].aws_security_group_rule.*[*].*.cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group_rule.*[*].*.ipv6_cidr_blocks[*] contains ::/0)))",
   "id": "eba4d571-4338-4f62-8110-9be6c4b47fd0",
   "enabled": true,
-  "resourceType": "security group",
+  "resourceType": "AWS Security Group",
   "policy": "AWS Security Groups with Inbound rule overly permissive to All Traffic",
-  "description": "This policy identifies AWS Security Groups which do allow inbound traffic on all protocols from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network."
+  "description": "This policy identifies AWS Security Groups which do allow inbound traffic on all protocols from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
+  "recommendation": {
+    "name": "Recommended solution for not allowing all ingress traffic",
+    "description": "Ensure that Security Group is not overly permissive to allow all ingress traffic. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" when \"protocol\" is set to -1.",
+    "snippet": "\"aws_security_group\": [\n        {\n          \"x\": [\n            {\n              \"description\": \"Allow TLS inbound traffic\",\n              \"ingress\": [\n                {\n                  \"cidr_blocks\": [\"10.0.0.0/16\"],\n                  \"protocol\": \"-1\"\n                }\n              ],\n              \"name\": \"allow_tls\",\n              \"vpc_id\": \"${aws_vpc.main.id}\"\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -5,5 +5,10 @@
   "description": "This policy identifies AWS Security Groups which do allow inbound traffic on SSH port (22) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
   "rule": "$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<23 && @.to_port>21 )].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<23 && @.to_port>21 )].ipv6_cidr_blocks[*] contains ::/0)",
   "id": "9745cb18-32f9-4411-a59c-fae4ffa362ce",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution for updating Security Group to not allow internet traffic to SSH port (22)",
+    "description": "It is recommended that Security Group should not allow internet traffic to SSH port. Please make sure that cidr attribute under ingress blocks is not set to 0.0.0.0/0  or ::/0 for port 22.",
+    "snippet": "\"ingress\": [\n                {\n                  \"cidr_blocks\": [\"10.0.0.0/16\"],\n                  \"protocol\": \"tcp\",\n                  \"from_port\": 22,\n                  \"to_port\": 22\n                }\n              ]"
+  }
 }

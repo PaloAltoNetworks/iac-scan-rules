@@ -5,5 +5,10 @@
   "description": "Ensure AWS VPC NACL blocks egress traffic from blocked ports",
   "rule": "$.resource[*].aws_network_acl exists and $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].action==allow",
   "id": "de727ef6-60b0-46b9-a056-29830952c986",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution for not allowing egress traffic from blocked ports in AWS VPC NACL",
+    "description": "Ensure that egress traffic is not allowed from blocked ports in AWS VPC NACL. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" for any of the blocked ports under egress block",
+    "snippet": "\"aws_network_acl\": [\n        {\n          \"main\": [\n            {\n              \"egress\": [\n                {\n                  \"action\": \"deny\",\n                  \"cidr_block\": \"0.0.0.0/0\",\n                  \"from_port\": 53,\n                  \"protocol\": \"-1\",\n                  \"rule_no\": 1200,\n                  \"to_port\": 53\n                }\n              ],\n              \"vpc_id\": \"${aws_vpc.demo.id}\"\n            }\n          ]\n        }\n      ]"
+  }
 }
