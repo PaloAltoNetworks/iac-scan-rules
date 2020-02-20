@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure Storage Account",
   "policy": "Azure Storage Account default network access is set to 'Allow'",
-  "description": "Restricting default network access helps to provide a new layer of security, since storage accounts accept connections from clients on any network. To limit access to selected networks, the default action must be changed."
+  "description": "Restricting default network access helps to provide a new layer of security, since storage accounts accept connections from clients on any network. To limit access to selected networks, the default action must be changed.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that the Storage account default network is not set to Allow.",
+    "description": "Ensure that Azure Storage Account default network access is set to Allow. Please make sure if your template have\"default_action\" set to \"Deny\" for \"network_rules\".",
+    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"example\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"default_action\": \"Deny\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
+  }
 }

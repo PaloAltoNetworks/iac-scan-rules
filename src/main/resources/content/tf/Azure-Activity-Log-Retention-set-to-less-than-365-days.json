@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure Activity Log",
   "policy": "Activity Log Retention should not be set to less than 365 days",
-  "description": "A Log Profile controls how your Activity Log is exported and retained. Since the average time to detect a breach is over 200 days, it is recommended to retain your activity log for 365 days or more in order to have time to respond to any incidents."
+  "description": "A Log Profile controls how your Activity Log is exported and retained. Since the average time to detect a breach is over 200 days, it is recommended to retain your activity log for 365 days or more in order to have time to respond to any incidents.",
+  "recommendation": {
+    "name": "Recommended solution setting Activity Log Retention to greater than or equal 365 day.",
+    "description": "It is recommended that Activity Log Retention should not be less than 365 day. Please make sure your template has the \"days\" under \"retention_policy\" set to 365 or greater.",
+    "snippet": "azurerm_monitor_log_profile\": [\n        {\n          \"example\": [\n            {\n              \n              \"name\": \"default\",\n              \"retention_policy\": [\n                {\n                  \"days\": 367,\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

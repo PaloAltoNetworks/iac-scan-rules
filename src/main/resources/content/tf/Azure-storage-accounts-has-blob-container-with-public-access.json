@@ -3,9 +3,14 @@
   "rule": "$.resource.*.azurerm_storage_blob size greater than 0 and $.resource.*.azurerm_storage_container size greater than 0 and $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual blob or $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual container",
   "id": "752634a3-943b-4cc7-b378-2c1ec5fd59f6",
   "enabled": true,
-  "resourceType": "azurerm_storage_blob",
+  "resourceType": "Azure Storage Blob",
   "policy": "Azure storage accounts has blob container(s) with public access",
-  "description": "This policy identifies blob containers within an Azure storage account that allow anonymous/public access ('CONTAINER' or 'BLOB'). As a best practice, do not allow anonymous/public access to blob containers unless you have a very good reason. Instead, you should consider using a shared access signature token for providing controlled and time-limited access to blob containers."
+  "description": "This policy identifies blob containers within an Azure storage account that allow anonymous/public access ('CONTAINER' or 'BLOB'). As a best practice, do not allow anonymous/public access to blob containers unless you have a very good reason. Instead, you should consider using a shared access signature token for providing controlled and time-limited access to blob containers.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that storage account does not have blob container(s) with public access.",
+    "description": "Ensure that Azure Storage Account does not have blob container(s) with public access. Please make sure the template has \"container_access_type\" set as \"private\"",
+    "snippet": "\"azurerm_storage_container\": [\n        {\n          \"example\": [\n            {\n              \"container_access_type\": \"private\",\n              \"name\": \"content\"\n            }\n          ]\n        }\n      ]"
+  }
 }
 
 

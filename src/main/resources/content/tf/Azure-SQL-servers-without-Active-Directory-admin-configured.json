@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure SQL Server",
   "policy": "SQL servers which do not have Azure Active Directory admin configured",
-  "description": "Checks to ensure that SQL servers are configured with Active Directory admin authentication. Azure Active Directory authentication is a mechanism of connecting to Microsoft Azure SQL Database and SQL Data Warehouse by using identities in Azure Active Directory (Azure AD). With Azure AD authentication, you can centrally manage the identities of database users and other Microsoft services in one central location."
+  "description": "Checks to ensure that SQL servers are configured with Active Directory admin authentication. Azure Active Directory authentication is a mechanism of connecting to Microsoft Azure SQL Database and SQL Data Warehouse by using identities in Azure Active Directory (Azure AD). With Azure AD authentication, you can centrally manage the identities of database users and other Microsoft services in one central location.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that SQL servers are configured with Active Directory admin authentication.",
+    "description": "Ensure that SQL servers are configured with Active Directory admin authentication. Please make sure if your template have \"azurerm_sql_active_directory_administrator\" defined.",
+    "snippet": "{\n      \"azurerm_sql_active_directory_administrator\": [\n        {\n          \"example\": [\n            {\n              \"login\": \"sqladmin\",\n              \"object_id\": \"${data.azurerm_client_config.current.object_id}\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"server_name\": \"${azurerm_sql_server.example.name}\",\n              \"tenant_id\": \"${data.azurerm_client_config.current.tenant_id}\"\n            }\n          ]\n        }\n      ]\n    }"
+  }
 }

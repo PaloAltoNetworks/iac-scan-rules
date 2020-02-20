@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "App Service",
   "policy": "Azure App Service Web app doesn't use latest TLS version",
-  "description": "Check if Azure app service uses latest TLS version"
+  "description": "Check if Azure app service uses latest TLS version",
+  "recommendation": {
+    "name": "Recommended solution for making sure App Service Web app uses latest TLS version",
+    "description": "It is recommended that Azure App Service Web app uses latest TLS version. Please make sure if your template have \"min_tls_version\", it is set to \"1.2\".",
+    "snippet": "azurerm_app_service\": [\n        {\n          \"example2\": [\n            {\n              \"site_config\": [\n                {\n                  \"dotnet_framework_version\": \"v4.0\",\n                  \"min_tls_version\": \"1.2\",\n                  \"scm_type\": \"LocalGit\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure SQL Server",
   "policy": "Azure SQL Server threat detection alerts not enabled for all threat types",
-  "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings."
+  "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings.",
+  "recommendation": {
+    "name": "Recommended solution for enabling threat detection alerts for all threat types.",
+    "description": "It is recommended to have Azure SQL Server threat detection alerts enabled for all threat types. Please make sure if your template have \"threat_detection_policy\" defined and it does not have \"disabled_alerts\" attribute defined.",
+    "snippet": "\"threat_detection_policy\": [\n                {\n                  \"email_addresses\": [\n                    \"dbgrl93@gmail.com\"\n                  ],\n                  \"retention_days\": 91,\n                  \"state\": \"Enabled\"\n                }\n              ]"
+  }
 } 
