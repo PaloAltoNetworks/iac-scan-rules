@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "GCP VM instances",
   "policy": "GCP VM instances have IP forwarding enabled",
-  "description": "This policy identifies VM instances have IP forwarding enabled. IP Forwarding could open unintended and undesirable communication paths and allows VM instances to send and receive packets with the non-matching destination or source IPs. To enable source and destination IP match check, disable the IP Forwarding."
+  "description": "This policy identifies VM instances have IP forwarding enabled. IP Forwarding could open unintended and undesirable communication paths and allows VM instances to send and receive packets with the non-matching destination or source IPs. To enable source and destination IP match check, disable the IP Forwarding.",
+  "recommendation": {
+    "name": "Recommended solution to disable VM instances IP forwarding.",
+    "description": "Ensure that GCP VM have IP forwarding disabled. Please make sure that in the template, \"can_ip_forward\" exists and is set to \"false\".",
+    "snippet": "\"google_compute_instance_template\": [\n                {\n                    \"default\": [\n                        {\n                            \"can_ip_forward\": false\n                        }\n                    ]\n                }\n            ]"
+  }
 }

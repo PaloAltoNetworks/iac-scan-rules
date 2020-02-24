@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "kms",
   "policy": "AWS Customer Master Key (CMK) rotation is not enabled",
-  "description": "Checks to ensure that CMKs are rotated periodically. AWS KMS (Key Management Service) allows customers to create master keys to encrypt sensitive data in different services. As a security best practice, it is important to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys"
+  "description": "Checks to ensure that CMKs are rotated periodically. AWS KMS (Key Management Service) allows customers to create master keys to encrypt sensitive data in different services. As a security best practice, it is important to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys",
+  "recommendation":{
+    "name":"Recommended solution for enabling AWS Customer Master Key (CMK)",
+    "description":"It is recommended to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys. Please make sure your template has \"kms_key_id\" atrribute under \"aws_kms_key\" is set to true.",
+    "snippet":"{\n      \"aws_kms_key\": [\n        {\n          \"b\": [\n            {\n              \"deletion_window_in_days\": 10,\n              \"enable_key_rotation\": true,\n              \"description\": \"KMS key 1\"\n            }\n          ]\n        }\n      ]\n    }"
+  }
 }

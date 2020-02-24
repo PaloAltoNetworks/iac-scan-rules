@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "s3",
   "policy": "AWS S3 buckets are accessible to public",
-  "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks."
+  "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks.",
+  "recommendation": {
+    "name": "Recommended solution for making AWS S3 bucket not accessible to public.",
+    "description": "Ensure that AWS S3 buckets are not accessible to public. Please make sure \"acl\" attribute is set to private under \"aws_s3_bucket\"",
+    "snippet": "\"aws_s3_bucket\": [\n        {\n          \"b\": [\n            {\n              \"acl\": \"private\",\n              \"bucket\": \"my-tf-test-bucket\",\n              \"tags\": [\n                {\n                  \"Environment\": \"Dev\",\n                  \"Name\": \"My bucket\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

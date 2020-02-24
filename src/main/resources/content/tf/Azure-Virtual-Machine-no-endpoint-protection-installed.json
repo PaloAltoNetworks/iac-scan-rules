@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure Virtual Machine",
   "policy": "Azure Virtual Machine does not have endpoint protection installed",
-  "description": "This policy identifies Azure Virtual Machines (VMs) that do not have endpoint protection installed. Installing endpoint protection systems (like Antimalware for Azure) provides for real-time protection capability that helps identify and remove viruses, spyware, and other malicious software. As a best practice, install endpoint protection on all VMs and computers to help identify and remove viruses, spyware, and other malicious software."
+  "description": "This policy identifies Azure Virtual Machines (VMs) that do not have endpoint protection installed. Installing endpoint protection systems (like Antimalware for Azure) provides for real-time protection capability that helps identify and remove viruses, spyware, and other malicious software. As a best practice, install endpoint protection on all VMs and computers to help identify and remove viruses, spyware, and other malicious software.",
+  "recommendation": {
+    "name": "Recommended solution to ensure Azure virtual machine has endpoint protection installed.",
+    "description": "Ensure that Azure Virtual Machine has endpoint protection installed. Please make sure the template have \"type\" set as one of the endpoint security.",
+    "snippet": "\"azurerm_virtual_machine_extension\": [\n        {\n          \"example\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"hostname\",\n              \"publisher\": \"McAfee.EndpointSecurity\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"type\": \"McAfeeEndpointSecurity\",\n              \"type_handler_version\": \"2.0\",\n              \"virtual_machine_name\": \"${azurerm_virtual_machine.example.name}\"\n            }\n          ]\n        }\n      ]"
+  }
 }

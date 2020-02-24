@@ -3,7 +3,12 @@
   "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only anyNull or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
   "id": "3555e091-5af1-4ad2-b77e-5b1867d2d496",
   "enabled": true,
-  "resourceType": "azurerm_app_service",
+  "resourceType": "Azure App Service",
   "policy": "Azure App Service Web app doesn't redirect HTTP to HTTPS",
-  "description": "Azure Web Apps allows sites to run under both HTTP and HTTPS by default. Web apps can be accessed by anyone using non-secure HTTP links by default. Non-secure HTTP requests can be restricted and all HTTP requests redirected to the secure HTTPS port. It is recommended to enforce HTTPS-only traffic."
+  "description": "Azure Web Apps allows sites to run under both HTTP and HTTPS by default. Web apps can be accessed by anyone using non-secure HTTP links by default. Non-secure HTTP requests can be restricted and all HTTP requests redirected to the secure HTTPS port. It is recommended to enforce HTTPS-only traffic.",
+  "recommendation": {
+    "name": "Recommended solution for redirecting HTTP to HTTPS.",
+    "description": "It is recommended that Azure App Service Web app redirects HTTP to HTTPS. Please make sure your template has \"https_only\" and it is set to true.",
+    "snippet": "\"azurerm_app_service\": [\n        {\n          \"dup\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"https_only\": true\n            }\n          ]\n        }\n      ]"
+  }
 }

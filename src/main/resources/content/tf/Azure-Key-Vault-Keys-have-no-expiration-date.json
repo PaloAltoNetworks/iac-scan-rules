@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure Key Vault Key",
   "policy": "Azure Key Vault secrets have no expiration date",
-  "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly Before you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html"
+  "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly Before you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html",
+  "recommendation": {
+    "name": "Recommended solution for having expiration date for Azure Key Vault secrets",
+    "description": "It is recommended that Azure Key Vault secrets should have an expiration date. Please make sure if your template have \"expiration_date\" field present.",
+    "snippet": "\"azurerm_key_vault_secret\": [\n        {\n          \"example2\": [\n            {\n              \"key_vault_id\": \"${azurerm_key_vault.example.id}\",\n              \"name\": \"secret-sauce-2\",\n              \"expiration_date\": \"2020-01-01\",\n              \"value\": \"szechuan-2\"\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "Azure Storage Account",
   "policy": "Azure Storage Account 'Trusted Microsoft Services' access not enabled",
-  "description": "Some Microsoft services that interact with storage accounts operate from networks that can't be granted access through network rules. To help this type of service work as intended, allow the set of trusted Microsoft services to bypass the network rules. These services will then use strong authentication to access the storage account. If the Allow trusted Microsoft services exception is enabled, the following services: Azure Backup, Azure Site Recovery, Azure DevTest Labs, Azure Event Grid, Azure Event Hubs, Azure Networking, Azure Monitor and Azure SQL Data Warehouse (when registered in the subscription), are granted access to the storage account."
+  "description": "Some Microsoft services that interact with storage accounts operate from networks that can't be granted access through network rules. To help this type of service work as intended, allow the set of trusted Microsoft services to bypass the network rules. These services will then use strong authentication to access the storage account. If the Allow trusted Microsoft services exception is enabled, the following services: Azure Backup, Azure Site Recovery, Azure DevTest Labs, Azure Event Grid, Azure Event Hubs, Azure Networking, Azure Monitor and Azure SQL Data Warehouse (when registered in the subscription), are granted access to the storage account.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that storage account 'Trusted Microsoft Services' access is enabled.",
+    "description": "Ensure that Azure Storage Account 'Trusted Microsoft Services' access is enabled. Please make sure the template has \"bypass\" set as AzureServices under \"network_rules\"",
+    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"example\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"bypass\": \"AzureServices\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
+  }
 }

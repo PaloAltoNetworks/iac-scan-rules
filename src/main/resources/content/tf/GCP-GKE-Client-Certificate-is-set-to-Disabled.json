@@ -5,5 +5,10 @@
   "description": "This policy identifies Kubernetes Engine Clusters which have disabled Client Certificate. A client certificate is a base64-encoded public certificate used by clients to authenticate to the cluster endpoint. Enabling Client Certificate will provide more security to authenticate users to the cluster.",
   "rule": "$.resource[*].google_container_cluster[*].*.*.master_auth[*].client_certificate_config[*].issue_client_certificate anyTrue",
   "id": "d07dbdce-2cd8-4b0c-b97e-ceb4d7e98952",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution to enable GCP Kubernetes Engine Clusters client certificate.",
+    "description": "Ensure that GCP Kubernetes Engine Clusters Client Certificate is enabled. Please make sure that if the template has \"issue_client_certificate\" under \"client_certificate_config\", it is set to true.",
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"initial_node_count\": 1,\n              \"location\": \"us-central1\",\n              \"master_auth\": [\n                {\n                  \"client_certificate_config\": [\n                    {\n                      \"issue_client_certificate\": true\n                    }\n                  ],\n                  \"password\": \"\",\n                  \"username\": \"\"\n                }\n              ],\n              \"name\": \"my-gke-cluster\",\n              \"remove_default_node_pool\": true\n            }\n          ]\n        }\n      ]"
+  }
 }

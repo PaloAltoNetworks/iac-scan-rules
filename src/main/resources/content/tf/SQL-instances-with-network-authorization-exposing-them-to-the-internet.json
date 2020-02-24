@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"GCP SQL DB Instance",
    "policy":"SQL Instances with network authorization exposing them to the Internet",
-   "description": "Checks to verify that the SQL instance should not have any authorization to allow network traffic to the internet."
+   "description": "Checks to verify that the SQL instance should not have any authorization to allow network traffic to the internet.",
+   "recommendation": {
+      "name": "Recommended solution to make sure SQL Instances network authorization doesn't expose them to Internet.",
+      "description": "Ensure that SQL Instances network authorization doesn't expose them to Internet. Please make sure that any of the values of \"authorized_networks\" under \"ip_configuration\" is not \"0.0.0.0/0\" or \"::/0\".",
+      "snippet": "\"ip_configuration\": [\n                    {\n                      \"authorized_networks\": [\n                        {\n                          \"expiration_time\": \"2017-11-15T16:19:00.094Z\",\n                          \"name\": \"misc\",\n                          \"value\": \"108.12.12.0/24\"\n                        },\n                        {\n                          \"expiration_time\": \"2017-11-15T16:19:00.094Z\",\n                          \"name\": \"another\",\n                          \"value\": \"101.0.0.0/16\"\n                        }\n                      ],\n                      \"ipv4_enabled\": \"true\"\n                    }\n                  ]"
+   }
 }

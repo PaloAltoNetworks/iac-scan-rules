@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "storage",
   "policy": "GCP Storage log buckets have object versioning disabled",
-  "description": "This policy identifies Storage log buckets which have object versioning disabled. Enabling object versioning on storage log buckets will protect your cloud storage data from being overwritten or accidentally deleted. It is recommended to enable object versioning feature on all storage buckets where sinks are configured."
+  "description": "This policy identifies Storage log buckets which have object versioning disabled. Enabling object versioning on storage log buckets will protect your cloud storage data from being overwritten or accidentally deleted. It is recommended to enable object versioning feature on all storage buckets where sinks are configured.",
+  "recommendation": {
+    "name": "Recommended solution to enable object versioning for GCP Storage log buckets.",
+    "description": "Ensure that GCP Storage buckets are not publicly accessible to all authenticated users. Please make sure that in the template, \"versioning\" has \"enabled\" set to \"true\".",
+    "snippet": "\"google_storage_bucket\": [\n        {\n          \"a\": [\n            {\n              \"name\": \"a-bucket\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

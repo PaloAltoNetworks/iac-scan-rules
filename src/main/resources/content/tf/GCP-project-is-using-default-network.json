@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"Google Project",
    "policy":"GCP Kubernetes Engine Clusters using the default network",
-   "description": "This policy identifies Google Kubernetes Engine (GKE) clusters that are configured to use the default network. Because GKE uses this network when creating routes and firewalls for the cluster, as a best practice define a network configuration that meets your security and networking requirements for ingress and egress traffic, instead of using the default network."
+   "description": "This policy identifies Google Kubernetes Engine (GKE) clusters that are configured to use the default network. Because GKE uses this network when creating routes and firewalls for the cluster, as a best practice define a network configuration that meets your security and networking requirements for ingress and egress traffic, instead of using the default network.",
+   "recommendation": {
+      "name": "Recommended solution for not using default network in Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters does not uses default network. Please make sure that the template has \"auto_create_network\" set as \"false\".",
+      "snippet": "{\n          \"project\": [\n            {\n              \"auto_create_network\": false,\n              \"folder_id\": \"something\",\n              \"name\": \"dummy\",\n              \"project_id\": \"abc\"\n            }\n          ]\n        }"
+   }
 }

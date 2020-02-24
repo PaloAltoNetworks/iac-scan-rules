@@ -5,5 +5,10 @@
   "description": "This policy identifies Kubernetes Engine Clusters which are not configured with the Private cluster. Private cluster makes your master inaccessible from the public internet and nodes do not have public IP addresses, so your workloads run in an environment that is isolated from the internet.",
   "rule": "$.resource[*].google_container_cluster exists and  ($.resource[*].google_container_cluster.*[*].*.private_cluster_config anyNull or $.resource[*].google_container_cluster.*[*].*.private_cluster_config[*].enable_private_nodes anyNull or $.resource[*].google_container_cluster.*[*].*.private_cluster_config[*].enable_private_nodes anyFalse) ",
   "id": "33a04b8d-970b-43c3-b584-c704695178ed",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution to configure Kubernetes Engine Clusters with private cluster.",
+    "description": "Ensure that GCP Kubernetes Engine Clusters are configured with private cluster. Please make sure that your template have \"private_cluster_config\" block with \"enable_private_nodes\" set to true.",
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"location\": \"us-central1\",\n              \"name\": \"my-gke-cluster\",\n              \"private_cluster_config\": [\n                {\n                  \"enable_private_nodes\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

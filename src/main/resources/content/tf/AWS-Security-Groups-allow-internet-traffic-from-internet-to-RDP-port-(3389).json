@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "security group",
   "policy": "AWS Security Groups allow internet traffic from internet to RDP port (3389)",
-  "description": "This policy identifies the security groups which is exposing RDP port (3389) to the internet. Security Groups do not allow inbound traffic on RDP port (3389) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network."
+  "description": "This policy identifies the security groups which is exposing RDP port (3389) to the internet. Security Groups do not allow inbound traffic on RDP port (3389) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
+  "recommendation": {
+    "name": "Recommended solution for updating Security Group to not allow internet traffic to RDP port (3389)",
+    "description": "It is recommended that Security Group should not allow internet traffic to RDP port (3389). Please make sure that cidr atrribute under ingress blocks is not set to 0.0.0.0/0 or ::/0 for port 22.",
+    "snippet": "\"ingress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"10.0.0.0/16\"\n                  ],\n                  \"from_port\": 3389,\n                  \"protocol\": \"tcp\",\n                  \"to_port\": 3389\n                }\n              ]"
+  }
 }

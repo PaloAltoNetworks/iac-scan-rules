@@ -5,5 +5,10 @@
  "enabled": true,
  "resourceType": "Azure Storage Account",
  "policy": "Azure storage account logging for queues is disabled",
- "description": "Storage Logging records details of requests (read, write, and delete operations) against your Azure queues. The logs include additional information such as: 1) Tming and server latency. 2) Success or failure, and HTTP status code. 3) Authentication details This policy identifies Azure storage accounts that do not have logging enabled for queues. As a best practice, enable logging for read, write, and delete request types on queues."
+ "description": "Storage Logging records details of requests (read, write, and delete operations) against your Azure queues. The logs include additional information such as: 1) Tming and server latency. 2) Success or failure, and HTTP status code. 3) Authentication details This policy identifies Azure storage accounts that do not have logging enabled for queues. As a best practice, enable logging for read, write, and delete request types on queues.",
+  "recommendation": {
+   "name": "Recommended solution to ensure that storage account logging for queues is enabled.",
+   "description": "Ensure that Azure Storage Account logging for queues is enabled. Please make sure all the attributes for \"logging\" under \"queue_properties\" is set to true.",
+   "snippet": "\"azurerm_storage_account\": [\n                {\n                    \"example\": [\n                        {\n                            \"name\": \"storageaccountname\",\n                            \"queue_properties\": [\n                                {\n                                    \"logging\": [\n                                        {\n                                            \"delete\": true,\n                                            \"read\": true,\n                                            \"version\": true,\n                                            \"write\": true\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]"
+  }
  }

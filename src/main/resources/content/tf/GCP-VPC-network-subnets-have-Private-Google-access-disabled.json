@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"google compute subnetwork",
    "policy":"GCP VPC Network subnets have Private Google access disabled",
-   "description": "This policy identifies GCP VPC Network subnets have disabled Private Google access. Private Google access enables virtual machine instances on a subnet to reach Google APIs and services using an internal IP address rather than an external IP address. Internal (private) IP addresses are internal to Google Cloud Platform and are not routable or reachable over the Internet. You can use Private Google access to allow VMs without Internet access to reach Google APIs, services, and properties that are accessible over HTTP/HTTPS."
+   "description": "This policy identifies GCP VPC Network subnets have disabled Private Google access. Private Google access enables virtual machine instances on a subnet to reach Google APIs and services using an internal IP address rather than an external IP address. Internal (private) IP addresses are internal to Google Cloud Platform and are not routable or reachable over the Internet. You can use Private Google access to allow VMs without Internet access to reach Google APIs, services, and properties that are accessible over HTTP/HTTPS.",
+   "recommendation": {
+      "name": "Recommended solution to enable VPC Network subnets Private Google access.",
+      "description": "Ensure that VPC Network subnets have Private Google access enabled. Please make sure that in the template, \"private_ip_google_access\" exists and is set to \"true\".",
+      "snippet": "\"google_compute_subnetwork\": [\n        {\n          \"subnet-with-logging\": [\n            {\n              \"ip_cidr_range\": \"10.2.0.0/16\",\n              \"name\": \"log-test-subnetwork\",\n              \"network\": \"google_compute_network.custom-test.self_link\",\n              \"private_ip_google_access\": true,\n              \"region\": \"us-central1\"\n            }\n          ]\n        }\n      ]"
+   }
 }

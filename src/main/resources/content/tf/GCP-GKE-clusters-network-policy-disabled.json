@@ -5,5 +5,10 @@
   "description": "This policy identifies Kubernetes Engine Clusters which have disabled Network policy. A network policy defines how groups of pods are allowed to communicate with each other and other network endpoints. By enabling network policy in a namespace for a pod, it will reject any connections that are not allowed by the network policy.",
   "rule": "$.resource[*].google_container_cluster exists and  ($.resource[*].google_container_cluster.*[*].*.network_policy anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled anyTrue) ",
   "id": "ca78ea0f-83ec-4401-9c33-300215ebe7b3",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution to enable GCP Kubernetes Engine Clusters Network policy.",
+    "description": "Ensure that GCP Kubernetes Engine Clusters Network policy is enabled. Please make sure that \"network_policy_config\" is enabled in the template.",
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"network_policy\": [\n                {\n                  \"enabled\": true,\n                  \"provider\": \"CALICO\"\n                }\n              ],\n              \"addons_config\": [\n                {\n                  \"network_policy_config\": [\n                    {\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -3,7 +3,12 @@
   "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0",
   "id": "80db150d-f437-4d0a-b7ef-a93ac2fbe6da",
   "enabled": true,
-  "resourceType": "azurerm_app_service",
+  "resourceType": "Azure App Service",
   "policy": "Azure App Service Web app doesn't use latest .Net Core version",
-  "description": "Periodically, newer versions are released for .Net Core software either due to security flaws or to include additional functionality. Using the latest .Net Core version for web apps is recommended in order to take advantage of security fixes, if any."
+  "description": "Periodically, newer versions are released for .Net Core software either due to security flaws or to include additional functionality. Using the latest .Net Core version for web apps is recommended in order to take advantage of security fixes, if any.",
+  "recommendation": {
+    "name": "Recommended solution for making sure App Service Web app uses latest .Net Core version",
+    "description": "It is recommended that Azure App Service Web app uses latest .Net Core version. Please make sure your template has \"dotnet_framework_version\" and it is set to \"v4.0\".",
+    "snippet": "\"azurerm_app_service\": [\n        {\n          \"example\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"site_config\": [\n                {\n                  \"dotnet_framework_version\": \"v4.0\",\n                  \"scm_type\": \"LocalGit\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

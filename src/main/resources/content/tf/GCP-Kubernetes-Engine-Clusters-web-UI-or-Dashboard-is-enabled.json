@@ -5,5 +5,10 @@
   "description": "This policy identifies Kubernetes Engine Clusters which have enabled Kubernetes web UI/Dashboard. Since all the data is being transmitted over HTTP protocol, disabling Kubernetes web UI/Dashboard will protect the data from sniffers on the same network.",
   "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*].disabled anyFalse",
   "id": "243d8c63-97cf-434a-b75e-2a84c57fdc37",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution to disable web UI/Dashboard for Kubernetes Engine Clusters.",
+    "description": "Ensure that GCP Kubernetes Engine Clusters have web UI/Dashboard disabled. Please make sure that the template has \"kubernetes_dashboard\" enabled.",
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"kubernetes_dashboard\": [\n                    {\n                      \"disabled\": true\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  }
 }

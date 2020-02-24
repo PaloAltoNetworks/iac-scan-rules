@@ -3,7 +3,12 @@
   "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.http2_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.http2_enabled anyFalse)",
   "id": "514a40c7-a7c4-49d4-a001-b949459ba8c9",
   "enabled": true,
-  "resourceType": "azurerm_app_service",
+  "resourceType": "Azure App Service",
   "policy": "Azure App Service Web app doesn't use HTTP 2.0",
-  "description": "HTTP 2.0 has additional performance improvements on the head-of-line blocking problem of old HTTP version, header compression, and prioritization of requests. HTTP 2.0 no longer supports HTTP 1.1's chunked transfer encoding mechanism, as it provides its own, more efficient, mechanisms for data streaming."
+  "description": "HTTP 2.0 has additional performance improvements on the head-of-line blocking problem of old HTTP version, header compression, and prioritization of requests. HTTP 2.0 no longer supports HTTP 1.1's chunked transfer encoding mechanism, as it provides its own, more efficient, mechanisms for data streaming.",
+  "recommendation": {
+    "name": "Recommended solution for making sure App Service Web app uses HTTP 2.0",
+    "description": "It is recommended that Azure App Service Web app uses HTTP 2.0. Please make sure your template has \"http2_enabled\" and it is set to true.",
+    "snippet": "\"azurerm_app_service\": [\n        {\n          \"dup\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n             \"http2_enabled\": true\n            }\n          ]\n        }\n      ]"
+  }
 }
