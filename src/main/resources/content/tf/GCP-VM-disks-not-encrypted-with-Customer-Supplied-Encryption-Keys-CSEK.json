@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "storage",
   "policy": "GCP VM disks not encrypted with Customer-Supplied Encryption Keys (CSEK)",
-  "description": "This policy identifies VM disks which are not encrypted with Customer-Supplied Encryption Keys (CSEK). If you provide your own encryption keys, Compute Engine uses your key to protect the Google-generated keys used to encrypt and decrypt your data. It is recommended to use VM disks encrypted with CSEK for business-critical VM instances."
+  "description": "This policy identifies VM disks which are not encrypted with Customer-Supplied Encryption Keys (CSEK). If you provide your own encryption keys, Compute Engine uses your key to protect the Google-generated keys used to encrypt and decrypt your data. It is recommended to use VM disks encrypted with CSEK for business-critical VM instances.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that VM disks are encrypted with Customer-Supplied Encryption Keys (CSEK).",
+    "description": "Ensure that GCP VM disks are encrypted with Customer-Supplied Encryption Keys (CSEK). Please make sure that in the template, \"disk_encrypt_key\" exists and is set to true.",
+    "snippet": "\"google_compute_disk\": [\n        {\n          \"default\": [\n            {\n              \"image\": \"debian-8-jessie-v20170523\",\n              \"labels\": [\n                {\n                  \"environment\": \"dev\"\n                }\n              ],\n              \"name\": \"test-disk\",\n              \"disk_encrypt_key\": \"true\"\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "google_storage_bucket_access_control",
   "policy": "GCP Storage buckets are publicly accessible to all authenticated users",
-  "description": "This policy identifies the buckets which are publicly accessible to all authenticated users. Enabling public access to Storage Buckets enables anybody with a web association to access sensitive information that is critical to business. Access over a whole bucket is controlled by IAM. Access to individual objects within the bucket is controlled by its ACLs."
+  "description": "This policy identifies the buckets which are publicly accessible to all authenticated users. Enabling public access to Storage Buckets enables anybody with a web association to access sensitive information that is critical to business. Access over a whole bucket is controlled by IAM. Access to individual objects within the bucket is controlled by its ACLs.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that Storage buckets are not publicly accessible to all authenticated users.",
+    "description": "Ensure that GCP Storage buckets are not publicly accessible to all authenticated users. Please make sure that in the template, \"entity\" under \"public_rule\" is not set to \"allUsers\".",
+    "snippet": "\"google_storage_bucket_access_control\": [\n        {\n          \"public_rule\": [\n            {\n              \"bucket\": \"google_storage_bucket.bucket.name\",\n              \"entity\": \"user-userId\",\n              \"role\": \"READER\"\n            }\n          ]\n        }\n      ]"
+  }
 }

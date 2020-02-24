@@ -3,7 +3,12 @@
   "rule": "$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.logging anyNull or $.resource[*].google_storage_bucket.*[*].*.logging[*].log_bucket anyEmpty)",
   "id": "22df2129-f6bf-4a10-9118-42b8d5d922a9",
   "enabled": true,
-  "resourceType": "storage",
+  "resourceType": "GCP Storage Buckets",
   "policy": "Storage Bucket does not have Access and Storage Logging enabled",
-  "description": "Checks to verify that the configuration on the Storage Buckets is enabled for access logs and storage logs."
+  "description": "Checks to verify that the configuration on the Storage Buckets is enabled for access logs and storage logs.",
+  "recommendation": {
+    "name": "Recommended solution to enable Access and Storage Logging for GCP Storage Buckets.",
+    "description": "Ensure that Access and Storage Logging is enabled for GCP Storage Buckets. Please make sure the template has \"enable_https_traffic_only\" set as \"true\".",
+    "snippet": "\"google_storage_bucket\": [\n        {\n          \"a\": [\n            {\n              \"logging\": [\n                {\n                  \"log_bucket\": \"log_a\"\n                }\n              ],\n              \"name\": \"a\"\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -5,5 +5,10 @@
    "enabled" : true,
    "resourceType" : "kubernetes engine",
    "policy" : "GCP Kubernetes Engine Clusters have Alias IP disabled",
-   "description": "This policy identifies Kubernetes Engine Clusters which have disabled Alias IP. Alias IP allows the networking layer to perform anti-spoofing checks to ensure that egress traffic is not sent with arbitrary source IPs. By enabling Alias IPs, Kubernetes Engine clusters can allocate IP addresses from a CIDR block known to Google Cloud Platform. This makes your cluster more scalable and allows your cluster to better interact with other GCP products and entities."
+   "description": "This policy identifies Kubernetes Engine Clusters which have disabled Alias IP. Alias IP allows the networking layer to perform anti-spoofing checks to ensure that egress traffic is not sent with arbitrary source IPs. By enabling Alias IPs, Kubernetes Engine clusters can allocate IP addresses from a CIDR block known to Google Cloud Platform. This makes your cluster more scalable and allows your cluster to better interact with other GCP products and entities.",
+   "recommendation": {
+      "name": "Recommended solution to enable Alias IP for Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters have Alias IP enabled. Please make sure that the template have \"ip_allocation_policy\" defined.",
+      "snippet": "\"ip_allocation_policy\": [\n                {\n                  \"cluster_secondary_range_name\": \"foo\",\n                  \"services_secondary_range_name\": \"foobar\"\n                }\n              ]"
+   }
 }
