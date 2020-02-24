@@ -5,7 +5,11 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket[*].*[*].logging anyNull)",
     "description": "This policy identifies S3 CloudTrail buckets for which access is disabled.S3 Bucket access logging generates access records for each request made to your S3 bucket. An access log record contains information such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket",
-    "recommendation": "It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket. To do so, please make sure your template has the following block of code under s3 bucket definition: \n\n \"logging\": [\n                {\n                  \"target_bucket\": \"${aws_s3_bucket.log_bucket.id}\",\n                  \"target_prefix\": \"loga/\"\n                }\n              ]",
+    "recommendation": {
+      "snippet": "\n\n \"logging\": [\n {\n \"target_bucket\": \"${aws_s3_bucket.log_bucket.id}\",\n \"target_prefix\": \"loga/\"\n }\n ]",
+      "name": "Recommended solution for enabling access logging on AWS S3 CloudTrail buckets.",
+      "description": "It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket. To do so, please make sure your template has the logging attribute under s3 bucket definition"
+    },
     "id": "41215510-c504-4752-ab38-0a36e49d55f8",
     "enabled": true,
     "resourceType": "s3",
@@ -15,6 +19,11 @@
     "severity": "high",
     "description": "This policy identifies publicly accessible S3 buckets that store CloudTrail data. These buckets contains sensitive audit data and only authorized users and applications should have access.",
     "rule": "$.resource[*].aws_cloudtrail exists and $.resource[*].aws_cloudtrail[*].*[*].s3_bucket_name equals $.resource[*].aws_s3_bucket_public_access_block[*].*[*].bucket and  ($.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_acls isFalse or  $.resource[*].aws_s3_bucket_public_access_block[*].*[*].block_public_policy isFalse)",
+    "recommendation": {
+      "snippet": "{\n      \"aws_s3_bucket_public_access_block\": [\n        {\n          \"foo\": [\n            {\n              \"block_public_acls\": true,\n              \"block_public_policy\": true,\n              \"bucket\": \"${aws_s3_bucket.foo.id}\"\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution for disable public access to AWS S3 CloudTrail buckets.",
+      "description": "It is recommended that S3 bucket should not have public access. To do so, please make sure your template has the \"aws_s3_bucket_public_access_block\"block defined and \"block_public_acls\" attribute in it is set to true."
+    },
     "id": "fc24c16c-f3cc-43b0-aa0e-ba32f5e234d3",
     "enabled": true,
     "resourceType": "AWS_cloudtrail_s3_bucket",
@@ -24,6 +33,11 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_cloudtrail exists and ($.resource[*].aws_cloudtrail[*].*[*].kms_key_id anyNull or $.resource[*].aws_cloudtrail[*].*[*].kms_key_id anyEmpty)",
     "description": "Checks to ensure that CloudTrail logs are encrypted. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to encrypt the CloudTrail data since it may contain sensitive information.",
+    "recommendation": {
+      "snippet": "{\n      \"aws_cloudtrail\": [\n        {\n          \"bar\": [\n            {\n              \"include_global_service_events\": false,\n              \"name\": \"tf-trail-bar\",\n              \"s3_bucket_name\": \"${aws_s3_bucket.foo.id}\",\n              \"s3_key_prefix\": \"prefix\",\n              \"kms_key_id\": \"y\"\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution for making sure AWS Cloudtrail logs are encrypted using Customer Master Keys.",
+      "description": "It is recommended to encrypt the CloudTrail data since it may contain sensitive information. To do so, please make sure \"enable_key_rotation\" atrribute under  and it is not null."
+    },
     "id": "07a06f60-1532-4e2e-b91c-8f972a96f1a9",
     "enabled": true,
     "resourceType": "cloudtrail",
@@ -33,6 +47,11 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_kms_key exists and ( $.resource[*].aws_kms_key[*].*[*].enable_key_rotation anyFalse or  $.resource[*].aws_kms_key[*].*[*].enable_key_rotation anyNull)",
     "description": "Checks to ensure that CMKs are rotated periodically. AWS KMS (Key Management Service) allows customers to create master keys to encrypt sensitive data in different services. As a security best practice, it is important to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys",
+    "recommendation": {
+      "snippet": "{\n      \"aws_kms_key\": [\n        {\n          \"b\": [\n            {\n              \"deletion_window_in_days\": 10,\n              \"enable_key_rotation\": true,\n              \"description\": \"KMS key 1\"\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution for enabling AWS Customer Master Key (CMK)",
+      "description": "It is recommended to rotate the keys periodically so that if the keys are compromised, the data in the underlying service is still secure with the new keys. Please make sure your template has \"kms_key_id\" atrribute under \"aws_kms_key\" is set to true."
+    },
     "id": "497f7e2c-b702-47c7-9a07-f0f6404ac896",
     "enabled": true,
     "resourceType": "kms",
@@ -42,6 +61,11 @@
     "severity": "high",
     "rule": "$.resource[*].aws_default_security_group exists and ($.resource[*].aws_default_security_group[*].*[*].ingress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_default_security_group[*].*[*].ingress[*].ipv6_cidr_blocks[*] contains ::/0 or $.resource[*].aws_default_security_group[*].*[*].egress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_default_security_group[*].*[*].egress[*].ipv6_cidr_blocks[*] contains ::/0)",
     "description": "This policy identifies the default security group which does not restrict all inbound and outbound traffic. A VPC comes with a default security group whose initial configuration deny all inbound traffic from internet and allow all outbound traffic. If you do not specify a security group when you launch an instance, the instance is automatically assigned to this default security group. As a result, the instance may accidentally send outbound traffic.",
+    "recommendation": {
+      "snippet": "aws_default_security_group\": [\n        {\n          \"default\": [\n            {\n              \"egress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"0.0.0.0/1\"\n                  ],\n                  \"from_port\": 0,\n                  \"protocol\": \"-1\",\n                  \"to_port\": 0\n                }\n              ],\n              \"ingress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"0.0.0.0/0\"\n                  ],\n                  \"from_port\": 0,\n                  \"protocol\": -1,\n                  \"self\": true,\n                  \"to_port\": 0\n                }\n              ],\n              \"vpc_id\": \"${aws_vpc.mainvpc.id}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for AWS Default Security restricting all traffic.",
+      "description": "It is recommended that AWS default Security Group should restrict all traffic. Please make sure that the cidr attribute under egress and ingress blocks is not set to 0.0.0.0/0"
+    },
     "id": "c8f6a525-e4ba-4499-b015-15153c797143",
     "enabled": true,
     "resourceType": "security group",
@@ -51,6 +75,11 @@
     "severity": "high",
     "description": "This policy identifies AWS Security Groups which do allow inbound traffic on SSH port (22) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
     "rule": "$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<23 && @.to_port>21 )].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<23 && @.to_port>21 )].ipv6_cidr_blocks[*] contains ::/0)",
+    "recommendation": {
+      "snippet": "\"aws_security_group\": [\n        {\n          \"test_sg1\": [\n            {\n              \"egress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"0.0.0.0/0\"\n                  ],\n                  \"from_port\": 0,\n                  \"protocol\": \"-1\",\n                  \"to_port\": 0\n                }\n              ],\n              \"ingress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"0.0.0.0/1\",\n                    \"10.0.0.0/16\"\n                  ],\n                  \"from_port\": 22,\n                  \"protocol\": \"tcp\",\n                  \"to_port\": 22\n                }\n              ],\n              \"name\": \"test_sg\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for updating Security Group to not allow internet traffic to SSH port (22)",
+      "description": "It is recommended that Security Group should not allow internet traffic to SSH port. To do so, please make sure that cidr atrribute under egress and ingress blocks is not set to 0.0.0.0/0 for port 22."
+    },
     "id": "c2bcdbe7-7c2c-48bc-a0f7-37e1b9766385",
     "enabled": true,
     "resourceType": "Security Group ingress rule",
@@ -60,6 +89,11 @@
     "severity": "medium",
     "description": "The execution IAM Role is required by tasks to pull container images and publish container logs to Amazon CloudWatch on your behalf. This policy generates an alert if a task execution role is not found in your task definition.",
     "rule": " $.resource[*].aws_ecs_task_definition exists and $.resource[*].aws_ecs_task_definition[*].*[*].container_definitions exists and ($.resource[*].aws_ecs_task_definition[*].*[*].execution_role_arn anyNull or $.resource[*].aws_ecs_task_definition[*].*[*].execution_role_arn anyEmpty)",
+    "recommendation": {
+      "snippet": "\"aws_ecs_task_definition\": [\n        {\n          \"service\": [\n            {\n              \"container_definitions\": \"${file(\\\"task-definitions/service.json\\\")}\",\n              \"execution_role_arn\": \"arn:aws:iam\",\n              \"family\": \"service\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for adding task definition execution IAM Role.",
+      "description": "It is recommended to have task definition execution IAM Role. Please make sure your template has \"execution_role_arn\" attribute under \"aws_ecs_task_definition\" set to iam arn."
+    },
     "id": "a76c8132-7cc3-40b1-a417-d3a41fc44f89",
     "enabled": true,
     "resourceType": "ecs",
@@ -69,6 +103,11 @@
     "severity": "low",
     "description": "The user name to use inside the container should not be root. This policy generates an alert if root user is found in your container definition.The User parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run.Note: This parameter is not supported for Windows containers.",
     "rule": "$.resource[*].aws_ecs_task_definition[*].*[*].container_definitions[?(@.user=='root')] exists",
+    "recommendation": {
+      "snippet": "\"container_definitions\": [\n                {\"name\": \"test-task\", \"user\": \"random\"}\n              ],",
+      "name": "Recommended solution making sure that user name to use inside the container is not root.",
+      "description": "The user name to use inside the container should not be root. Please make sure that none of the user under container definition is root user."
+    },
     "id": "d7cf6d0e-e515-4d0f-b93d-c88932c60172",
     "enabled": true,
     "resourceType": "ECS task definition",
@@ -78,15 +117,25 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_elasticsearch_domain exists and $.resource[*].aws_elasticsearch_domain[*].*[*].vpc_options does not exist",
     "description": "VPC support for Amazon ES is easy to configure, reliable, and offers an extra layer of security. With VPC support, traffic between other services and Amazon ES stays entirely within the AWS network, isolated from the public Internet. You can manage network access using existing VPC security groups, and you can use AWS Identity and Access Management (IAM) policies for additional protection. VPC support for Amazon ES domains is available at no additional charge.",
+    "recommendation": {
+      "snippet": "\"aws_elasticsearch_domain\": [\n        {\n          \"example\": [\n            {\n              \n              \"vpc_options\": [\n                {\n                  \"security_group_ids\": [\n                    \"${aws_security_group.elasticsearch.id}\"\n                  ],\n                  \"subnet_ids\": [\n                    \"${data.aws_subnet_ids.selected.ids[0]}\",\n                    \"${data.aws_subnet_ids.selected.ids[1]}\"\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution making sure that AWS ElasticSearch cluster is in a VPC.",
+      "description": "It is recommended to have AWS ElasticSearch cluster run in a VPC. Please make sure your template has the \"vpc_options\" block defined in the \"aws_elasticsearch_domain\"."
+    },
     "id": "28ee2708-305a-4b23-acf0-535ab45b96ab",
     "enabled": true,
-    "resourceType": "elasticsearch",
+    "resourceType": "AWS ElasticSearch",
     "policy": "AWS ElasticSearch cluster not in a VPC"
   },
   {
     "severity": "medium",
     "description": "This policy identifies IAM policies which allow password reuse . AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].password_reuse_prevention == 0",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"password_reuse_prevention\": 10\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for restricting password reuse",
+      "description": "It is recommended not to allow password reuse. Please make sure your template has \"password_reuse_prevention\" attribute set to a non-zero value"
+    },
     "id": "c6921472-260e-460a-aa55-77e69e2ee0ba",
     "enabled": true,
     "resourceType": "iam_account_password_policy",
@@ -96,6 +145,11 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[?( @.max_password_age>90 )] is not empty",
     "description": "This policy identifies the IAM policies which does not have password expiration set to 90 days. AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"max_password_age\": 90\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure password expires within 90 days",
+      "description": "It is recommended IAM policy password should expire within 90 days. Please make sure your template has \"max_password_age\" attribute has value set to anything equal to or below 90"
+    },
     "id": "cb4e7ef6-b4b4-45a5-9ae5-194d3a0e12e9",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -105,6 +159,11 @@
     "severity": "medium",
     "description": "Checks to ensure that IAM password policy requires minimum of 14 characters. AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[?( @.minimum_password_length<14 )] is not empty",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"minimum_password_length\": 14\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure password has minimum of 14 characters",
+      "description": "It is recommended IAM policy password has minimum of 14 characters. Please make sure your template has \"minimum_password_length\" attribute has value set to anything more than or equal to 14"
+    },
     "id": "7228106b-f82f-4d2e-a1a0-73fd15f70637",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -114,6 +173,11 @@
     "severity": "medium",
     "description": "Checks to ensure that IAM password policy requires a lowercase character. AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_lowercase_characters anyFalse",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"require_lowercase_characters\": true\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure password have a lowercase character",
+      "description": "It is recommended IAM policy password have a lowercase character. Please make sure your template has \"require_lowercase_characters\" attribute is set to true."
+    },
     "id": "77c2d5a8-071f-48b9-9de0-5917e9b4548d",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -123,6 +187,11 @@
     "severity": "medium",
     "description": "Checks to ensure that IAM password policy requires a number. AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_numbers anyFalse",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"require_numbers\": true\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure password have a number",
+      "description": "It is recommended IAM policy password have a number. Please make sure your template has \"require_numbers\" attribute is set to true."
+    },
     "id": "41fdae49-6fc7-4bc9-80e4-2cbb2262ab7a",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -132,6 +201,11 @@
     "severity": "medium",
     "description": "Checks to ensure that IAM password policy requires a symbol. AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_symbols anyFalse",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"require_symbols\": true\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure password have a symbol",
+      "description": "It is recommended IAM policy password have a symbol. Please make sure your template has\"require_symbols\" attribute is set to true."
+    },
     "id": "f8013bbf-21b8-4e81-b6ef-7b568407129c",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -141,6 +215,11 @@
     "severity": "medium",
     "description": "Checks to ensure that IAM password policy requires an uppercase character. AWS IAM (Identity & Access Management) allows customers to secure AWS console access. As a security best practice, customers must have strong password policies in place.",
     "rule": "$.resource[*].aws_iam_account_password_policy[*].*[*].require_uppercase_characters anyFalse",
+    "recommendation": {
+      "snippet": "\"aws_iam_account_password_policy\": [\n        {\n          \"strict\": [\n            {\n              \"require_uppercase_characters\": true\n              \n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure password have a uppercase character",
+      "description": "It is recommended IAM policy password have a uppercase character. Please make sure your template has \"require_uppercase_characters\" attribute is set to true."
+    },
     "id": "d6dadfcf-a98c-4917-97b5-a5df6a9c493d",
     "enabled": true,
     "resourceType": "iam_account_password",
@@ -150,6 +229,11 @@
     "severity": "low",
     "description": "This policy identifies IAM policies attached to user.By default, IAM users, groups, and roles have no access to AWS resources. IAM policies are the means by which privileges are granted to users, groups, or roles. It is recommended that IAM policies be applied directly to groups and roles but not users.",
     "rule": "$.resource[*].aws_iam_policy_attachment[*].*[*].users exists and $.resource[*].aws_iam_policy_attachment[*].*[*].users[*] is not empty",
+    "recommendation": {
+      "snippet": "\"aws_iam_policy_attachment\": [\n        {\n          \"test-attach\": [\n            {\n              \"groups\": [\n                \"${aws_iam_group.group.name}\"\n              ],\n              \"name\": \"test-attachment\",\n              \"policy_arn\": \"${aws_iam_policy.policy.arn}\",\n              \"roles\": [\n                \"${aws_iam_role.role.name}\"\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure IAM policy is not applied to users.",
+      "description": "It is recommended that IAM policies be applied directly to groups and roles but not users. Please make sure your template does not have \"users\" attribute under \"aws_iam_policy_attachment\" block."
+    },
     "id": "1903f355-b68f-4d9c-84dd-c46abe4f8673",
     "enabled": true,
     "resourceType": "iam_policy_attachment",
@@ -159,6 +243,11 @@
     "severity": "high",
     "rule": "$.resource[*].aws_eks_cluster[*].*[*].version anyStartWith 1.9.",
     "description": "Ensure your EKS Master node version is supported. This policy checks your EKS master node version and generates an alert if the version running is unsupported.",
+    "recommendation": {
+      "snippet": "{\n      \"not_aws_eks_cluster\": [\n        {\n          \"example2\": [\n            {\n              \"name\": \"example\",\n              \"role_arn\": \"${aws_iam_role.example.arn}\",\n              \"version\": \"1.9.1\",\n              \"vpc_config\": [\n                {\n                  \"subnet_ids\": [\n                    \"${aws_subnet.example1.id}\",\n                    \"${aws_subnet.example2.id}\"\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution for making sure EKS Master node version is supported.",
+      "description": "Ensure your EKS Master node version is supported. Please make sure your template does not have \"version\" attribute which has value starting with 1.9"
+    },
     "id": "60440266-3d03-41ce-ba8c-d51ccbdb6804",
     "enabled": true,
     "resourceType": "eks",
@@ -168,15 +257,25 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_db_instance exists and ( $.resource[*].aws_db_event_subscription !exists or $.resource[*].aws_db_event_subscription[*].*[?(@.source_type=='db-security-group')] anyNull  or not $.resource[*].aws_db_event_subscription[*].*[?(@.source_type=='db-security-group')].enabled anyNull or $.resource[*].aws_db_event_subscription[*].*[?(@.source_type=='db-security-group')].enabled anyTrue )",
     "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups.",
+    "recommendation": {
+      "snippet": "{\n      \"aws_db_event_subscription\": [\n        {\n          \"default\": [\n            {\n              \"event_categories\": [\n                \"availability\",\n                \"deletion\"\n              ],\n              \"name\": \"event-sub1\",\n              \"enabled\": true,\n              \"sns_topic\": \"${aws_sns_topic.default.arn}\",\n              \"source_ids\": [\n                \"${aws_db_instance.default.id}\"\n              ],\n              \"source_type\": \"db-security-group\"\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution for enabling RDS event subscription for DB security group.",
+      "description": "Ensure that RDS event subscription is enabled for DB security group. Please make sure your template have \"enabled\" set to true for \"aws_db_event_subscription\" block."
+    },
     "id": "b81ceb53-e21a-4456-a35b-ece94323637b",
     "enabled": true,
-    "resourceType": "aws_db_event_subscription",
+    "resourceType": "AWS RDS",
     "policy": "AWS RDS event subscription disabled for DB security groups"
   },
   {
     "severity": "high",
     "rule": "$.resource[*].aws_db_instance exists and ($.resource[*].aws_db_instance[*].*[*].publicly_accessible !exists  or $.resource[*].aws_db_instance[*].*[*].publicly_accessible anyTrue)",
     "description": "This policy identifies AWS RDS snapshots which are accessible to public. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to setup and manage databases. If RDS snapshots are inadvertently shared to public, any unauthorized user with AWS console access can gain access to the snapshots and gain access to sensitive data.",
+    "recommendation": {
+      "snippet": "\"aws_db_instance\": [\n                {\n                    \"a\": [\n                        {\n                            \"instance_class\": \"db.t2.micro\",\n                            \"name\": \"mydb\",\n                            \"password\": \"foobarbaz\",\n                            \"publicly_accessible\": false,\n                            \"storage_type\": \"gp2\",\n                            \"username\": \"foo\"\n                        }\n                    ]\n                }\n            ]",
+      "name": "Recommended solution for making sure RDS snapshots are not accessible to public.",
+      "description": "Ensure that AWS RDS snapshots are not accessible to public. Please make sure \"publicly_accessible\" attribute is set to false for \"aws_db_instance\" block."
+    },
     "id": "054e0760-d0e2-454a-8898-015e9e9fbc1a",
     "enabled": true,
     "resourceType": "rds",
@@ -186,6 +285,11 @@
     "severity": "medium",
     "rule": "$.resource[*].aws_redshift_parameter_group exists and ($.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl')] !exists  or $.resource[*].aws_redshift_parameter_group[*].*[*].parameter[?(@.name=='require_ssl' && @.value=='false' )] exists)",
     "description": "This policy identifies Redshift databases in which data connection to and from is occurring on an insecure channel. SSL connections ensures the security of the data in transit.",
+    "recommendation": {
+      "snippet": "\"aws_redshift_parameter_group\": [\n        {\n          \"bar\": [\n            {\n              \"family\": \"redshift-1.0\",\n              \"name\": \"parameter-group-test-terraform\",\n              \"parameter\": [\n                {\n                  \"name\": \"require_ssl\",\n                  \"value\": \"true\"\n                },\n                {\n                  \"name\": \"query_group\",\n                  \"value\": \"example\"\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for having AWS Redshift have require_ssl configured",
+      "description": "Ensure that AWS Redshift have require_ssl configured. Please make sure the template have \"require_ssl\" parameter defined with value set to true."
+    },
     "id": "2ff03f80-c9f6-4a37-b8b1-1212965e352d",
     "enabled": true,
     "resourceType": "redshift",
@@ -195,6 +299,11 @@
     "severity": "low",
     "description": "This policy identifies S3 CloudTrail buckets for which access is disabled.S3 Bucket access logging generates access records for each request made to your S3 bucket. An access log record contains information such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket",
     "rule": "$.resource[*].aws_cloudtrail[*].*[*].enable_logging anyFalse",
+    "recommendation": {
+      "snippet": "\"aws_cloudtrail\": [\n        {\n          \"foobar\": [\n            {\n              \"enable_logging\": true,\n              \"include_global_service_events\": false,\n              \"name\": \"tf-trail-foobar\",\n              \"s3_bucket_name\": \"${aws_s3_bucket.foo.id}\",\n              \"s3_key_prefix\": \"prefix\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for enabling access logging for AWS S3 CloudTrail buckets",
+      "description": "Ensure that access logging is enabled for AWS S3 CloudTrail buckets. Please make sure \"enable_logging\" attribute is set to true or is not present under \"aws_cloudtrail\""
+    },
     "id": "82578260-f754-4e0e-ba6b-a06b9e36ad5b",
     "enabled": true,
     "resourceType": "AWS S3 cloudtrail logging",
@@ -204,6 +313,11 @@
     "severity": "high",
     "rule": "$.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.acl anyEqual public-read-write or $.resource[*].aws_s3_bucket.*[*].*.acl anyEqual public-read)",
     "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks.",
+    "recommendation": {
+      "snippet": "\"aws_s3_bucket\": [\n        {\n          \"b\": [\n            {\n              \"acl\": \"private\",\n              \"bucket\": \"my-tf-test-bucket\",\n              \"tags\": [\n                {\n                  \"Environment\": \"Dev\",\n                  \"Name\": \"My bucket\"\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making AWS S3 bucket not accessible to public.",
+      "description": "Ensure that AWS S3 buckets are not accessible to public. Please make sure \"acl\" attribute is set to private under \"aws_s3_bucket\""
+    },
     "id": "ded75b65-7ef6-4239-a08f-d4d9a4eb218b",
     "enabled": true,
     "resourceType": "s3",
@@ -213,6 +327,11 @@
     "severity": "medium",
     "rule": " $.resource[*].aws_s3_bucket exists and ($.resource[*].aws_s3_bucket.*[*].*.versioning[*].enabled does not exist or $.resource[*].aws_s3_bucket.*[*].*.versioning[*].enabled anyFalse)",
     "description": "This policy identifies the S3 buckets which have Object Versioning disabled. S3 Object Versioning is an important capability in protecting your data within a bucket. Once you enable Object Versioning, you cannot remove it; you can suspend Object Versioning at any time on a bucket if you do not wish for it to persist. It is recommended to enable Object Versioning on S3.",
+    "recommendation": {
+      "snippet": "\"not_aws_s3_bucket\": [\n        {\n          \"a\": [\n            {\n              \"bucket\": \"tf-test-bucket-a\",\n              \"region\": \"eu-west-1\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for enabling S3 Object Versioning",
+      "description": "Ensure that versioning is enabled for S3 object. Please make sure \"enabled\" is set to true under versioning attribute"
+    },
     "id": "1914c65c-2406-4261-88cd-fbeb684a15dc",
     "enabled": true,
     "resourceType": "s3",
@@ -222,6 +341,11 @@
     "severity": "high",
     "rule": "$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<3390 && @.to_port>3388 )].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<3390 && @.to_port>3388)].ipv6_cidr_blocks[*] contains ::/0)",
     "description": "This policy identifies the security groups which is exposing RDP port (3389) to the internet. Security Groups do not allow inbound traffic on RDP port (3389) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
+    "recommendation": {
+      "snippet": "\"ingress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"10.0.0.0/16\"\n                  ],\n                  \"from_port\": 3389,\n                  \"protocol\": \"tcp\",\n                  \"to_port\": 3389\n                }\n              ]",
+      "name": "Recommended solution for updating Security Group to not allow internet traffic to RDP port (3389)",
+      "description": "It is recommended that Security Group should not allow internet traffic to RDP port (3389). Please make sure that cidr atrribute under ingress blocks is not set to 0.0.0.0/0 or ::/0 for port 22."
+    },
     "id": "1796efe6-802d-4768-8c17-7491c560b686",
     "enabled": true,
     "resourceType": "security group",
@@ -231,6 +355,11 @@
     "severity": "high",
     "description": "This policy identifies AWS Security Groups which do allow inbound traffic on SSH port (22) from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
     "rule": "$.resource[*].aws_security_group exists and ($.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<23 && @.to_port>21 )].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group[*].*[*].ingress[?( @.protocol == 'tcp' && @.from_port<23 && @.to_port>21 )].ipv6_cidr_blocks[*] contains ::/0)",
+    "recommendation": {
+      "snippet": "\"ingress\": [\n                {\n                  \"cidr_blocks\": [\"10.0.0.0/16\"],\n                  \"protocol\": \"tcp\",\n                  \"from_port\": 22,\n                  \"to_port\": 22\n                }\n              ]",
+      "name": "Recommended solution for updating Security Group to not allow internet traffic to SSH port (22)",
+      "description": "It is recommended that Security Group should not allow internet traffic to SSH port. Please make sure that cidr attribute under ingress blocks is not set to 0.0.0.0/0  or ::/0 for port 22."
+    },
     "id": "9745cb18-32f9-4411-a59c-fae4ffa362ce",
     "enabled": true,
     "resourceType": "security group",
@@ -240,15 +369,25 @@
     "severity": "high",
     "rule": "($.resource[*].aws_security_group exists and ($.resource[*].aws_security_group.*[*].*.ingress[*].protocol equals -1 and ($.resource[*].aws_security_group.*[*].*.ingress[*].cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[*].ipv6_cidr_blocks[*] contains ::/0))) or ($.resource[*].aws_security_group_rule exists and ($.resource[*].aws_security_group_rule.*[*].*.protocol equals -1 and $.resource[*].aws_security_group_rule.*[*].*.type equals ingress and ($.resource[*].aws_security_group_rule.*[*].*.cidr_blocks[*] contains 0.0.0.0/0 or $.resource[*].aws_security_group_rule.*[*].*.ipv6_cidr_blocks[*] contains ::/0)))",
     "description": "This policy identifies AWS Security Groups which do allow inbound traffic on all protocols from public internet. Doing so, may allow a bad actor to brute force their way into the system and potentially get access to the entire network.",
+    "recommendation": {
+      "snippet": "\"aws_security_group\": [\n        {\n          \"x\": [\n            {\n              \"description\": \"Allow TLS inbound traffic\",\n              \"ingress\": [\n                {\n                  \"cidr_blocks\": [\"10.0.0.0/16\"],\n                  \"protocol\": \"-1\"\n                }\n              ],\n              \"name\": \"allow_tls\",\n              \"vpc_id\": \"${aws_vpc.main.id}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for not allowing all ingress traffic",
+      "description": "Ensure that Security Group is not overly permissive to allow all ingress traffic. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" when \"protocol\" is set to -1."
+    },
     "id": "eba4d571-4338-4f62-8110-9be6c4b47fd0",
     "enabled": true,
-    "resourceType": "security group",
+    "resourceType": "AWS Security Group",
     "policy": "AWS Security Groups with Inbound rule overly permissive to All Traffic"
   },
   {
     "severity": "medium",
     "description": "Ensure AWS VPC NACL blocks egress traffic from blocked ports",
     "rule": "$.resource[*].aws_network_acl exists and $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].action==allow or $.resource[*].aws_network_acl.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].action==allow",
+    "recommendation": {
+      "snippet": "\"aws_network_acl\": [\n        {\n          \"main\": [\n            {\n              \"egress\": [\n                {\n                  \"action\": \"deny\",\n                  \"cidr_block\": \"0.0.0.0/0\",\n                  \"from_port\": 53,\n                  \"protocol\": \"-1\",\n                  \"rule_no\": 1200,\n                  \"to_port\": 53\n                }\n              ],\n              \"vpc_id\": \"${aws_vpc.demo.id}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for not allowing egress traffic from blocked ports in AWS VPC NACL",
+      "description": "Ensure that egress traffic is not allowed from blocked ports in AWS VPC NACL. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" for any of the blocked ports under egress block"
+    },
     "id": "de727ef6-60b0-46b9-a056-29830952c986",
     "enabled": true,
     "resourceType": "AWS NACL egress rules",
@@ -258,6 +397,11 @@
     "severity": "medium",
     "description": "Ensure AWS VPC NACL blocks traffic from blocked ports",
     "rule": "$.resource[*].aws_network_acl exists and $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5800' && @.to_port == '5800')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5900' && @.to_port == '5903')].action==allow or  $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '2323' && @.to_port == '2323')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '23' && @.to_port == '23')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '25' && @.to_port == '25')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '110' && @.to_port == '110')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '143' && @.to_port == '143')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '53' && @.to_port == '53')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].action==allow or $.resource[*].aws_network_acl.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].action==allow",
+    "recommendation": {
+      "snippet": "\"aws_network_acl\": [\n        {\n          \"main\": [\n            {\n              \"ingress\": [\n                {\n                  \"action\": \"deny\",\n                  \"cidr_block\": \"0.0.0.0/0\",\n                  \"from_port\": 53,\n                  \"protocol\": \"-1\",\n                  \"rule_no\": 1200,\n                  \"to_port\": 53\n                }\n              ],\n              \"vpc_id\": \"${aws_vpc.demo.id}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for not allowing traffic from blocked ports in AWS VPC NACL",
+      "description": "Ensure that ingress traffic is not allowed from blocked ports in AWS VPC NACL. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" for any of the blocked ports under ingress block"
+    },
     "id": "1cc0ec13-4079-4e27-b597-9edf83a1cd93",
     "enabled": true,
     "resourceType": "AWS VPC NACL allow traffic",
@@ -276,6 +420,11 @@
     "severity": "medium",
     "description": "Ensure AWS security groups block egress traffic to blocked ports - 21,22,135,137-139,445,69.",
     "rule": "$.resource[*].aws_security_group exists and $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'tcp' && @.from_port == '445' && @.to_port == '445')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.egress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].ipv6_cidr_blocks[*] == ::/0 ",
+    "recommendation": {
+      "snippet": "\"egress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"10.0.0.0/16\"\n                  ],\n                  \"from_port\": 22,\n                  \"protocol\": \"tcp\",\n                  \"to_port\": 22\n                }]",
+      "name": "Recommended solution for not allowing egress traffic from blocked ports in a Security Group",
+      "description": "Ensure that egress traffic is not allowed from blocked ports(21,22,135,137-139,445,69) in AWS Security Group. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" for any of the blocked ports under egress block"
+    },
     "id": "2b47072f-0d2b-45a5-aa2d-1db80974176e",
     "enabled": true,
     "resourceType": "security group",
@@ -285,6 +434,11 @@
     "severity": "medium",
     "description": "Ensure AWS security groups block ingress ingress traffic from blocked ports - 21,22,135,137-139,445,69.",
     "rule": "$.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '22' && @.to_port == '22')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '21' && @.to_port == '21')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5800' && @.to_port == '5800')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5800' && @.to_port == '5800')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5900' && @.to_port == '5903')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '5900' && @.to_port == '5903')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '2323' && @.to_port == '2323')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '2323' && @.to_port == '2323')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '23' && @.to_port == '23')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '23' && @.to_port == '23')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '25' && @.to_port == '25')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '25' && @.to_port == '25')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '110' && @.to_port == '110')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '110' && @.to_port == '110')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '143' && @.to_port == '143')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'tcp' && @.from_port == '143' && @.to_port == '143')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '53' && @.to_port == '53')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '53' && @.to_port == '53')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '135' && @.to_port == '135')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == '-1' && @.from_port == '137' && @.to_port == '139')].ipv6_cidr_blocks[*] == ::/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].cidr_blocks[*] == 0.0.0.0/0 or $.resource[*].aws_security_group.*[*].*.ingress[?(@.protocol == 'udp' && @.from_port == '69' && @.to_port == '69')].ipv6_cidr_blocks[*] == ::/0",
+    "recommendation": {
+      "snippet": "\"ingress\": [\n                {\n                  \"cidr_blocks\": [\n                    \"10.0.0.0/16\"\n                  ],\n                  \"from_port\": 22,\n                  \"protocol\": \"tcp\",\n                  \"to_port\": 22\n                }]",
+      "name": "Recommended solution for not allowing ingress traffic from blocked ports in a Security Group",
+      "description": "Ensure that ingress traffic is not allowed from blocked ports (21,22,135,137-139,445,69) in AWS Security Group. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" for any of the blocked ports under ingress block"
+    },
     "id": "9731fe16-636f-477a-b083-6d90c66d2c0b",
     "enabled": true,
     "resourceType": "security group",
@@ -294,6 +448,11 @@
     "severity": "high",
     "rule": "$.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control anyNull or $.resource.*.azurerm_kubernetes_cluster[*].*[*].role_based_access_control[*].enabled anyFalse",
     "description": "To provide granular filtering of the actions that users can perform, Kubernetes uses role-based access controls (RBAC). This control mechanism lets you assign users, or groups of users, permission to do things like create or modify resources, or view logs from running application workloads. These permissions can be scoped to a single namespace, or granted across the entire AKS cluster.This policy checks your AKS cluster RBAC setting and alerts if disabled.",
+    "recommendation": {
+      "snippet": "\"azurerm_kubernetes_cluster\": [\n        {\n          \"example\": [\n            {\n              \"default_node_pool\": [\n                {\n                  \"name\": \"default\",\n                  \"node_count\": 1,\n                  \"vm_size\": \"Standard_D2_v2\"\n                }\n              ],\n              \"dns_prefix\": \"exampleaks1\",\n              \"name\": \"example-aks1\",\n              \"role_based_access_control\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for enforcing role-based control (RBAC).",
+      "description": "It is recommended to have Role based control (RBAC) enforced. Please make sure your template has the \"role_based_access_control\" enabled."
+    },
     "id": "996f840b-49bf-4340-a117-803e96aa84d0",
     "enabled": true,
     "resourceType": "AKS",
@@ -303,6 +462,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_monitor_log_profile size greater than 0 and ( $.resource.*.azurerm_monitor_log_profile[*].*[*].retention_policy size equals 0 or $.resource.*.azurerm_monitor_log_profile[*].*[*].retention_policy[*].enabled anyFalse or $.resource.*.azurerm_monitor_log_profile[*].*[*].retention_policy[?(@.days<365)] size greater than 0 )",
     "description": "A Log Profile controls how your Activity Log is exported and retained. Since the average time to detect a breach is over 200 days, it is recommended to retain your activity log for 365 days or more in order to have time to respond to any incidents.",
+    "recommendation": {
+      "snippet": "azurerm_monitor_log_profile\": [\n        {\n          \"example\": [\n            {\n              \n              \"name\": \"default\",\n              \"retention_policy\": [\n                {\n                  \"days\": 367,\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution setting Activity Log Retention to greater than or equal 365 day.",
+      "description": "It is recommended that Activity Log Retention should not be less than 365 day. Please make sure your template has the \"days\" under \"retention_policy\" set to 365 or greater."
+    },
     "id": "57f993df-20ae-4953-9548-537023d43e8e",
     "enabled": true,
     "resourceType": "Azure Activity Log",
@@ -312,15 +476,25 @@
     "severity": "medium",
     "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.https_only anyNull or $.resource[*].azurerm_app_service[*].*.*.https_only anyFalse)",
     "description": "Azure Web Apps allows sites to run under both HTTP and HTTPS by default. Web apps can be accessed by anyone using non-secure HTTP links by default. Non-secure HTTP requests can be restricted and all HTTP requests redirected to the secure HTTPS port. It is recommended to enforce HTTPS-only traffic.",
+    "recommendation": {
+      "snippet": "\"azurerm_app_service\": [\n        {\n          \"dup\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"https_only\": true\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for redirecting HTTP to HTTPS.",
+      "description": "It is recommended that Azure App Service Web app redirects HTTP to HTTPS. Please make sure your template has \"https_only\" and it is set to true."
+    },
     "id": "3555e091-5af1-4ad2-b77e-5b1867d2d496",
     "enabled": true,
-    "resourceType": "azurerm_app_service",
+    "resourceType": "Azure App Service",
     "policy": "Azure App Service Web app doesn't redirect HTTP to HTTPS"
   },
   {
     "severity": "medium",
     "rule": "$.resource[*].azurerm_app_service exists and ($.resource[*].azurerm_app_service[*].*.*.client_cert_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.client_cert_enabled anyFalse)",
     "description": "Client certificates allow for the app to request a certificate for incoming requests. Only clients that have a valid certificate will be able to reach the app.",
+    "recommendation": {
+      "snippet": "\"azurerm_app_service\": [\n        {\n          \"dup\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n             \"client_cert_enabled\": true\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure App Service Web app requires Client Certs.",
+      "description": "It is recommended that Azure App Service Web app requires Client Certs. Please make sure your template has \"client_cert_enabled\" and it is set to true."
+    },
     "id": "45d877f2-7215-473c-8684- b7fa129ac491",
     "enabled": true,
     "resourceType": "azurerm_app_service",
@@ -330,33 +504,53 @@
     "severity": "medium",
     "rule": "$.resource[*].azurerm_app_service.*.*.* size > 0 and ($.resource[*].azurerm_app_service[*].*.*.http2_enabled anyNull or $.resource[*].azurerm_app_service[*].*.*.http2_enabled anyFalse)",
     "description": "HTTP 2.0 has additional performance improvements on the head-of-line blocking problem of old HTTP version, header compression, and prioritization of requests. HTTP 2.0 no longer supports HTTP 1.1's chunked transfer encoding mechanism, as it provides its own, more efficient, mechanisms for data streaming.",
+    "recommendation": {
+      "snippet": "\"azurerm_app_service\": [\n        {\n          \"dup\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n             \"http2_enabled\": true\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure App Service Web app uses HTTP 2.0",
+      "description": "It is recommended that Azure App Service Web app uses HTTP 2.0. Please make sure your template has \"http2_enabled\" and it is set to true."
+    },
     "id": "514a40c7-a7c4-49d4-a001-b949459ba8c9",
     "enabled": true,
-    "resourceType": "azurerm_app_service",
+    "resourceType": "Azure App Service",
     "policy": "Azure App Service Web app doesn't use HTTP 2.0"
   },
   {
     "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?( @.dotnet_framework_version !='v4.0' && @.dotnet_framework_version )] size greater than 0",
     "description": "Periodically, newer versions are released for .Net Core software either due to security flaws or to include additional functionality. Using the latest .Net Core version for web apps is recommended in order to take advantage of security fixes, if any.",
+    "recommendation": {
+      "snippet": "\"azurerm_app_service\": [\n        {\n          \"example\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"site_config\": [\n                {\n                  \"dotnet_framework_version\": \"v4.0\",\n                  \"scm_type\": \"LocalGit\"\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure App Service Web app uses latest .Net Core version",
+      "description": "It is recommended that Azure App Service Web app uses latest .Net Core version. Please make sure your template has \"dotnet_framework_version\" and it is set to \"v4.0\"."
+    },
     "id": "80db150d-f437-4d0a-b7ef-a93ac2fbe6da",
     "enabled": true,
-    "resourceType": "azurerm_app_service",
+    "resourceType": "Azure App Service",
     "policy": "Azure App Service Web app doesn't use latest .Net Core version"
   },
   {
     "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].identity anyNull",
     "description": "Managed service identity in App Service makes the app more secure by eliminating secrets from the app, such as credentials in the connection strings. When registering with Azure Active Directory in the app service, the app will connect to other Azure services securely without the need of username and passwords.",
+    "recommendation": {
+      "snippet": "\"azurerm_app_service\": [\n        {\n          \"example\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"identity\": [\n                {\n                  \"type\": \"SystemAssigned\"\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure App Service Web app have Managed Service Identity",
+      "description": "It is recommended that Azure App Service Web app have Managed Service Identity. Please make sure your template have \"identity\" block defined."
+    },
     "id": "d18a4314-cb4d-40f7-b21b-47287690771f",
     "enabled": true,
-    "resourceType": "App Service",
+    "resourceType": "Azure App Service",
     "policy": "Azure App Service Web app doesn't have a Managed Service Identity"
   },
   {
     "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].site_config[?(  @.min_tls_version!='1.2' && @.min_tls_version )] size greater than 0",
     "description": "Check if Azure app service uses latest TLS version",
+    "recommendation": {
+      "snippet": "azurerm_app_service\": [\n        {\n          \"example2\": [\n            {\n              \"site_config\": [\n                {\n                  \"dotnet_framework_version\": \"v4.0\",\n                  \"min_tls_version\": \"1.2\",\n                  \"scm_type\": \"LocalGit\"\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure App Service Web app uses latest TLS version",
+      "description": "It is recommended that Azure App Service Web app uses latest TLS version. Please make sure if your template have \"min_tls_version\", it is set to \"1.2\"."
+    },
     "id": "92eeece2-1cbd-4a64-8e15-439a2712e04b",
     "enabled": true,
     "resourceType": "App Service",
@@ -366,6 +560,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_app_service[*].*[*].auth_settings[*].enabled anyFalse or $.resource.*.azurerm_app_service[*].*[*].auth_settings anyNull ",
     "description": "Azure App Service Authentication is a feature that can prevent anonymous HTTP requests from reaching the API app, or authenticate those that have tokens before they reach the API app. If an anonymous request is received from a browser, App Service will redirect to a logon page. To handle the logon process, a choice from a set of identity providers can be made, or a custom authentication mechanism can be implemented.",
+    "recommendation": {
+      "snippet": "\"azurerm_app_service\": [\n        {\n          \"example\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"auth_settings\": [\n                {\n                  \"enabled\": true\n                }\n              ],\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure App Service Web app authentication is not off.",
+      "description": "It is recommended to have App Service Web app authentication on. Please make sure your template has the \"auth_settings\" enabled."
+    },
     "id": "d8d4a039-2b04-48c9-80fc-70341eba5c34",
     "enabled": true,
     "resourceType": "App Service",
@@ -375,6 +574,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_key_vault_secret[*].*[*].expiration_date anyNull",
     "description": "This policy identifies Azure Key Vault secrets that do not have an expiry date. As a best practice, set an expiration date for each secret and rotate the secret regularly Before you activate this policy, ensure that you have added the Redlock Service Principal to each Key Vault: https://docs.paloaltonetworks.com/redlock/redlock-admin/connect-your-cloud-platform-to-redlock/onboard-your-azure-account/set-up-your-azure-account.html",
+    "recommendation": {
+      "snippet": "\"azurerm_key_vault_secret\": [\n        {\n          \"example2\": [\n            {\n              \"key_vault_id\": \"${azurerm_key_vault.example.id}\",\n              \"name\": \"secret-sauce-2\",\n              \"expiration_date\": \"2020-01-01\",\n              \"value\": \"szechuan-2\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for having expiration date for Azure Key Vault secrets",
+      "description": "It is recommended that Azure Key Vault secrets should have an expiration date. Please make sure if your template have \"expiration_date\" field present."
+    },
     "id": "b8905f18-5d8a-4d4a-aded-e139a3432fa7",
     "enabled": true,
     "resourceType": "Azure Key Vault Key",
@@ -384,6 +588,11 @@
     "severity": "high",
     "rule": "($.resource[*].azurerm_network_security_rule exists and ($.resource[*].azurerm_network_security_rule.*[*].*.access contains Allow and $.resource[*].azurerm_network_security_rule.*[*].*.destination_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.source_address_prefix contains * and $.resource[*].azurerm_network_security_rule.*[*].*.destination_port_range contains 22 and $.resource[*].azurerm_network_security_rule.*[*].*.direction contains Inbound))",
     "description": "Blocking SSH port 22 will protect users from attacks like Account compromise.",
+    "recommendation": {
+      "snippet": "\"azurerm_network_security_rule\": [\n        {\n          \"test\": [\n            {\n              \"access\": \"Deny\",\n              \"destination_address_prefix\": \"*\",\n              \"destination_port_range\": \"22\",\n              \"direction\": \"Inbound\",\n              \"name\": \"test123\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for not allowing SSH traffic on port 22 from internet in NSG",
+      "description": "It is recommended that Azure Network Security Group (NSG) should not allow SSH traffic from internet on port 22. Please make sure if your template has \"access\" set to \"Deny\" if direction is Inbound and port is 22."
+    },
     "id": "1eb0cd02-789a-4b96-8463-fb5583e40585",
     "enabled": true,
     "resourceType": "Azure Network Security Group",
@@ -393,6 +602,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains  3389  or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals  3389",
     "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransomware.",
+    "recommendation": {
+      "snippet": "\"azurerm_network_security_rule\": [\n        {\n          \"test\": [\n            {\n              \"access\": \"Deny\",\n              \"destination_address_prefix\": \"*\",\n              \"destination_port_range\": \"3389\",\n              \"direction\": \"Inbound\",\n              \"name\": \"test123\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for not allowing SSH traffic on port 3389 from internet in NSG",
+      "description": "It is recommended that Azure Network Security Group (NSG) should not allow SSH traffic from internet on port 3389. Please make sure if your template has \"access\" set to \"Deny\" if direction is Inbound and port is 3389."
+    },
     "id": "8f9c12f8-1373-4c93-9da1-cccd7f3a33c9",
     "enabled": true,
     "resourceType": "Azure Network Security Group",
@@ -402,6 +616,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_network_security_group size greater than 0 and ($.resource.*.azurerm_network_watcher_flow_log size equals 0 or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].enabled anyNull or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].enabled anyFalse or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].retention_policy[*].enabled anyFalse or $.resource.*.azurerm_network_watcher_flow_log[*].*[*].retention_policy[?( @.days<90 )] size greater than 0)",
     "description": "This policy identifies Azure Network Security Groups (NSG) for which flow logs retention period is 90 days or less. To perform this check, enable this action on the Azure Service Principal: 'Microsoft.Network/networkWatchers/queryFlowLogStatus/action'. NSG flow logs, a feature of the Network Watcher app, enable you to view information about ingress and egress IP traffic through an NSG. As a best practice, enable NSG flow logs and set the log retention period to at least 90 days.",
+    "recommendation": {
+      "snippet": "\"azurerm_network_watcher_flow_log\": [\n        {\n          \"test\": [\n            {\n              \"enabled\": true,\n              \"network_security_group_id\": \"${azurerm_network_security_group.test.id}\",\n              \"network_watcher_name\": \"${azurerm_network_watcher.test.name}\",\n              \"resource_group_name\": \"${azurerm_resource_group.test.name}\",\n              \"retention_policy\": [\n                {\n                  \"days\": 100,\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }]",
+      "name": "Recommended solution for having Network Security Group (NSG) flow logs retention to be more 90 days",
+      "description": "It is recommended that Azure Network Watcher Network Security Group (NSG) flow logs retention should be more than 90 days. Please make sure if your \"azurerm_network_watcher_flow_log\" template has \"days\" set to anything greater than 90 under \"retention_policy\" block."
+    },
     "id": "25f2b8ba-1044-470b-95dc-1d096e7b21c2",
     "enabled": true,
     "resourceType": "Azure Network Security Group",
@@ -411,6 +630,11 @@
     "severity": "medium",
     "rule": " $.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_mssql_server_security_alert_policy size == 0 or  $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].state anyEqual \"Disabled\" or $.resource.*.azurerm_mssql_server_security_alert_policy[*].*[*].retention_days anyNull )",
     "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification.This policy identifies Azure SQL servers that do not have ADS enabled. As a best practice, enable ADS on mission-critical SQL servers.",
+    "recommendation": {
+      "snippet": "\"azurerm_mssql_server_security_alert_policy\": [\n        {\n          \"example\": [\n            {\n              \"resource_group_name\": \"azurerm_resource_group.example.name\",\n              \"retention_days\": 20,\n              \"server_name\": \"azurerm_sql_server.example.name\",\n              \"state\": \"Disabled\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for enabling advanced data security for Azure SQL Server",
+      "description": "It is recommended to have Azure SQL Server advanced data security enabled. Please make sure if your template have \"azurerm_mssql_server_security_alert_policy\" resource defined and the \"state\" is set to \"enabled\"."
+    },
     "id": "049cb412-96a9-4c93-8561-35857eaf3d78",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -420,6 +644,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins  anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].email_account_admins anyFalse",
     "description": "Advanced data security (ADS) provides a set of advanced SQL security capabilities, including vulnerability assessment, threat detection, and data discovery and classification. This policy identifies Azure SQL Servers that are not enabled with ADS. As a best practice, enable ADS so that the administrators\u2014service and co-administrator\u2014can receive email alerts when anomalous activities are detected on the SQL Servers.",
+    "recommendation": {
+      "snippet": "\"azurerm_sql_database\": [\n        {\n          \"example\": [\n            {\n              \"location\": \"West US\",\n              \"name\": \"mysqldatabase\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"server_name\": \"${azurerm_sql_server.example.name}\",\n              \"threat_detection_policy\": [\n                {\n                  \"state\": \"enabled\",\n                  \"email_account_admins\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for kaming sure that data security does sends alerts to service and co-administrators",
+      "description": "It is recommended that Azure SQL Server advanced data security sends alerts to service and co-administrators. Please make sure if your template have \"threat_detection_policy\" defined for \"azurerm_sql_database\" and it has the \"state\" is set to \"enabled\" and \"email_account_admins\" set to \"true\"."
+    },
     "id": "a314dc57-c167-4cc4-99cd-da2652a9d79a",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -429,6 +658,11 @@
     "severity": "high",
     "rule": "$.resource.*.azurerm_sql_database size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy size greater than 0 and ($.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].retention_days anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[?( @.retention_days<91 )] size greater than 0)",
     "description": "Audit Logs can help you find suspicious events, unusual activity, and trends. Auditing the SQL server, at the server-level, allows you to track all existing and newly created databases on the instance. This policy identifies SQL servers which do not retain audit logs for more than 90 days. As a best practice, configure the audit logs retention time period to be greater than 90 days.",
+    "recommendation": {
+      "snippet": "\"threat_detection_policy\": [\n                {\n                  \"email_addresses\": [\n                    \"dbgrl93@gmail.com\"\n                  ],\n                  \"retention_days\": 91,\n                  \"state\": \"Enabled\"\n                }\n              ]",
+      "name": "Recommended solution having the audit log retention for more than 90 days.",
+      "description": "It is recommended to have Azure SQL server audit logs retention to be more than 90 days. Please make sure if your template have \"retention_days\" set to anything greater than 90 under  \"threat_detection_policy\" block."
+    },
     "id": "49f063ea-ea5f-443c-9453-1aa3b3360476",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -438,6 +672,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_sql_database size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy size greater than 0 and $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].disabled_alerts[*] size greater than 0",
     "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings.",
+    "recommendation": {
+      "snippet": "\"threat_detection_policy\": [\n                {\n                  \"email_addresses\": [\n                    \"dbgrl93@gmail.com\"\n                  ],\n                  \"retention_days\": 91,\n                  \"state\": \"Enabled\"\n                }\n              ]",
+      "name": "Recommended solution for enabling threat detection alerts for all threat types.",
+      "description": "It is recommended to have Azure SQL Server threat detection alerts enabled for all threat types. Please make sure if your template have \"threat_detection_policy\" defined and it does not have \"disabled_alerts\" attribute defined."
+    },
     "id": "16513a66-2427-4fcf-a228-1b14a8e83dc2",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -447,6 +686,11 @@
     "severity": "high",
     "rule": "$.resource.*.azurerm_sql_database size greater than 0 and ($.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy anyNull or $.resource.*.azurerm_sql_database[*].*[*].threat_detection_policy[*].state anyEqual Disabled)",
     "description": "Audit logs can help you find suspicious events, unusual activity, and trends to analyze database events. Auditing the SQL Server, at the server-level, enables you to track all new and existing databases on the server. This policy identifies SQL servers do not have auditing enabled. As a best practice, enable auditing on each SQL server so that the database are audited, regardless of the database auditing settings.",
+    "recommendation": {
+      "snippet": "\"threat_detection_policy\": [\n                {\n                  \"email_addresses\": [\n                    \"dbgrl93@gmail.com\"\n                  ],\n                  \"retention_days\": \"100\",\n                  \"state\": \"Enabled\"\n                }\n              ]",
+      "name": "Recommended solution enabling SQL server auditing.",
+      "description": "It is recommended to have Azure SQL server auditing enabled. Please make sure if your template have\"threat_detection_policy\" defined and it has \"state\" set to \"enabled\"."
+    },
     "id": "93d51bdf-8b83-4d51-b478-b4775f24e517",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -456,6 +700,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_sql_server size greater than 0 and ($.resource.*.azurerm_sql_active_directory_administrator size equals 0)",
     "description": "Checks to ensure that SQL servers are configured with Active Directory admin authentication. Azure Active Directory authentication is a mechanism of connecting to Microsoft Azure SQL Database and SQL Data Warehouse by using identities in Azure Active Directory (Azure AD). With Azure AD authentication, you can centrally manage the identities of database users and other Microsoft services in one central location.",
+    "recommendation": {
+      "snippet": "{\n      \"azurerm_sql_active_directory_administrator\": [\n        {\n          \"example\": [\n            {\n              \"login\": \"sqladmin\",\n              \"object_id\": \"${data.azurerm_client_config.current.object_id}\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"server_name\": \"${azurerm_sql_server.example.name}\",\n              \"tenant_id\": \"${data.azurerm_client_config.current.tenant_id}\"\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution to ensure that SQL servers are configured with Active Directory admin authentication.",
+      "description": "Ensure that SQL servers are configured with Active Directory admin authentication. Please make sure if your template have \"azurerm_sql_active_directory_administrator\" defined."
+    },
     "id": "48aeadef-967d-46eb-b28c-48c1cca76689",
     "enabled": true,
     "resourceType": "Azure SQL Server",
@@ -465,6 +714,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_storage_account size greater than 0 and ($.resource.*.azurerm_storage_account[*].*[*].network_rules anyNull or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].bypass anyNull or not ( $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].bypass allEqual \"AzureServices\" ))",
     "description": "Some Microsoft services that interact with storage accounts operate from networks that can't be granted access through network rules. To help this type of service work as intended, allow the set of trusted Microsoft services to bypass the network rules. These services will then use strong authentication to access the storage account. If the Allow trusted Microsoft services exception is enabled, the following services: Azure Backup, Azure Site Recovery, Azure DevTest Labs, Azure Event Grid, Azure Event Hubs, Azure Networking, Azure Monitor and Azure SQL Data Warehouse (when registered in the subscription), are granted access to the storage account.",
+    "recommendation": {
+      "snippet": "\"azurerm_storage_account\": [\n        {\n          \"example\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"bypass\": \"AzureServices\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that storage account 'Trusted Microsoft Services' access is enabled.",
+      "description": "Ensure that Azure Storage Account 'Trusted Microsoft Services' access is enabled. Please make sure the template has \"bypass\" set as AzureServices under \"network_rules\""
+    },
     "id": "3b26ab70-6d7e-4f8f-808f-d41d3709f02f",
     "enabled": true,
     "resourceType": "Azure Storage Account",
@@ -474,6 +728,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_storage_account size greater than 0 and (  $.resource.*.azurerm_storage_account_network_rules[*].*[*].default_action anyEqual \"Allow\" or $.resource.*.azurerm_storage_account[*].*[*].network_rules[*].default_action  anyEqual \"Allow\" )",
     "description": "Restricting default network access helps to provide a new layer of security, since storage accounts accept connections from clients on any network. To limit access to selected networks, the default action must be changed.",
+    "recommendation": {
+      "snippet": "\"azurerm_storage_account\": [\n        {\n          \"example\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"default_action\": \"Deny\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that the Storage account default network is not set to Allow.",
+      "description": "Ensure that Azure Storage Account default network access is set to Allow. Please make sure if your template have\"default_action\" set to \"Deny\" for \"network_rules\"."
+    },
     "id": "33a61dcf-b5fd-4ec4-a63a-626d487147a9",
     "enabled": true,
     "resourceType": "Azure Storage Account",
@@ -483,6 +742,11 @@
     "severity": "medium",
     "rule": "$.resource.*.azurerm_virtual_machine size greater than 0 and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointSecurity and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain TrendMicroDSA and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain Antimalware and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain EndpointProtection and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain SCWPAgent and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain PortalProtectExtension and $.resource.*.azurerm_virtual_machine_extension[*].*[*].type does not contain FileSecurity",
     "description": "This policy identifies Azure Virtual Machines (VMs) that do not have endpoint protection installed. Installing endpoint protection systems (like Antimalware for Azure) provides for real-time protection capability that helps identify and remove viruses, spyware, and other malicious software. As a best practice, install endpoint protection on all VMs and computers to help identify and remove viruses, spyware, and other malicious software.",
+    "recommendation": {
+      "snippet": "\"azurerm_virtual_machine_extension\": [\n        {\n          \"example\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"hostname\",\n              \"publisher\": \"McAfee.EndpointSecurity\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"type\": \"McAfeeEndpointSecurity\",\n              \"type_handler_version\": \"2.0\",\n              \"virtual_machine_name\": \"${azurerm_virtual_machine.example.name}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure Azure virtual machine has endpoint protection installed.",
+      "description": "Ensure that Azure Virtual Machine has endpoint protection installed. Please make sure the template have \"type\" set as one of the endpoint security."
+    },
     "id": "8a44e87f-7d8c-4867-977e-8d2a500d205d",
     "enabled": true,
     "resourceType": "Azure Virtual Machine",
@@ -492,6 +756,11 @@
     "severity": "Medium",
     "rule": "$.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.* size > 0 and ($.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.delete anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.read anyFalse or $.resource.*.azurerm_storage_account.*.*.*.queue_properties.*.logging.*.write anyFalse )",
     "description": "Storage Logging records details of requests (read, write, and delete operations) against your Azure queues. The logs include additional information such as: 1) Tming and server latency. 2) Success or failure, and HTTP status code. 3) Authentication details This policy identifies Azure storage accounts that do not have logging enabled for queues. As a best practice, enable logging for read, write, and delete request types on queues.",
+    "recommendation": {
+      "snippet": "\"azurerm_storage_account\": [\n                {\n                    \"example\": [\n                        {\n                            \"name\": \"storageaccountname\",\n                            \"queue_properties\": [\n                                {\n                                    \"logging\": [\n                                        {\n                                            \"delete\": true,\n                                            \"read\": true,\n                                            \"version\": true,\n                                            \"write\": true\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                }\n            ]",
+      "name": "Recommended solution to ensure that storage account logging for queues is enabled.",
+      "description": "Ensure that Azure Storage Account logging for queues is enabled. Please make sure all the attributes for \"logging\" under \"queue_properties\" is set to true."
+    },
     "id": "1e4ec093-3bd8-4853-a539-f8b95d89882e",
     "enabled": true,
     "resourceType": "Azure Storage Account",
@@ -501,15 +770,25 @@
     "severity": "high",
     "rule": "$.resource.*.azurerm_storage_blob size greater than 0 and $.resource.*.azurerm_storage_container size greater than 0 and $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual blob or $.resource.*.azurerm_storage_container[*].*.[*].container_access_type anyEqual container",
     "description": "This policy identifies blob containers within an Azure storage account that allow anonymous/public access ('CONTAINER' or 'BLOB'). As a best practice, do not allow anonymous/public access to blob containers unless you have a very good reason. Instead, you should consider using a shared access signature token for providing controlled and time-limited access to blob containers.",
+    "recommendation": {
+      "snippet": "\"azurerm_storage_container\": [\n        {\n          \"example\": [\n            {\n              \"container_access_type\": \"private\",\n              \"name\": \"content\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that storage account does not have blob container(s) with public access.",
+      "description": "Ensure that Azure Storage Account does not have blob container(s) with public access. Please make sure the template has \"container_access_type\" set as \"private\""
+    },
     "id": "752634a3-943b-4cc7-b378-2c1ec5fd59f6",
     "enabled": true,
-    "resourceType": "azurerm_storage_blob",
+    "resourceType": "Azure Storage Blob",
     "policy": "Azure storage accounts has blob container(s) with public access"
   },
   {
     "severity": "low",
     "description": "This policy identifies Kubernetes Engine Clusters which have disabled Client Certificate. A client certificate is a base64-encoded public certificate used by clients to authenticate to the cluster endpoint. Enabling Client Certificate will provide more security to authenticate users to the cluster.",
     "rule": "$.resource[*].google_container_cluster[*].*.*.master_auth[*].client_certificate_config[*].issue_client_certificate anyTrue",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"initial_node_count\": 1,\n              \"location\": \"us-central1\",\n              \"master_auth\": [\n                {\n                  \"client_certificate_config\": [\n                    {\n                      \"issue_client_certificate\": true\n                    }\n                  ],\n                  \"password\": \"\",\n                  \"username\": \"\"\n                }\n              ],\n              \"name\": \"my-gke-cluster\",\n              \"remove_default_node_pool\": true\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable GCP Kubernetes Engine Clusters client certificate.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters Client Certificate is enabled. Please make sure that if the template has \"issue_client_certificate\" under \"client_certificate_config\", it is set to true."
+    },
     "id": "d07dbdce-2cd8-4b0c-b97e-ceb4d7e98952",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -519,6 +798,11 @@
     "severity": "medium",
     "description": "This policy identifies GCP Kubernetes Engine Clusters which have enabled legacy authorizer. The legacy authorizer in Kubernetes Engine grants broad and statically defined permissions to all cluster users. After legacy authorizer setting is disabled, RBAC can limit permissions for authorized users based on need.",
     "rule": "$.resource[*].google_container_cluster.*.*[*].enable_legacy_abac anyTrue",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"x\": [\n            {\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"name\": \"marcellus-wallace\",\n              \"enable_legacy_abac\" : false\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to disable GCP Kubernetes Engine Clusters Legacy Authorization.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters Legacy Authorization is disabled. Please make sure that if the template has \"enable_legacy_abac\", it is set to false."
+    },
     "id": "3a8dde2f-ee02-4d51-bcd1-b119c0207226",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -528,6 +812,11 @@
     "severity": "medium",
     "description": "This policy identifies Kubernetes Engine Clusters which have disabled Master authorized networks. Enabling Master authorized networks will let the Kubernetes Engine block untrusted non-GCP source IPs from accessing the Kubernetes master through HTTPS.",
     "rule": "$.resource[*].google_container_cluster[*].*.*.master_authorized_networks_config anyNull",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"master_auth\": [\n                {\n                  \"client_certificate_config\": [\n                    {\n                      \"issue_client_certificate\": false\n                    }\n                  ],\n                  \"password\": \"\",\n                  \"username\": \"\"\n                }\n              ],\n              \"master_authorized_networks_config\": [\n                {\n                  \"cidr_blocks\": [\n                  ]\n                }\n              ],\n              \"name\": \"marcellus-wallace\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable Kubernetes Engine Clusters Master authorized networks.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters have Master authorized networks enabled. Please make sure that your template \"master_authorized_networks_config\" defined."
+    },
     "id": "48ed0930-8a52-4426-b196-d0a3969bde11",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -537,6 +826,11 @@
     "severity": "medium",
     "description": "This policy identifies Kubernetes Engine Clusters which have enabled Basic authentication. Basic authentication allows a user to authenticate to the cluster with a username and password. Disabling Basic authentication will prevent attacks like brute force. Authenticate using client certificate or IAM.",
     "rule": "$.resource.*.google_container_cluster.*.*.*.master_auth exists and not ($.resource.*.google_container_cluster.*.*.*.master_auth.*.password is empty and $.resource.*.google_container_cluster.*.*.*.master_auth.*.username is empty)",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"initial_node_count\": 1,\n              \"location\": \"us-central1\",\n              \"master_auth\": [\n                {\n                    \"username\": \"x\",\n                    \"password\": \"y\"\n                }\n              ],\n              \"name\": \"my-gke-cluster\",\n              \"remove_default_node_pool\": true\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to disable GCP Kubernetes Engine Clusters Basic Authentication.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters Basic Authentication is disabled. Please make sure that username and password are either not present or if present, their value is empty."
+    },
     "id": "b6b3b461-767c-43f5-b608-b84e8c40fa88",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -546,6 +840,11 @@
     "severity": "low",
     "description": "This policy identifies GCP Kubernetes Engine Clusters which have disabled HTTP load balancing. HTTP/HTTPS load balancing provides global load balancing for HTTP/HTTPS requests destined for your instances. Enabling HTTP/HTTPS load balancers will let the Kubernetes Engine to terminate unauthorized HTTP/HTTPS requests and make better context-aware load balancing decisions.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config[*].http_load_balancing[*].disabled anyTrue)",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"http_load_balancing\": [\n                    {\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable GCP Kubernetes Engine Clusters HTTP load balancing.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters HTTP load balancing is enabled. Please make sure that \"http_load_balancing\" is enabled in the template."
+    },
     "id": "afb8ee15-96a4-4f32-83a5-c5f60c49de75",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -555,6 +854,11 @@
     "severity": "medium",
     "description": "This policy identifies Kubernetes Engine Clusters which have disabled Network policy. A network policy defines how groups of pods are allowed to communicate with each other and other network endpoints. By enabling network policy in a namespace for a pod, it will reject any connections that are not allowed by the network policy.",
     "rule": "$.resource[*].google_container_cluster exists and  ($.resource[*].google_container_cluster.*[*].*.network_policy anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].network_policy_config[*].disabled anyTrue) ",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"network_policy\": [\n                {\n                  \"enabled\": true,\n                  \"provider\": \"CALICO\"\n                }\n              ],\n              \"addons_config\": [\n                {\n                  \"network_policy_config\": [\n                    {\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable GCP Kubernetes Engine Clusters Network policy.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters Network policy is enabled. Please make sure that \"network_policy_config\" is enabled in the template."
+    },
     "id": "ca78ea0f-83ec-4401-9c33-300215ebe7b3",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -564,6 +868,11 @@
     "severity": "low",
     "description": "This policy identifies Kubernetes Engine Clusters which are not configured with the Private cluster. Private cluster makes your master inaccessible from the public internet and nodes do not have public IP addresses, so your workloads run in an environment that is isolated from the internet.",
     "rule": "$.resource[*].google_container_cluster exists and  ($.resource[*].google_container_cluster.*[*].*.private_cluster_config anyNull or $.resource[*].google_container_cluster.*[*].*.private_cluster_config[*].enable_private_nodes anyNull or $.resource[*].google_container_cluster.*[*].*.private_cluster_config[*].enable_private_nodes anyFalse) ",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"location\": \"us-central1\",\n              \"name\": \"my-gke-cluster\",\n              \"private_cluster_config\": [\n                {\n                  \"enable_private_nodes\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to configure Kubernetes Engine Clusters with private cluster.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters are configured with private cluster. Please make sure that your template have \"private_cluster_config\" block with \"enable_private_nodes\" set to true."
+    },
     "id": "33a04b8d-970b-43c3-b584-c704695178ed",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -573,6 +882,11 @@
     "severity": "low",
     "description": "This policy identifies Kubernetes Engine Clusters which do not have a container-optimized operating system for node image. Container-Optimized OS is an operating system image for your Compute Engine VMs that is optimized for running Docker containers. By using Container-Optimized OS for node image, you can bring up your Docker containers on Google Cloud Platform quickly, efficiently, and securely. The Container-Optimized OS node image is based on a recent version of the Linux kernel and is optimized to enhance node security. It is also regularly updated with features, security fixes, and patches. The Container-Optimized OS image provides better support, security, and stability than other images.",
     "rule": "$.resource[*].google_container_node_pool exists and  ($.resource[*].google_container_node_pool.*[*].*.node_config anyNull or $.resource[*].google_container_node_pool.*[*].*.node_config[*].image_type anyNull or  not $.resource[*].google_container_node_pool.*[*].*.node_config[*].image_type allStartWith  cos ) ",
+    "recommendation": {
+      "snippet": "\"google_container_node_pool\": [\n        {\n          \"primary_nodes\": [\n            {\n              \"cluster\": \"google_container_cluster.primary.name\",\n              \"location\": \"us-central1\",\n              \"name\": \"my-node-pool\",\n              \"node_config\": [\n                {\n                  \"image_type\": \"cos\"\n                }\n              ],\n              \"node_count\": 1\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that Kubernetes Engine Clusters uses Container-Optimized OS for Node image.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters uses Container-Optimized OS for Node image. Please make sure that your template have \"image_type\" defined and set to image that starts with \"cos\"."
+    },
     "id": "b80d079e-9db6-440e-a35a-64e53e47e6fc",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -582,6 +896,11 @@
     "severity": "medium",
     "description": "This policy identifies service accounts which have admin privileges. Application uses the service account to make requests to the Google API of a service so that the users aren't directly involved. It is recommended not to use admin access for ServiceAccount.",
     "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\" or $.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].members any end with \".gserviceaccount.com\" or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\" or $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].members any end with \".gserviceaccount.com\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/editor' || @.role=='roles/owner' )].members any end with \".gserviceaccount.com\"  or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\"  or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/editor' || @.role=='roles/owner' )].members any end with \".gserviceaccount.com\"    or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/editor' || @.role=='roles/owner' )].member endsWith \".gserviceaccount.com\" or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/editor' || @.role=='roles/owner' )].members any end with \".gserviceaccount.com\"",
+    "recommendation": {
+      "snippet": "\"google_organization_iam_member\": [\n        {\n          \"binding\": [\n            {\n              \"member\": \"user:alice@gmail.com\",\n              \"org_id\": \"0123456789\",\n              \"role\": \"roles/editor\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that GCP IAM Service account does not have admin privileges.",
+      "description": "Ensure that GCP IAM Service account does not have admin privileges. Please make sure that in the template \"member\" doesn't have nay email address ending with \".gserviceaccount.com\" if the role is either owner or editor"
+    },
     "id": "acf7e81a-e901-4475-9cdb-d730a1c658bf",
     "enabled": true,
     "resourceType": "IAM",
@@ -591,6 +910,11 @@
     "severity": "low",
     "description": "Checks to ensure that IAM users don't have service account privileges. Adding any user as service account actor will enable these users to have service account privileges. Adding only authorized corporate IAM users as service account actors will make sure that your information is secure.",
     "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\"  or $.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].members any start with \"user:\" or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].members any start with \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].members any start with \"user:\"  or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\"  or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].members any start with \"user:\"  or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].member startsWith \"user:\"  or  $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/iam.serviceAccountUser' || @.role=='roles/iam.serviceAccountActor' || @.role=='roles/iam.serviceAccountTokenCreator' )].members any start with \"user:\"",
+    "recommendation": {
+      "snippet": "\"google_iam_policy\": [\n        {\n          \"x\": [\n            {\n              \"binding\": [\n                {\n                  \"members\":  [\"admin:c@d.com\"],\n                  \"role\": \"roles/iam.serviceAccountUser\"\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that GCP IAM Service does not have service account privileges.",
+      "description": "Ensure that GCP IAM Service does not have service account privileges. Please make sure that in the template \"members\" doesn't start with \"user:\" when the \"role\" is either if these: \"roles/iam.serviceAccountUser\", \"roles/iam.serviceAccountTokenCreator\" or \"roles/iam.serviceAccountActor\""
+    },
     "id": "9f562f72-2bd6-445b-8d51-ed1212056417",
     "enabled": true,
     "resourceType": "IAM",
@@ -600,6 +924,11 @@
     "severity": "low",
     "description": "This policy identifies IAM users who have overly permissive Cloud KMS roles. Built-in/Predefined IAM role Cloud KMS Admin allows the user to create, delete, and manage service accounts. Built-in/Predefined IAM role Cloud KMS CryptoKey Encrypter/Decrypter allows the user to encrypt and decrypt data at rest using the encryption keys. It is recommended to follow the principle of 'Separation of Duties' ensuring that one individual does not have all the necessary permissions to be able to complete a malicious action.",
     "rule": "$.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\"  or $.data[*].google_iam_policy[*].*[*].binding[?( @.role=='roles/cloudkms.admin' )].members any start with \"user:\" or  $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_binding[*].binding[?( @.role=='roles/cloudkms.admin' )].members any start with \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_organization_iam_member[*].binding[?( @.role=='roles/cloudkms.admin' )].members any start with \"user:\"  or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/cloudkms.admin')].member startsWith \"user:\"  or $.resource[*].google_project_iam_binding[*].*[?( @.role=='roles/cloudkms.admin')].members any start with \"user:\"  or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/cloudkms.admin' )].member startsWith \"user:\" or $.resource[*].google_project_iam_member[*].*[?( @.role=='roles/cloudkms.admin' )].members any start with \"user:\"",
+    "recommendation": {
+      "snippet": "\"google_iam_policy\": [\n        {\n          \"x\": [\n            {\n              \"binding\": [\n                {\n                  \"members\":  [\"admin:c@d.com\"],\n                  \"role\": \"roles/cloudkms.admin\"\n                }\n              ]\n            }\n          ]\n        }",
+      "name": "Recommended solution to ensure that GCP IAM User doesn't have overly permissive Cloud KMS roles.",
+      "description": "Ensure that GCP IAM User doesn't have overly permissive Cloud KMS roles. Please make sure that in the template \"members\" doesn't start with \"user:\" when the \"role\" is \"roles/cloudkms.admin\""
+    },
     "id": "54839df2-74d6-4642-a12f-807638f89842",
     "enabled": true,
     "resourceType": "IAM",
@@ -609,6 +938,11 @@
     "severity": "medium",
     "description": "Application-layer Secrets Encryption provides an additional layer of security for sensitive data, such as Secrets, stored in etcd. Using this functionality, you can use a key, that you manage in Cloud KMS, to encrypt data at the application layer. This protects against attackers who gain access to an offline copy of etcd.This policy checks your cluster for the Application-layer Secrets Encryption security feature and alerts if it is not enabled.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster[*].*[*].database_encryption anyNull or  $.resource[*].google_container_cluster[*].*[*].database_encryption[*].state any equal DECRYPTED)",
+    "recommendation": {
+      "snippet": "\"database_encryption\": [\n                {\n                  \"key_name\": \"projects/redlock-dev-playgroud/locations/us-central1/keyRings/prb-keyring/cryptoKeys/prb-key-kub\",\n                  \"state\": \"ENCRYPTED\"\n                }\n              ]",
+      "name": "Recommended solution to ensure that Application-layer Secrets not encrypted for GCP Kubernetes cluster.",
+      "description": "Ensure that GCP Kubernetes cluster Application-layer Secrets are encrypted. Please make sure that the template have \"database_encryption\" attribute and its \"state\" is set to \"ENCRYPTED\""
+    },
     "id": "7ece6176-027f-4cf7-885e-555d11786c27",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -618,6 +952,11 @@
     "severity": "medium",
     "description": "Istio is an open service mesh that provides a uniform way to connect, manage, and secure microservices. It supports managing traffic flows between services, enforcing access policies, and aggregating telemetry data, all without requiring changes to the microservice code.This policy checks your cluster for the Istio add-on feature and alerts if it is not enabled.",
     "rule": "$.resource[*].google_container_cluster exists and ($.resource[*].google_container_cluster.*[*].*.addons_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config anyNull or $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*] anyNull  or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyNull or  $.resource[*].google_container_cluster.*[*].*.addons_config[*].istio_config[*].disabled anyTrue)",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"istio_config\": [\n                    {\n                      \"auth\": \"AUTH_MUTUAL_TLS\",\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable istioConfig in GCP Kubernetes cluster.",
+      "description": "Ensure that GCP Kubernetes cluster have istioConfig enabled. Please make sure that the template have \"addons_config\" defined and \"istio_config\" under that is not disabled."
+    },
     "id": "6afc115a-d9f9-45e8-9716-6a4204621074",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -627,6 +966,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_container_cluster[*].*[*].node_config anyNull or $.resource[*].google_container_cluster[*].*[*].node_config[*].service_account anyNull",
     "description": "This policy identifies Kubernetes Engine Cluster Nodes which have default Service account for Project access. By default, Kubernetes Engine nodes are given the Compute Engine default service account. This account has broad access and more permissions than are required to run your Kubernetes Engine cluster. You should create and use a least privileged service account to run your Kubernetes Engine cluster instead of using the Compute Engine default service account. If you are not creating a separate service account for your nodes, you should limit the scopes of the node service account to reduce the possibility of a privilege escalation in an attack.",
+    "recommendation": {
+      "snippet": "\"node_config\": [\n                {\n                  \"labels\": [\n                    {\n                      \"foo\": \"bar\"\n                    }\n                  ],\n                  \"metadata\": [\n                    {\n                      \"disable-legacy-endpoints\": \"true\"\n                    }\n                  ],\n                  \"oauth_scopes\": [\n                    \"https://www.googleapis.com/auth/logging.write\",\n                    \"https://www.googleapis.com/auth/monitoring\"\n                  ],\n                  \"tags\": [\n                    \"foo\",\n                    \"bar\"\n                  ],\n                  \"service_account\" : \"service_account\"\n                }]",
+      "name": "Recommended solution to ensuring that Kubernetes Engine Cluster Nodes does not have default Service account for Project access.",
+      "description": "Ensure that GCP Kubernetes Engine Cluster Nodes does not have default Service account for Project access. Please make sure that the template have \"node_config\" defined and \"service_account\" is present under it and is not null."
+    },
     "id": "f125951d-f5c0-4ca6-aab2-d443485e04a1",
     "enabled": true,
     "resourceType": "k8s container cluster service account",
@@ -636,6 +980,11 @@
     "severity": "low",
     "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster[*].*.*.ip_allocation_policy does not exist",
     "description": "This policy identifies Kubernetes Engine Clusters which have disabled Alias IP. Alias IP allows the networking layer to perform anti-spoofing checks to ensure that egress traffic is not sent with arbitrary source IPs. By enabling Alias IPs, Kubernetes Engine clusters can allocate IP addresses from a CIDR block known to Google Cloud Platform. This makes your cluster more scalable and allows your cluster to better interact with other GCP products and entities.",
+    "recommendation": {
+      "snippet": "\"ip_allocation_policy\": [\n                {\n                  \"cluster_secondary_range_name\": \"foo\",\n                  \"services_secondary_range_name\": \"foobar\"\n                }\n              ]",
+      "name": "Recommended solution to enable Alias IP for Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters have Alias IP enabled. Please make sure that the template have \"ip_allocation_policy\" defined."
+    },
     "id": "33104909-45f5-4533-8b71-d54716dc7184",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -645,6 +994,11 @@
     "severity": "low",
     "rule": "$.resource[*].google_container_cluster.*[*].*.pod_security_policy_config anyNull or $.resource[*].google_container_cluster.*[*].*.pod_security_policy_config.enabled anyFalse",
     "description": "This policy identifies Kubernetes Engine Clusters which have pod security policy disabled. The Pod Security Policy defines a set of conditions that pods must meet to be accepted by the cluster; when a request to create or update a pod does not meet the conditions in the pod security policy, that request is rejected and an error is returned.",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"pod_security_policy_config\": {\n              \t\"enabled\" : true\n              },\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"name\": \"marcellus-wallace\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable pod security policy for Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters have pod security policy enabled. Please make sure that the template has \"pod_security_policy_config\" enabled."
+    },
     "id": "b24c52e5-948c-4335-b8e0-c44b86b69538",
     "enabled": true,
     "resourceType": "GCP k8s pod_security",
@@ -654,6 +1008,11 @@
     "severity": "medium",
     "description": "This policy identifies Kubernetes Engine Clusters which have enabled Kubernetes web UI/Dashboard. Since all the data is being transmitted over HTTP protocol, disabling Kubernetes web UI/Dashboard will protect the data from sniffers on the same network.",
     "rule": "$.resource[*].google_container_cluster exists and $.resource[*].google_container_cluster.*[*].*.addons_config[*].kubernetes_dashboard[*].disabled anyFalse",
+    "recommendation": {
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"kubernetes_dashboard\": [\n                    {\n                      \"disabled\": true\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to disable web UI/Dashboard for Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters have web UI/Dashboard disabled. Please make sure that the template has \"kubernetes_dashboard\" enabled."
+    },
     "id": "243d8c63-97cf-434a-b75e-2a84c57fdc37",
     "enabled": true,
     "resourceType": "kubernetes engine",
@@ -663,6 +1022,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_storage_bucket_access_control[*].*[*].entity contains allUsers",
     "description": "This policy identifies the buckets which are publicly accessible to all authenticated users. Enabling public access to Storage Buckets enables anybody with a web association to access sensitive information that is critical to business. Access over a whole bucket is controlled by IAM. Access to individual objects within the bucket is controlled by its ACLs.",
+    "recommendation": {
+      "snippet": "\"google_storage_bucket_access_control\": [\n        {\n          \"public_rule\": [\n            {\n              \"bucket\": \"google_storage_bucket.bucket.name\",\n              \"entity\": \"user-userId\",\n              \"role\": \"READER\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that Storage buckets are not publicly accessible to all authenticated users.",
+      "description": "Ensure that GCP Storage buckets are not publicly accessible to all authenticated users. Please make sure that in the template, \"entity\" under \"public_rule\" is not set to \"allUsers\"."
+    },
     "id": "0716cf97-9f82-46ae-8b35-09f2ee41d136",
     "enabled": true,
     "resourceType": "google_storage_bucket_access_control",
@@ -672,6 +1036,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.versioning anyNull or $.resource[*].google_storage_bucket.*[*].*.versioning[*].enabled anyNull or $.resource[*].google_storage_bucket.*[*].*.versioning[*].enabled anyFalse)",
     "description": "This policy identifies Storage log buckets which have object versioning disabled. Enabling object versioning on storage log buckets will protect your cloud storage data from being overwritten or accidentally deleted. It is recommended to enable object versioning feature on all storage buckets where sinks are configured.",
+    "recommendation": {
+      "snippet": "\"google_storage_bucket\": [\n        {\n          \"a\": [\n            {\n              \"name\": \"a-bucket\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable object versioning for GCP Storage log buckets.",
+      "description": "Ensure that GCP Storage buckets are not publicly accessible to all authenticated users. Please make sure that in the template, \"versioning\" has \"enabled\" set to \"true\"."
+    },
     "id": "53a9b6e1-dd93-4110-b443-4658c13134b4",
     "enabled": true,
     "resourceType": "storage",
@@ -681,6 +1050,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_service_account_key[*].*[*].service_account_id contains google_service_account or $.resource[*].google_service_account_key[*].*[*].service_account_id any end with iam.gserviceaccount.com",
     "description": "This policy identifies user managed service accounts that use user managed service account keys instead of Google-managed. For user-managed keys, the User has to take ownership of key management activities. Even after owner precaution, keys can be easily leaked by common development malpractices like checking keys into the source code or leaving them in downloads directory or accidentally leaving them on support blogs/channels. So It is recommended to limit the use of User-managed service account keys and instead use Google-managed keys which can not be downloaded.",
+    "recommendation": {
+      "snippet": "\"google_storage_bucket\": [\n        {\n          \"a\": [\n            {\n              \"name\": \"a-bucket\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that User managed service accounts does not have user managed service account keys.",
+      "description": "Ensure that GCP User managed service accounts does not have user managed service account keys. Please make sure that in the template, \"service_account_id\" does not have \"account_id\" as its value or should not have value ending in \"iam.gserviceaccount.com\"."
+    },
     "id": "0173b3d8-91b5-4a10-8105-e92b1f3b5914",
     "enabled": true,
     "resourceType": "service account key",
@@ -690,6 +1064,11 @@
     "severity": "low",
     "rule": "$.resource[*].google_compute_disk exists and $.resource[*].google_compute_disk.*.[*].*.disk_encrypt_key does not exist",
     "description": "This policy identifies VM disks which are not encrypted with Customer-Supplied Encryption Keys (CSEK). If you provide your own encryption keys, Compute Engine uses your key to protect the Google-generated keys used to encrypt and decrypt your data. It is recommended to use VM disks encrypted with CSEK for business-critical VM instances.",
+    "recommendation": {
+      "snippet": "\"google_compute_disk\": [\n        {\n          \"default\": [\n            {\n              \"image\": \"debian-8-jessie-v20170523\",\n              \"labels\": [\n                {\n                  \"environment\": \"dev\"\n                }\n              ],\n              \"name\": \"test-disk\",\n              \"disk_encrypt_key\": \"true\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to ensure that VM disks are encrypted with Customer-Supplied Encryption Keys (CSEK).",
+      "description": "Ensure that GCP VM disks are encrypted with Customer-Supplied Encryption Keys (CSEK). Please make sure that in the template, \"disk_encrypt_key\" exists and is set to true."
+    },
     "id": "3289c0b3-0298-4653-ac41-05c43478b1b0",
     "enabled": true,
     "resourceType": "storage",
@@ -699,6 +1078,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_compute_instance_template[*].*.[*].can_ip_forward anyTrue",
     "description": "This policy identifies VM instances have IP forwarding enabled. IP Forwarding could open unintended and undesirable communication paths and allows VM instances to send and receive packets with the non-matching destination or source IPs. To enable source and destination IP match check, disable the IP Forwarding.",
+    "recommendation": {
+      "snippet": "\"google_compute_instance_template\": [\n                {\n                    \"default\": [\n                        {\n                            \"can_ip_forward\": false\n                        }\n                    ]\n                }\n            ]",
+      "name": "Recommended solution to disable VM instances IP forwarding.",
+      "description": "Ensure that GCP VM have IP forwarding disabled. Please make sure that in the template, \"can_ip_forward\" exists and is set to \"false\"."
+    },
     "id": "c52cef1e-cb56-43dc-8708-fbff0e64b59a",
     "enabled": true,
     "resourceType": "GCP VM instances",
@@ -708,6 +1092,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyNull or $.resource[*].google_compute_subnetwork[*].*[*].private_ip_google_access anyFalse",
     "description": "This policy identifies GCP VPC Network subnets have disabled Private Google access. Private Google access enables virtual machine instances on a subnet to reach Google APIs and services using an internal IP address rather than an external IP address. Internal (private) IP addresses are internal to Google Cloud Platform and are not routable or reachable over the Internet. You can use Private Google access to allow VMs without Internet access to reach Google APIs, services, and properties that are accessible over HTTP/HTTPS.",
+    "recommendation": {
+      "snippet": "\"google_compute_subnetwork\": [\n        {\n          \"subnet-with-logging\": [\n            {\n              \"ip_cidr_range\": \"10.2.0.0/16\",\n              \"name\": \"log-test-subnetwork\",\n              \"network\": \"google_compute_network.custom-test.self_link\",\n              \"private_ip_google_access\": true,\n              \"region\": \"us-central1\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable VPC Network subnets Private Google access.",
+      "description": "Ensure that VPC Network subnets have Private Google access enabled. Please make sure that in the template, \"private_ip_google_access\" exists and is set to \"true\"."
+    },
     "id": "1af7b784-5c6c-43c0-a736-dc5e47cc235a",
     "enabled": true,
     "resourceType": "google compute subnetwork",
@@ -717,6 +1106,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_project[*].*[*].auto_create_network anyTrue or  $.resource[*].google_project[*].*[*].auto_create_network anyNull",
     "description": "This policy identifies Google Kubernetes Engine (GKE) clusters that are configured to use the default network. Because GKE uses this network when creating routes and firewalls for the cluster, as a best practice define a network configuration that meets your security and networking requirements for ingress and egress traffic, instead of using the default network.",
+    "recommendation": {
+      "snippet": "{\n          \"project\": [\n            {\n              \"auto_create_network\": false,\n              \"folder_id\": \"something\",\n              \"name\": \"dummy\",\n              \"project_id\": \"abc\"\n            }\n          ]\n        }",
+      "name": "Recommended solution for not using default network in Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters does not uses default network. Please make sure that the template has \"auto_create_network\" set as \"false\"."
+    },
     "id": "2d372220-3125-48ec-915b-30f0fc5220fb",
     "enabled": true,
     "resourceType": "Google Project",
@@ -726,6 +1120,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_compute_project_metadata_item.[*].[*].[*].key exists and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].key == enable-oslogin and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].value exists and $.resource[*].google_compute_project_metadata_item.[*].[*].[*].value == FALSE",
     "description": "This policy identifies GCP Projects which have OS Login disabled. Enabling OS Login ensures that SSH keys used to connect to instances are mapped with IAM users. Revoking access to IAM user will revoke all the SSH keys associated with that particular user. It facilitates centralized and automated SSH key pair management which is useful in handling cases like a response to compromised SSH key pairs.",
+    "recommendation": {
+      "snippet": "\"google_compute_project_metadata_item\": [\n        {\n          \"oslogin\": [\n            {\n              \"key\": \"enable-oslogin\",\n              \"project\": \"test\",\n              \"value\": \"TRUE\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable OS Login in Kubernetes Engine Clusters.",
+      "description": "Ensure that GCP Kubernetes Engine Clusters have OS Login enabled. Please make sure that the template,  \"oslogin\" have \"value\" set to \"TRUE\"."
+    },
     "id": "6cb4c384-15fc-4b06-8a45-0542144ad8d9",
     "enabled": true,
     "resourceType": "google_compute_project",
@@ -735,6 +1134,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_sql_database_instance exists and $.resource[*].google_sql_ssl_cert !exists",
     "description": "Checks to verify that the SSL configuration for the SQL instance is valid with an unexpired SSL certificate. Cloud SQL supports connecting to an instance using the Secure Socket Layer (SSL) protocol. If you are not connecting to an instance by using Cloud SQL Proxy, you should use SSL, so that the data you send and receive from Google Cloud SQL is secure.",
+    "recommendation": {
+      "snippet": "{\n      \"google_sql_ssl_cert\": [\n        {\n          \"client_cert\": [\n            {\n              \"common_name\": \"client-name\",\n              \"instance\": \"google_sql_database_instance.master.name\"\n            }\n          ]\n        }\n      ]\n    }",
+      "name": "Recommended solution to configure SSL for SQL Instances.",
+      "description": "Ensure that SSL is configured for GCP SQL Instances. Please make sure \"google_sql_ssl_cert\" exists in the your template."
+    },
     "id": "06362923-51f1-4cc7-95bf-86ecf96b63e8",
     "enabled": true,
     "resourceType": "Google SQL instances",
@@ -744,6 +1148,11 @@
     "severity": "medium",
     "rule": "$.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual 0.0.0.0/0 or $.resource[*].google_sql_database_instance[*].*[*].settings[*].ip_configuration[*].authorized_networks[*].value anyEqual ::/0",
     "description": "Checks to verify that the SQL instance should not have any authorization to allow network traffic to the internet.",
+    "recommendation": {
+      "snippet": "\"ip_configuration\": [\n                    {\n                      \"authorized_networks\": [\n                        {\n                          \"expiration_time\": \"2017-11-15T16:19:00.094Z\",\n                          \"name\": \"misc\",\n                          \"value\": \"108.12.12.0/24\"\n                        },\n                        {\n                          \"expiration_time\": \"2017-11-15T16:19:00.094Z\",\n                          \"name\": \"another\",\n                          \"value\": \"101.0.0.0/16\"\n                        }\n                      ],\n                      \"ipv4_enabled\": \"true\"\n                    }\n                  ]",
+      "name": "Recommended solution to make sure SQL Instances network authorization doesn't expose them to Internet.",
+      "description": "Ensure that SQL Instances network authorization doesn't expose them to Internet. Please make sure that any of the values of \"authorized_networks\" under \"ip_configuration\" is not \"0.0.0.0/0\" or \"::/0\"."
+    },
     "id": "32865329-308b-4a18-bcf5-fe71423d8770",
     "enabled": true,
     "resourceType": "GCP SQL DB Instance",
@@ -753,6 +1162,11 @@
     "severity": "medium",
     "rule": "$.resource[*].azurerm_storage_account exists and ($.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyNull or $.resource[*].azurerm_storage_account.*[*].*.enable_https_traffic_only anyFalse)",
     "description": "The secure transfer option enhances the security of your storage account by only allowing requests to the storage account by a secure connection. For example, when calling REST APIs to access your storage accounts, you must connect using HTTPs. Any requests using HTTP will be rejected when 'secure transfer required' is enabled. When you are using the Azure files service, connection without encryption will fail, including scenarios using SMB 2.1, SMB 3.0 without encryption, and some flavors of the Linux SMB client. Because Azure storage doesn\u2019t support HTTPs for custom domain names, this option is not applied when using a custom domain name.",
+    "recommendation": {
+      "snippet": "\"azurerm_storage_account\": [\n        {\n          \"b\": [\n            {\n              \"account_replication_type\": \"GRS\",\n              \"account_tier\": \"Standard\",\n              \"enable_https_traffic_only\": true,\n              \"location\": \"${azurerm_resource_group.b.location}\",\n              \"name\": \"storageaccountname\",\n              \"resource_group_name\": \"${azurerm_resource_group.b.name}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable Secure transfer for Azure Storage Accounts.",
+      "description": "Ensure that Secure transfer is enabled for Azure Storage Accounts. Please make sure the template has \"enable_https_traffic_only\" set as \"true\"."
+    },
     "id": "80f6dc01-4aaa-4712-a7bf-70e103fea4a3",
     "enabled": true,
     "resourceType": "storage",
@@ -762,9 +1176,14 @@
     "severity": "medium",
     "rule": "$.resource[*].google_storage_bucket exists and ($.resource[*].google_storage_bucket.*[*].*.logging anyNull or $.resource[*].google_storage_bucket.*[*].*.logging[*].log_bucket anyEmpty)",
     "description": "Checks to verify that the configuration on the Storage Buckets is enabled for access logs and storage logs.",
+    "recommendation": {
+      "snippet": "\"google_storage_bucket\": [\n        {\n          \"a\": [\n            {\n              \"logging\": [\n                {\n                  \"log_bucket\": \"log_a\"\n                }\n              ],\n              \"name\": \"a\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution to enable Access and Storage Logging for GCP Storage Buckets.",
+      "description": "Ensure that Access and Storage Logging is enabled for GCP Storage Buckets. Please make sure the template has \"enable_https_traffic_only\" set as \"true\"."
+    },
     "id": "22df2129-f6bf-4a10-9118-42b8d5d922a9",
     "enabled": true,
-    "resourceType": "storage",
+    "resourceType": "GCP Storage Buckets",
     "policy": "Storage Bucket does not have Access and Storage Logging enabled"
   }
 ]
