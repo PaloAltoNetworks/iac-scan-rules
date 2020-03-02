@@ -1,0 +1,35 @@
+{
+  "resource": [
+    {
+      "azurerm_network_security_group": [
+        {
+          "mynsg": [
+            {
+              "location": "uswest1",
+              "name": "test",
+              "resource_group_name": "testrg",
+              "security_rule": [
+                {
+                  "access": "Allow",
+                  "destination_address_prefix": "*",
+                  "destination_port_ranges": "80",
+                  "direction": "Inbound",
+                  "name": "SSH",
+                  "priority": 100,
+                  "protocol": "*",
+                  "source_address_prefix": "*",
+                  "source_port_range": "*"
+                }
+              ],
+              "tags": [
+                {
+                  "environment": "Terraform Demo"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

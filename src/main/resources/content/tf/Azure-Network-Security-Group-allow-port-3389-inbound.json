@@ -1,11 +1,11 @@
 {
   "severity": "medium",
-  "rule": "$.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains  3389  or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals  3389",
+  "rule": "($.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains 3389 or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals 3389) or ($.resource.*.azurerm_network_security_group[*].*[*].security_rule[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains 3389 or $.resource.*.azurerm_network_security_group[*].*[*].security_rule[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals 3389)",
   "id": "8f9c12f8-1373-4c93-9da1-cccd7f3a33c9",
   "enabled": true,
   "resourceType": "Azure Network Security Group",
   "policy": "Azure Network Security Group (NSG) allows traffic from internet on port 3389",
-  "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransomware.",
+  "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransom-ware.",
   "recommendation": {
     "name": "Recommended solution for not allowing SSH traffic on port 3389 from internet in NSG",
     "description": "It is recommended that Azure Network Security Group (NSG) should not allow SSH traffic from internet on port 3389. Please make sure if your template has \"access\" set to \"Deny\" if direction is Inbound and port is 3389.",
