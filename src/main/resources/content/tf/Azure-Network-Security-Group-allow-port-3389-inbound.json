@@ -1,6 +1,6 @@
 {
   "severity": "medium",
-  "rule": "$.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains  3389  or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals  3389",
+  "rule": "($.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains 3389 or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals 3389) or ($.resource.*.azurerm_network_security_group[*].*[*].security_rule[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains 3389 or $.resource.*.azurerm_network_security_group[*].*[*].security_rule[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals 3389)",
   "id": "8f9c12f8-1373-4c93-9da1-cccd7f3a33c9",
   "enabled": true,
   "resourceType": "Azure Network Security Group",

@@ -5,5 +5,10 @@
   "description": "This policy identifies the VPCs which have unauthorized peering. The recommended best practice is to disallow VPC peering between two VPCs from different AWS accounts, as this potentially enables unauthorized access to private resources.",
   "rule": "$.resource[*].aws_vpc_peering_connection[*].*[*].peer_vpc_id does not equal $.resource[*].aws_vpc_peering_connection[*].*[*].vpc_id",
   "id": "59356130-d856-470d-a08e-b2a0ba2a4ac7",
-  "enabled": true
+  "enabled": true,
+  "recommendation": {
+    "name": "Recommended solution for making sure AWS VPC doesn't allow unauthorized peering.",
+    "description": "Ensure that AWS VPC doesn't allow unauthorized peering. Please make sure the value for \"peer_vpc_id\" is equal to \"vpc_id\".",
+    "snippet": "\"aws_vpc_peering_connection\": [\n        {\n          \"foo\": [\n            {\n              \"peer_owner_id\": \"${var.peer_owner_id}\",\n              \"peer_vpc_id\": \"${aws_vpc.foo.id}\",\n              \"vpc_id\": \"${aws_vpc.foo.id}\"\n            }\n          ]\n        }\n      ]"
+  }
 }

@@ -25,7 +25,6 @@ resource "azurerm_sql_database" "example" {
   tags = {
     environment = "production"
   }
-
 }
 
 resource "azurerm_sql_database" "example2" {
