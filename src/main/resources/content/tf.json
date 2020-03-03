@@ -411,6 +411,11 @@
     "severity": "medium",
     "description": "This policy identifies the VPCs which have unauthorized peering. The recommended best practice is to disallow VPC peering between two VPCs from different AWS accounts, as this potentially enables unauthorized access to private resources.",
     "rule": "$.resource[*].aws_vpc_peering_connection[*].*[*].peer_vpc_id does not equal $.resource[*].aws_vpc_peering_connection[*].*[*].vpc_id",
+    "recommendation": {
+      "snippet": "\"aws_vpc_peering_connection\": [\n        {\n          \"foo\": [\n            {\n              \"peer_owner_id\": \"${var.peer_owner_id}\",\n              \"peer_vpc_id\": \"${aws_vpc.foo.id}\",\n              \"vpc_id\": \"${aws_vpc.foo.id}\"\n            }\n          ]\n        }\n      ]",
+      "name": "Recommended solution for making sure AWS VPC doesn't allow un-authorized peering.",
+      "description": "Ensure that AWS VPC doesn't allow unauthorized peering. Please make sure the value for \"peer_vpc_id\" is equal to \"vpc_id\"."
+    },
     "id": "59356130-d856-470d-a08e-b2a0ba2a4ac7",
     "enabled": true,
     "resourceType": "vpc",
@@ -600,8 +605,8 @@
   },
   {
     "severity": "medium",
-    "rule": "$.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains  3389  or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals  3389",
-    "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransomware.",
+    "rule": "($.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains 3389 or $.resource.*.azurerm_network_security_rule[*].*[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals 3389) or ($.resource.*.azurerm_network_security_group[*].*[*].security_rule[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_ranges contains 3389 or $.resource.*.azurerm_network_security_group[*].*[*].security_rule[?( @.access == 'Allow' && @.direction == 'Inbound' )].destination_port_range equals 3389)",
+    "description": "Blocking RDP port 3389 will protect users from attacks like account compromise, Denial of service and ransom-ware.",
     "recommendation": {
       "snippet": "\"azurerm_network_security_rule\": [\n        {\n          \"test\": [\n            {\n              \"access\": \"Deny\",\n              \"destination_address_prefix\": \"*\",\n              \"destination_port_range\": \"3389\",\n              \"direction\": \"Inbound\",\n              \"name\": \"test123\"\n            }\n          ]\n        }\n      ]",
       "name": "Recommended solution for not allowing SSH traffic on port 3389 from internet in NSG",
