@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "k8s",
   "policy": "Do not share host network with containers",
-  "description": "Ensure not sharing host network with containers."
+  "description": "Ensure not sharing host network with containers.",
+  "recommendation": {
+    "name": "Recommended solution to not sharing host network with containers.",
+    "description": "It is recommended not to share host network with containers. Please make sure \"hostNetwork\" is set to \"false\"",
+    "snippet": "\"spec\": {\n                \"hostNetwork\": false,\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ]\n                    }\n                ]\n            }"
+  }
 }
