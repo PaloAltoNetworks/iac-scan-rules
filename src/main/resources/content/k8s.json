@@ -3,8 +3,13 @@
 "policies": [
   {
     "severity": "high",
-    "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and !contains all",
+    "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and not $.spec.templates.spec.containers[*].securityContext.capabilities.drop[*] contains ALL",
     "description": "Ensure that all capabilities are dropped.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"image\": \"mateobur/flask\",\n                        \"name\": \"flask-cap\",\n                        \"securityContext\": {\n                            \"capabilities\": {\n                                \"drop\": [\n                                    \"NET_RAW\",\n                                    \"CHOWN\"\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }",
+      "name": "Recommended solution for making sure all capabilities are dropped in a Security Context.",
+      "description": "It is recommended that all capabilities are dropped in a Security Context. Please make sure \"capabilities\" has \"drop\" set to \"ALL\""
+    },
     "id": "4682a6f1-2a1b-4f5a-938c-cdd3fa421a63",
     "enabled": true,
     "resourceType": "k8s",
@@ -12,8 +17,13 @@
   },
   {
     "severity": "high",
-    "rule": "$.spec.template.spec.containers[*].securityContext.privileged is true",
+    "rule": "$.spec.template.spec.containers[*].securityContext.privileged any true",
     "description": "Ensure containers' privileged is false.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"privileged\": false\n                        }\n                    }\n                ]\n            }",
+      "name": "Recommended solution for making sure containers running are not privileged.",
+      "description": "It is recommended containers privilege is False. Please make sure \"privileged\" has value set to \"false\""
+    },
     "id": "92714c07-d12b-4635-ae6a-514c5c428c5a",
     "enabled": true,
     "resourceType": "k8s",
@@ -21,8 +31,13 @@
   },
   {
     "severity": "high",
-    "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot exists and is false",
+    "rule": "$.spec.templates.spec.containers[*].securityContext.runAsNonRoot any false",
     "description": "Ensure containers run as non-root.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": false\n                        }\n                    }\n                ]\n            }",
+      "name": "Recommended solution for making sure containers are running as non root.",
+      "description": "It is recommended containers run as non-root. Please make sure \"runAsNonRoot\" has value set to \"true\""
+    },
     "id": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
     "enabled": true,
     "resourceType": "k8s",
@@ -32,6 +47,11 @@
     "severity": "medium",
     "rule": "$.spec.template.spec.hostIPC is true",
     "description": "Ensure not allowing sharing host IPC namespace.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"hostIPC\": false,\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\"\n                    }\n                ]\n            }",
+      "name": "Recommended solution for not sharing host IPC namespace.",
+      "description": "It is recommended not to sharing host IPC namespace. Please make sure \"hostIPC\" has value set to \"false\""
+    },
     "id": "344fb01c-7195-3e9f-47e1-c640733af43f",
     "enabled": true,
     "resourceType": "k8s",
@@ -41,6 +61,11 @@
     "severity": "medium",
     "rule": "$.spec.template.spec.hostPID is true",
     "description": "Ensure not allowing sharing host PID namespace.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"hostPID\": false,\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\"\n                    }\n                ]\n            }",
+      "name": "Recommended solution for not sharing host PID namespace.",
+      "description": "It is recommended not to sharing host PID namespace. Please make sure \"hostPID\" has value set to \"false\""
+    },
     "id": "4c5d00c1-8f60-40bc-9566-a5b4e019752a",
     "enabled": true,
     "resourceType": "k8s",
@@ -48,8 +73,13 @@
   },
   {
     "severity": "low",
-    "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes == ReadOnlyMany",
+    "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes contains ReadOnlyMany",
     "description": "Ensure not allowing volume claims to be read by many nodes.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                    \"accessModes\": [\n                        \"ReadWriteOnce\"\n                    ],\n                    \"storageClassName\": \"my-storage-class\",\n                    \"resources\": {\n                        \"requests\": {\n                            \"storage\": \"1Gi\"\n                        }\n                    }\n                }",
+      "name": "Recommended solution for allowing volume claims to be read by many nodes.",
+      "description": "It is recommended to allow volume claims to be read by many nodes. Please make sure \"accessModes\" is not set to \"ReadOnlyMany\""
+    },
     "id": "802f2ed9-0b0d-4627-bf1a-7cb0ccfdd71c",
     "enabled": true,
     "resourceType": "k8s",
@@ -57,8 +87,13 @@
   },
   {
     "severity": "medium",
-    "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes == ReadWriteMany",
+    "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes contains ReadWriteMany",
     "description": "Ensure not allowing volume claims to be read-write by many nodes.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                    \"accessModes\": [\n                        \"ReadWriteOnce\"\n                    ],\n                    \"storageClassName\": \"my-storage-class\",\n                    \"resources\": {\n                        \"requests\": {\n                            \"storage\": \"1Gi\"\n                        }\n                    }\n                }",
+      "name": "Recommended solution for allowing volume claims to be read-write by many nodes.",
+      "description": "It is recommended to allow volume claims to be read-write by many nodes. Please make sure \"accessModes\" is not set to \"ReadWriteMany\""
+    },
     "id": "f9bcb4b8-3f22-448a-8521-9e09e3a994e0",
     "enabled": true,
     "resourceType": "k8s",
@@ -66,8 +101,13 @@
   },
   {
     "severity": "high",
-    "rule": "$.spec.template.spec.securityContext.runAsUser < 1",
+    "rule": "$.spec.template.spec.securityContext.runAsUser any equal 0",
     "description": "Ensure running containers as non-root.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\"\n                    }\n                ],\n                \"securityContext\": {\n                    \"runAsUser\": 1000,\n                    \"runAsGroup\": 3000,\n                    \"fsGroup\": 2000\n                }\n            }",
+      "name": "Recommended solution to ensure that containers are running as non-root.",
+      "description": "It is recommended that containers run as non-root. Please make sure \"runAsUser\" value is not equal to 0"
+    },
     "id": "314eba46-a376-43f6-9a0a-8517818301f1",
     "enabled": true,
     "resourceType": "k8s",
@@ -77,6 +117,11 @@
     "severity": "medium",
     "rule": "$.spec.template.spec.containers[*].securityContext.capabilities exists and $.spec.template.spec.containers[*].securityContext.capabilities.add[*] is member of (FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE)",
     "description": "Ensure not running containers with dangerous capabilities.",
+    "recommendation": {
+      "snippet": "\"securityContext\": {\n                            \"capabilities\": {\n                                \"add\": [\n                                    \"SYS_NICE\"\n                                ],\n                                \"drop\": [\n                                    \"KILL\"\n                                ]\n                            }\n                        }",
+      "name": "Recommended solution to not run containers with dangerous capabilities.",
+      "description": "It is recommended to run containers with dangerous capabilities. Please make sure \"capabilities\" does not have FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE as its members"
+    },
     "id": "135420a6-3206-4c29-b944-846f65cea43e",
     "enabled": true,
     "resourceType": "k8s",
@@ -86,6 +131,11 @@
     "severity": "high",
     "rule": "$.spec.template.spec.hostNetwork is true",
     "description": "Ensure not sharing host network with containers.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"hostNetwork\": false,\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ]\n                    }\n                ]\n            }",
+      "name": "Recommended solution to not sharing host network with containers.",
+      "description": "It is recommended not to share host network with containers. Please make sure \"hostNetwork\" is set to \"false\""
+    },
     "id": "99544e17-fc8f-4c77-963e-083ab80c53b0 ",
     "enabled": true,
     "resourceType": "k8s",
@@ -93,8 +143,13 @@
   },
   {
     "severity": "medium",
-    "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and  is false",
+    "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and $.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem any false",
     "description": "Ensure containers are immutable.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"readOnlyRootFilesystem\": false\n                        }\n                    }\n                ]\n            }",
+      "name": "Recommended solution to ensure that containers are immutable.",
+      "description": "It is recommended that containers are immutable. Please make sure \"readOnlyRootFilesystem\" is set to \"true\""
+    },
     "id": "c448b01c-7f95-4e9f-97e1-c640733af44f",
     "enabled": true,
     "resourceType": "k8s",
@@ -104,10 +159,15 @@
     "severity": "medium",
     "rule": "$.spec.template.spec.containers[*].securityContext.runAsUser < 9999",
     "description": "Ensure entrypoint of the container runs with a user with a high ID.",
+    "recommendation": {
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"runAsUser\": 10000\n                        }\n                    }\n                ]\n            }",
+      "name": "Recommended solution to ensure that entrypoint of the container runs with a user with a high ID.",
+      "description": "It is recommended that entrypoint of the container runs with a user with a high ID. Please make sure \"runAsUser\" value is greater than 9999"
+    },
     "id": "6e06b1a6-7eea-4730-91c2-9ac3fb676dce",
     "enabled": true,
     "resourceType": "k8s",
-    "policy": "entrypoint of the container must be run with a user with a high ID"
+    "policy": "Entrypoint of the container must be run with a user with a high ID"
   }
 ]
 }
