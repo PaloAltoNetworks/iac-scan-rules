@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "k8s",
   "policy": "Do not allow sharing host PID namespace",
-  "description": "Ensure not allowing sharing host PID namespace."
+  "description": "Ensure not allowing sharing host PID namespace.",
+  "recommendation": {
+    "name": "Recommended solution for not sharing host PID namespace.",
+    "description": "It is recommended not to sharing host PID namespace. Please make sure \"hostPID\" has value set to \"false\"",
+    "snippet": "\"spec\": {\n                \"hostPID\": false,\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\"\n                    }\n                ]\n            }"
+  }
 }

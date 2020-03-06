@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "k8s",
   "policy": "Do not allow sharing host IPC namespace",
-  "description": "Ensure not allowing sharing host IPC namespace."
+  "description": "Ensure not allowing sharing host IPC namespace.",
+  "recommendation": {
+    "name": "Recommended solution for not sharing host IPC namespace.",
+    "description": "It is recommended not to sharing host IPC namespace. Please make sure \"hostIPC\" has value set to \"false\"",
+    "snippet": "\"spec\": {\n                \"hostIPC\": false,\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\"\n                    }\n                ]\n            }"
+  }
 }

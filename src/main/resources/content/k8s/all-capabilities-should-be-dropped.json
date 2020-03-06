@@ -1,9 +1,14 @@
 {
   "severity": "high",
-  "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and !contains all",
+  "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and not $.spec.templates.spec.containers[*].securityContext.capabilities.drop[*] contains ALL",
   "id": "4682a6f1-2a1b-4f5a-938c-cdd3fa421a63",
   "enabled": true,
   "resourceType": "k8s",
   "policy": "All capabilities should be dropped",
-  "description": "Ensure that all capabilities are dropped."
+  "description": "Ensure that all capabilities are dropped.",
+  "recommendation": {
+    "name": "Recommended solution for making sure all capabilities are dropped in a Security Context.",
+    "description": "It is recommended that all capabilities are dropped in a Security Context. Please make sure \"capabilities\" has \"drop\" set to \"ALL\"",
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"image\": \"mateobur/flask\",\n                        \"name\": \"flask-cap\",\n                        \"securityContext\": {\n                            \"capabilities\": {\n                                \"drop\": [\n                                    \"NET_RAW\",\n                                    \"CHOWN\"\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }"
+  }
 }

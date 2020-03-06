@@ -1,0 +1,26 @@
+{
+  "apiVersion": "v1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "flask-cap",
+    "namespace": "default"
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "privileged"
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "pause",
+            "image": "k8s.gcr.io/pause",
+            "securityContext": {
+              "runAsNonRoot": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "apiVersion": "v1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "flask-cap",
+    "namespace": "default"
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "hello-world"
+      },
+      "spec": {
+        "hostNetwork": false,
+        "containers": [
+          {
+            "name": "friendly-container",
+            "image": "alpine:3.4",
+            "command": [
+              "/bin/echo",
+              "hello",
+              "world"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

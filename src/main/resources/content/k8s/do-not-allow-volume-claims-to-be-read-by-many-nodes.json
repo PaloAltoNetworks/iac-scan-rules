@@ -1,9 +1,14 @@
 {
   "severity": "low",
-  "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes == ReadOnlyMany",
+  "rule": "$.spec.volumeClaimTemplates[*].spec.accessModes contains ReadOnlyMany",
   "id": "802f2ed9-0b0d-4627-bf1a-7cb0ccfdd71c",
   "enabled": true,
   "resourceType": "k8s",
   "policy": "Do not allow volume claims to be read by many nodes",
-  "description": "Ensure not allowing volume claims to be read by many nodes."
+  "description": "Ensure not allowing volume claims to be read by many nodes.",
+  "recommendation": {
+    "name": "Recommended solution for allowing volume claims to be read by many nodes.",
+    "description": "It is recommended to allow volume claims to be read by many nodes. Please make sure \"accessModes\" is not set to \"ReadOnlyMany\"",
+    "snippet": "\"spec\": {\n                    \"accessModes\": [\n                        \"ReadWriteOnce\"\n                    ],\n                    \"storageClassName\": \"my-storage-class\",\n                    \"resources\": {\n                        \"requests\": {\n                            \"storage\": \"1Gi\"\n                        }\n                    }\n                }"
+  }
 }
