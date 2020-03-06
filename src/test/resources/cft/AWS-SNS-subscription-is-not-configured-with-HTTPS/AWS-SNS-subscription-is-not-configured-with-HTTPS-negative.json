@@ -13,7 +13,7 @@
         "Endpoint": {
           "Fn::GetAtt": ["ERPIntegrationQueue", "Arn"]
         },
-        "Protocol": "sqs",
+        "Protocol": "https",
         "RawMessageDelivery": "true"
       }
     },
