@@ -1,9 +1,14 @@
 {
   "severity": "high",
-  "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot exists and is false",
+  "rule": "$.spec.templates.spec.containers[*].securityContext.runAsNonRoot any false",
   "id": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
   "enabled": true,
   "resourceType": "k8s",
   "policy": "Containers must be run as non-root",
-  "description": "Ensure containers run as non-root."
+  "description": "Ensure containers run as non-root.",
+  "recommendation": {
+    "name": "Recommended solution for making sure containers are running as non root.",
+    "description": "It is recommended containers run as non-root. Please make sure \"runAsNonRoot\" has value set to \"true\"",
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": false\n                        }\n                    }\n                ]\n            }"
+  }
 }

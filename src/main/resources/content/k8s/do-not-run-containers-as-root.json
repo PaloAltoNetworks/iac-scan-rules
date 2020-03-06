@@ -1,9 +1,14 @@
 {
   "severity": "high",
-  "rule": "$.spec.template.spec.securityContext.runAsUser < 1",
+  "rule": "$.spec.template.spec.securityContext.runAsUser any equal 0",
   "id": "314eba46-a376-43f6-9a0a-8517818301f1",
   "enabled": true,
   "resourceType": "k8s",
   "policy": "Do not run containers as root",
-  "description": "Ensure running containers as non-root."
+  "description": "Ensure running containers as non-root.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that containers are running as non-root.",
+    "description": "It is recommended that containers run as non-root. Please make sure \"runAsUser\" value is not equal to 0",
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\"\n                    }\n                ],\n                \"securityContext\": {\n                    \"runAsUser\": 1000,\n                    \"runAsGroup\": 3000,\n                    \"fsGroup\": 2000\n                }\n            }"
+  }
 }

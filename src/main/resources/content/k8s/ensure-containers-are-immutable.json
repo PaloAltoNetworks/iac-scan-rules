@@ -1,0 +1,14 @@
+{
+  "severity": "medium",
+  "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and $.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem any false",
+  "id": "c448b01c-7f95-4e9f-97e1-c640733af44f",
+  "enabled": true,
+  "resourceType": "k8s",
+  "policy": "Ensure containers are immutable ",
+  "description": "Ensure containers are immutable.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that containers are immutable.",
+    "description": "It is recommended that containers are immutable. Please make sure \"readOnlyRootFilesystem\" is set to \"true\"",
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"readOnlyRootFilesystem\": false\n                        }\n                    }\n                ]\n            }"
+  }
+}

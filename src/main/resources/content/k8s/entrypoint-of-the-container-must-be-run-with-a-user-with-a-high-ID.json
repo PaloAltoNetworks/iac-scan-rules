@@ -4,6 +4,11 @@
   "id": "6e06b1a6-7eea-4730-91c2-9ac3fb676dce",
   "enabled": true,
   "resourceType": "k8s",
-  "policy": "entrypoint of the container must be run with a user with a high ID",
-  "description": "Ensure entrypoint of the container runs with a user with a high ID."
+  "policy": "Entrypoint of the container must be run with a user with a high ID",
+  "description": "Ensure entrypoint of the container runs with a user with a high ID.",
+  "recommendation": {
+    "name": "Recommended solution to ensure that entrypoint of the container runs with a user with a high ID.",
+    "description": "It is recommended that entrypoint of the container runs with a user with a high ID. Please make sure \"runAsUser\" value is greater than 9999",
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"runAsUser\": 10000\n                        }\n                    }\n                ]\n            }"
+  }
 }
