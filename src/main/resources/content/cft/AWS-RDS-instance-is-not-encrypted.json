@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "rds",
   "policy": "AWS RDS instance is not encrypted",
-  "description": "This policy identifies AWS RDS instances which are not encrypted. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up and manage databases. Amazon allows customers to turn on encryption for RDS which is recommended for compliance and security reasons."
+  "description": "This policy identifies AWS RDS instances which are not encrypted. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up and manage databases. Amazon allows customers to turn on encryption for RDS which is recommended for compliance and security reasons.",
+  "recommendation": {
+    "name": "Recommended solution for encrypting RDS instance.",
+    "description": "It is recommended to encrypt RDS instance. Please make sure that \"StorageEncrypted\" attribute exists and is set to \"true\"",
+    "snippet": "\"MyDB\": {\n\t        \"Type\": \"AWS::RDS::DBInstance\",\n\t        \"Properties\": {\n\t            \"AllocatedStorage\": \"100\",\n\t            \"DBInstanceClass\": \"db.t3.small\",\n\t            \"StorageEncrypted\":true,\n\t            \"MultiAZ\": true\n\t        }\n\t    }"
+  }
 }

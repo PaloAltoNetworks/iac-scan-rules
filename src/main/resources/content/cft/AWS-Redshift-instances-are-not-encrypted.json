@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"redshift",
    "policy":"AWS Redshift instances are not encrypted",
-   "description": "This policy identifies AWS Redshift instances which are not encrypted. These instances should be encrypted for clusters to help protect data at rest which otherwise can result in a data breach."
+   "description": "This policy identifies AWS Redshift instances which are not encrypted. These instances should be encrypted for clusters to help protect data at rest which otherwise can result in a data breach.",
+   "recommendation": {
+      "name": "Recommended solution for having Redshuft instances encrypted.",
+      "description": "It is recommended to encrypt Redshift instances. Please make sure that \"Encrypted\" exists and its value is set to \"true\"",
+      "snippet": "\"myCluster1\":{ \n         \"Type\":\"AWS::Redshift::Cluster\",\n         \"Properties\":{ \n            \"DBName\":\"mydb\",\n            \"MasterUsername\":\"master\",\n            \"Encrypted\":true\n         }\n      }"
+   }
 }

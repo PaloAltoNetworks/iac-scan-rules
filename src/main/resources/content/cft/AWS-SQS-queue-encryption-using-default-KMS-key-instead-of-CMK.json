@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "sqs",
   "policy": "AWS SQS queue encryption using default KMS key instead of CMK",
-  "description": "This policy identifies SQS queues which are encrypted with default KMS keys and not with Customer Master Keys(CMKs). It is a best practice to use customer managed Master Keys to encrypt your SQS queue messages. It gives you full control over the encrypted messages data."
+  "description": "This policy identifies SQS queues which are encrypted with default KMS keys and not with Customer Master Keys(CMKs). It is a best practice to use customer managed Master Keys to encrypt your SQS queue messages. It gives you full control over the encrypted messages data.",
+  "recommendation": {
+    "name": "Recommended solution encrypting SQS queue with CMK instead of default KMS.",
+    "description": "It is recommended SQS queue encryption is done using CMK instead of default KMS key. Please make sure that \"KmsMasterKeyId\" contains \"alias/aws/sqs\" value",
+    "snippet": "\"foobar2\": {\n      \"Type\": \"AWS::SQS::Queue\",\n      \"Properties\": {\n        \"ContentBasedDeduplication\": true,\n        \"KmsMasterKeyId\": \"alias/aws/cmk\"\n      }\n    }"
+  }
 }

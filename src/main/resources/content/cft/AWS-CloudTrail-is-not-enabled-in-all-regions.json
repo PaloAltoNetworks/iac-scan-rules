@@ -8,7 +8,7 @@
    "description": "Checks to ensure that CloudTrail is enabled across all regions. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to turn on CloudTrail across different regions to get a complete audit trail of activities across various services. ",
    "recommendation": {
       "name": "Recommended solution for AWS CloudTrail is enabled in all regions",
-      "description": "It is recommended that CloudTrail logs are enabled in all regions. To do so, please make sure your template has the IsMultiRegionTrail is set to True",
+      "description": "It is recommended that CloudTrail logs are enabled in all regions. Please make sure your template has the IsMultiRegionTrail is set to True",
       "snippet": "\"Type\":\"AWS::CloudTrail::Trail\",\"Properties\":{\"S3BucketName\":{\"Ref\":\"S3Bucket\"},\"IsLogging\":true,\"IsMultiRegionTrail\":true"
    }
 }

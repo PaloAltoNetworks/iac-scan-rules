@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"redshift",
    "policy":"AWS Redshift database does not have audit logging enabled",
-   "description": "Audit logging is not enabled by default in Amazon Redshift. When you enable logging on your cluster, Amazon Redshift creates and uploads logs to Amazon S3 that capture data from the creation of the cluster to the present time."
+   "description": "Audit logging is not enabled by default in Amazon Redshift. When you enable logging on your cluster, Amazon Redshift creates and uploads logs to Amazon S3 that capture data from the creation of the cluster to the present time.",
+   "recommendation": {
+      "name": "Recommended solution making sure that Redshift database has audit logging enabled.",
+      "description": "It is recommended enable audit logging for Redshift database. Please make sure that \"LoggingProperties\" block exists",
+      "snippet": "\"myCluster1\":{ \n         \"Type\":\"AWS::Redshift::Cluster\",\n         \"Properties\":{ \n            \"DBName\":\"mydb\",\n            \"MasterUsername\":\"master\",\n            \"LoggingProperties\": {\n\t\t\t  \"BucketName\" : \"String\",\n\t\t\t  \"S3KeyPrefix\" : \"String\"\n\t\t\t}\n         }\n      }"
+   }
 }

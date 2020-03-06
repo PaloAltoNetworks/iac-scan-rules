@@ -26,7 +26,7 @@
         "Endpoint": {
           "Fn::GetAtt": ["CRMIntegrationQueue", "Arn"]
         },
-        "Protocol": "sqs",
+        "Protocol": "https",
         "RawMessageDelivery": "true",
         "FilterPolicy": {
           "buyer-class": [
@@ -44,7 +44,7 @@
         "Endpoint": {
           "Ref": "myHttpEndpoint"
         },
-        "Protocol": "sqs",
+        "Protocol": "https",
         "DeliveryPolicy": {
           "healthyRetryPolicy": {
             "numRetries": 20,
