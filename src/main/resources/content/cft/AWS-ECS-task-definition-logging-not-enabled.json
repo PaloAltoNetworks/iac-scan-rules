@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "ecs",
   "policy": "AWS ECS task definition logging not enabled",
-  "description": "Check if AWS ECS task definition logging is enabled"
+  "description": "Check if AWS ECS task definition logging is enabled",
+  "recommendation": {
+    "name": "Recommended solution for enabling logging for AWS ECS task definition.",
+    "description": "It is recommended that logging is enabled for AWS ECS task definition. Please make sure your \"TaskDefinition\" template has \"LogConfiguration\" and \"LogDriver\" configured.",
+    "snippet": "\"ContainerDefinitions\" : [\n\t    {\n\t      \"Name\": \"busybox\",\n\t      \"Image\": \"busybox\",\n\t      \"ReadonlyRootFilesystem\": true,\n\t      \"Cpu\": \"10\",\n\t      \"EntryPoint\": [\n\t        \"sh\",\n\t        \"-c\"\n\t      ],\n\t      \"Memory\": \"0.5GB\",\n\t      \"Essential\" : \"false\",\n\t      \"LogConfiguration\": {\n\t\t\t\"LogDriver\" : \"dummy\"\n\t\t\t}\n\t    }]"
+  }
 }

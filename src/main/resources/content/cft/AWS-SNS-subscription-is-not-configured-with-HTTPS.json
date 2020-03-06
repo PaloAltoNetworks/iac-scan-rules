@@ -1,9 +1,14 @@
 {
   "severity": "medium",
-  "rule": "$.Resources.*[?(@.Type == 'AWS::SNS::Subscription')].Properties.Protocol contains http",
+  "rule": "$.Resources.*[?(@.Type == 'AWS::SNS::Subscription')].Properties.Protocol any equal http",
   "id": "b53e5177-96e1-4999-a9c8-6400190910bb",
   "enabled": true,
   "resourceType": "sns",
   "policy": "AWS SNS subscription is not configured with HTTPS",
-  "description": "This policy identifies SNS subscriptions using HTTP instead of HTTPS as the delivery protocol in order to enforce SSL encryption for all subscription requests. It is strongly recommended use only HTTPS-based subscriptions by implementing secure SNS topic policies."
+  "description": "This policy identifies SNS subscriptions using HTTP instead of HTTPS as the delivery protocol in order to enforce SSL encryption for all subscription requests. It is strongly recommended use only HTTPS-based subscriptions by implementing secure SNS topic policies.",
+  "recommendation": {
+    "name": "Recommended solution for configuring SNS subscription with HTTPS.",
+    "description": "It is recommended that SNS subscription is configured with HTTPS. Please make sure that \"Protocol\" value is set to \"https\"",
+    "snippet": "\"SCMSubscription\": {\n      \"Type\": \"AWS::SNS::Subscription\",\n      \"Properties\": {\n        \"TopicArn\": {\n          \"Ref\": \"CarSalesTopic\"\n        },\n        \"Endpoint\": {\n          \"Ref\": \"myHttpEndpoint\"\n        },\n        \"Protocol\": \"https\"\n      }\n    }"
+  }
 }

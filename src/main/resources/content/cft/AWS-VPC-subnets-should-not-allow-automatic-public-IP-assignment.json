@@ -3,7 +3,12 @@
   "rule": "$.Resources.*[?(@.Type == 'AWS::EC2::Subnet')].Properties.MapPublicIpOnLaunch anyTrue",
   "id": "11743cd3-35e4-4639-91e1-bc87b52d4cf5",
   "enabled": true,
-  "resourceType": "ec2",
+  "resourceType": "AWS VPC Subnets",
   "policy": "AWS VPC subnets should not allow automatic public IP assignment",
-  "description": "This policy identifies VPC subnets which allow automatic public IP assignment. VPC subnet is a part of the VPC having its own rules for traffic. Assigning the Public IP to the subnet automatically (on launch) can accidentally expose the instances within this subnet to internet and should be edited to 'No' post creation of the Subnet."
+  "description": "This policy identifies VPC subnets which allow automatic public IP assignment. VPC subnet is a part of the VPC having its own rules for traffic. Assigning the Public IP to the subnet automatically (on launch) can accidentally expose the instances within this subnet to internet and should be edited to 'No' post creation of the Subnet.",
+  "recommendation": {
+    "name": "Recommended solution for not allowing automatic public IP assignment for VPC Subnets.",
+    "description": "It is recommended that VPC subnets should not be allow automatic public IP assignment. Please make sure that if \"MapPublicIpOnLaunch\" exists, its value is set to \"false\"",
+    "snippet": "\"PublicSubnetOne\": {\n      \"Type\": \"AWS::EC2::Subnet\",\n      \"Properties\": {\n        \"VpcId\": null,\n        \"CidrBlock\": null,\n        \"MapPublicIpOnLaunch\": true\n      }\n    }"
+  }
 }

@@ -5,5 +5,10 @@
 	"description": "VPC support for Amazon ES is easy to configure, reliable, and offers an extra layer of security. With VPC support, traffic between other services and Amazon ES stays entirely within the AWS network, isolated from the public Internet. You can manage network access using existing VPC security groups, and you can use AWS Identity and Access Management (IAM) policies for additional protection. VPC support for Amazon ES domains is available at no additional charge.",
 	"rule": "$.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions any null or ($.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions exists and $.Resources.*[?(@.Type == 'AWS::Elasticsearch::Domain')].Properties.VPCOptions.SubnetIds any null)",
 	"id": "3b745764-1d47-4adf-a023-18b95dcd713e",
-	"enabled": true
+	"enabled": true,
+	"recommendation": {
+		"name": "Recommended solution having Elastic Cluster inside a VPC.",
+		"description": "It is recommended to have Elastic Cluster inside a VPC. Please make sure that \"VPCOptions\" exists and it has \"subnetIds\" defined.",
+		"snippet": "\"ElasticsearchDomain\": {\n\t\t\t\"Type\": \"AWS::Elasticsearch::Domain\",\n\t\t\t\"Properties\": {\n\t\t\t\t\"VPCOptions\": {\n\t\t\t\t\t\"SubnetIds\": [{\n\t\t\t\t\t\t\"Ref\": \"subnet\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"SecurityGroupIds\": [{\n\t\t\t\t\t\t\"Ref\": \"mySecurityGroup\"\n\t\t\t\t\t}]\n\t\t\t\t}\n\t\t\t}\n\t\t}"
+	}
 }

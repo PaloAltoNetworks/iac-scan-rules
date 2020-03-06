@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "ecs",
   "policy": "AWS ECS task definition elevated privileges enabled",
-  "description": "Ensure your ECS containers are not given elevated privileges on the host container instance.When the Privileged parameter is true, the container is given elevated privileges on the host container instance (similar to the root user).This policy checks the security configuration of your task definition and alerts if elevated privileges are enabled.Note: This parameter is not supported for Windows containers or tasks using the Fargate launch type."
+  "description": "Ensure your ECS containers are not given elevated privileges on the host container instance.When the Privileged parameter is true, the container is given elevated privileges on the host container instance (similar to the root user).This policy checks the security configuration of your task definition and alerts if elevated privileges are enabled.Note: This parameter is not supported for Windows containers or tasks using the Fargate launch type.",
+  "recommendation": {
+    "name": "Recommended solution for AWS ECS task definition not having elevated privileges enabled.",
+    "description": "It is recommended that AWS ECS task definition should not have elevated privilege enabled. Please make sure your template has \"Privileged\" set to \"false\"",
+    "snippet": "\"ContainerDefinitions\" : [\n\t    {\n\t      \"Name\": {\"Ref\": \"AppName\"},\n\t      \"ReadonlyRootFilesystem\": true,\n\t      \"Image\":\"amazon/amazon-ecs-sample\",\n\t      \"Cpu\": \"10\",\n\t      \"Memory\":\"0.5GB\",\n\t      \"Essential\": \"true\",\n\t      \"LogConfiguration\": {\n\t\t\t\"LogDriver\" : \"dummy\"\n\t\t\t},\n\t\t\t\"Privileged\" : false\n\t    }]"
+  }
 }

@@ -5,5 +5,10 @@
 	"description": "This policy identifies AWS RDS snapshots which are accessible to public. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to setup and manage databases. If RDS snapshots are inadvertently shared to public, any unauthorized user with AWS console access can gain access to the snapshots and gain access to sensitive data.",
 	"rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] exists and $.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')].Properties.PubliclyAccessible anyTrue",
 	"id": "d68f9185-422e-42d3-b673-b1aef528012c",
-	"enabled": true
+	"enabled": true,
+	"recommendation": {
+		"name": "Recommended solution for making sure that RDS Instances are not accessible to pubic.",
+		"description": "It is recommended that RDS snapshots are accessible to public. Please make sure that if \"PubliclyAccessible\" attribute exists, it is set to \"false\"",
+		"snippet": "\"rdsagoyal21postgreuswest1db\": {\n      \"Type\": \"AWS::RDS::DBInstance\",\n      \"Properties\": {\n        \"PubliclyAccessible\": \"false\",\n        \"StorageType\": \"gp2\",\n        \"BackupRetentionPeriod\": \"0\"\n      }\n    }"
+	}
 }

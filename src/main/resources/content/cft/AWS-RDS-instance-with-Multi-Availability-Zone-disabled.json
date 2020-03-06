@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"rds",
    "policy":"AWS RDS instance with Multi-Availability Zone disabled",
-   "description": "This policy identifies RDS instances which have Multi-Availability Zone(Multi-AZ) disabled. When RDS DB instance is enabled with Multi-AZ, RDS automatically creates a primary DB Instance and synchronously replicates the data to a standby instance in a different availability zone. These Multi-AZ deployments will improve primary node reachability by providing read replica in case of network connectivity loss or loss of availability in the primary’s availability zone for read/write operations, so by making them the best fit for production database workloads."
+   "description": "This policy identifies RDS instances which have Multi-Availability Zone(Multi-AZ) disabled. When RDS DB instance is enabled with Multi-AZ, RDS automatically creates a primary DB Instance and synchronously replicates the data to a standby instance in a different availability zone. These Multi-AZ deployments will improve primary node reachability by providing read replica in case of network connectivity loss or loss of availability in the primary’s availability zone for read/write operations, so by making them the best fit for production database workloads.",
+   "recommendation": {
+      "name": "Recommended solution to enable Multi-Availability for RDS instance.",
+      "description": "It is recommended that Multi-Availability is enabled for RDS instance. Please make sure that \"MultiAZ\" attribute exists and is set to \"true\"",
+      "snippet": "\"MyDB1\": {\n\t        \"Type\": \"AWS::RDS::DBInstance\",\n\t        \"Properties\": {\n\t            \"AllocatedStorage\": \"100\",\n\t            \"DBInstanceClass\": \"db.t3.small\",\n\t            \"MultiAZ\": true\n\t        }\n\t    }"
+   }
 }

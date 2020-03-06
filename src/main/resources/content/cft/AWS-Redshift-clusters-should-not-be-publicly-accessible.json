@@ -5,5 +5,10 @@
    "enabled":true,
    "resourceType":"redshift",
    "policy":"AWS Redshift clusters should not be publicly accessible",
-   "description": "This policy identifies AWS Redshift clusters which are accessible publicly."
+   "description": "This policy identifies AWS Redshift clusters which are accessible publicly.",
+   "recommendation": {
+      "name": "Recommended solution making sure that Redshift clusters are not accessible to pubic.",
+      "description": "It is recommended that Redshift Clusters are accessible to public. Please make sure that \"PubliclyAccessible\" attribute is set to \"false\"",
+      "snippet": "\"myCluster1\":{ \n         \"Type\":\"AWS::Redshift::Cluster\",\n         \"Properties\":{ \n            \"DBName\":\"mydb\",\n            \"MasterUsername\":\"master\",\n            \"NodeType\":\"ds2.xlarge\",\n            \"ClusterType\":\"single-node\",\n            \"Encrypted\":true,\n\t\t\t\"PubliclyAccessible\": false\n         }\n      }"
+   }
 }

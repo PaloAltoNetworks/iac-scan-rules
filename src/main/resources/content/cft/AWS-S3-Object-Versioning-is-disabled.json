@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "s3",
   "policy": "AWS S3 Object Versioning is disabled",
-  "description": "This policy identifies the S3 buckets which have Object Versioning disabled. S3 Object Versioning is an important capability in protecting your data within a bucket. Once you enable Object Versioning, you cannot remove it; you can suspend Object Versioning at any time on a bucket if you do not wish for it to persist. It is recommended to enable Object Versioning on S3."
+  "description": "This policy identifies the S3 buckets which have Object Versioning disabled. S3 Object Versioning is an important capability in protecting your data within a bucket. Once you enable Object Versioning, you cannot remove it; you can suspend Object Versioning at any time on a bucket if you do not wish for it to persist. It is recommended to enable Object Versioning on S3.",
+  "recommendation": {
+    "name": "Recommended solution to enable Object versioning on S3 buckets.",
+    "description": "It is recommended that S3 buckets have Object versioning enabled. Please make sure that \"VersioningConfiguration\" exists and \"Status\" in set to \"Enabled\"",
+    "snippet": "\"RecordServiceS3Bucket\": {\n      \"Type\": \"AWS::S3::Bucket\",\n      \"DeletionPolicy\": \"Retain\",\n      \"Properties\": {\n        \"VersioningConfiguration\": {\n          \"Status\": \"Enabled\"\n        }\n      }\n    }"
+  }
 }

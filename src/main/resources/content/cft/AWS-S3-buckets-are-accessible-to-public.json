@@ -5,5 +5,10 @@
   "enabled": true,
   "resourceType": "s3",
   "policy": "AWS S3 buckets are accessible to public",
-  "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks."
+  "description": "This policy identifies S3 buckets which are publicly accessible. Amazon S3 allows customers to store or retrieve any type of content from anywhere in the web. Often, customers have legitimate reasons to expose the S3 bucket to public, for example, to host website content. However, these buckets often contain highly sensitive enterprise data which if left open to public may result in sensitive data leaks.",
+  "recommendation": {
+    "name": "Recommended solution for making sure S3 buckets are not accessible to public.",
+    "description": "It is recommended that S3 buckets are not accessible to public. Please make sure that \"PublicRead\" is set to \"Private\"",
+    "snippet": "\"S3Bucket2\": {\n      \"Type\": \"AWS::S3::Bucket\",\n      \"Properties\": {\n        \"AccessControl\": \"Private\"\n      }\n    }"
+  }
 }

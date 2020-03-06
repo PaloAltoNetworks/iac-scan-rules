@@ -5,5 +5,10 @@
    "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups.",
    "rule": "$.Resources.*[?(@.Type == 'AWS::RDS::DBInstance')] size greater than 0 and (not $.Resources.*[?(@.Type == 'AWS::RDS::EventSubscription')].Properties[?(@.SourceType == 'db-security-group')].Enabled anyTrue)",
    "id": "5b3c12cf-eef5-42de-afbe-4e80e1dfe600",
-   "enabled": false 
+   "enabled": false,
+   "recommendation": {
+      "name": "Recommended solution for enabling AWS RDS event subscription.",
+      "description": "It is recommended to enable subscriptions for AWS RDS event. Please make sure that \"SourceType\" is equal to \"db-security-group\" under \"EventSubscription\", then its value should be set to false",
+      "snippet": "\"myEventSubscription\": {\n      \"Type\": \"AWS::RDS::EventSubscription\",\n      \"Properties\": {\n        \"SnsTopicArn\": \"arn:aws:sns:us-west-2:123456789012:example-topic\",\n        \"SourceType\": \"db-security-group\",\n        \"Enabled\": true\n      }\n    }"
+   }
 }
