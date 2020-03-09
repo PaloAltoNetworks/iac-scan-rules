@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that SQL servers are configured with Active Directory admin authentication.",
     "description": "Ensure that SQL servers are configured with Active Directory admin authentication. Please make sure if your template have \"azurerm_sql_active_directory_administrator\" defined.",
-    "snippet": "{\n      \"azurerm_sql_active_directory_administrator\": [\n        {\n          \"example\": [\n            {\n              \"login\": \"sqladmin\",\n              \"object_id\": \"${data.azurerm_client_config.current.object_id}\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"server_name\": \"${azurerm_sql_server.example.name}\",\n              \"tenant_id\": \"${data.azurerm_client_config.current.tenant_id}\"\n            }\n          ]\n        }\n      ]\n    }"
+    "snippet": "{\n      \"azurerm_sql_active_directory_administrator\": [\n        {\n          \"<sql_active_directory_administrator_name>\": [\n            {\n              \"login\": \"sqladmin\",\n              \"object_id\": \"${data.azurerm_client_config.current.object_id}\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n              \"server_name\": \"${azurerm_sql_server.example.name}\",\n              \"tenant_id\": \"${data.azurerm_client_config.current.tenant_id}\"\n            }\n          ]\n        }\n      ]\n    }"
   }
 }

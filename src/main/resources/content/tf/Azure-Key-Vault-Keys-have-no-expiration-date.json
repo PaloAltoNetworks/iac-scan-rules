@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for having expiration date for Azure Key Vault secrets",
     "description": "It is recommended that Azure Key Vault secrets should have an expiration date. Please make sure if your template have \"expiration_date\" field present.",
-    "snippet": "\"azurerm_key_vault_secret\": [\n        {\n          \"example2\": [\n            {\n              \"key_vault_id\": \"${azurerm_key_vault.example.id}\",\n              \"name\": \"secret-sauce-2\",\n              \"expiration_date\": \"2020-01-01\",\n              \"value\": \"szechuan-2\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_key_vault_secret\": [\n        {\n          \"<key_vault_secret_name>\": [\n            {\n              \"key_vault_id\": \"${azurerm_key_vault.example.id}\",\n              \"name\": \"secret-sauce-2\",\n              \"expiration_date\": \"2020-01-01\",\n              \"value\": \"szechuan-2\"\n            }\n          ]\n        }\n      ]"
   }
 }

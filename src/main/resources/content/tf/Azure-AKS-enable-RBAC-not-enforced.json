@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for enforcing role-based control (RBAC).",
     "description": "It is recommended to have Role based control (RBAC) enforced. Please make sure your template has the \"role_based_access_control\" enabled.",
-    "snippet": "\"azurerm_kubernetes_cluster\": [\n        {\n          \"example\": [\n            {\n              \"default_node_pool\": [\n                {\n                  \"name\": \"default\",\n                  \"node_count\": 1,\n                  \"vm_size\": \"Standard_D2_v2\"\n                }\n              ],\n              \"dns_prefix\": \"exampleaks1\",\n              \"name\": \"example-aks1\",\n              \"role_based_access_control\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_kubernetes_cluster\": [\n        {\n          \"<kubernetes_cluster_name>\": [\n            {\n              \"default_node_pool\": [\n                {\n                  \"name\": \"default\",\n                  \"node_count\": 1,\n                  \"vm_size\": \"Standard_D2_v2\"\n                }\n              ],\n              \"dns_prefix\": \"exampleaks1\",\n              \"name\": \"example-aks1\",\n              \"role_based_access_control\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

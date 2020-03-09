@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making sure AWS VPC doesn't allow un-authorized peering.",
     "description": "Ensure that AWS VPC doesn't allow unauthorized peering. Please make sure the value for \"peer_vpc_id\" is equal to \"vpc_id\".",
-    "snippet": "\"aws_vpc_peering_connection\": [\n        {\n          \"foo\": [\n            {\n              \"peer_owner_id\": \"${var.peer_owner_id}\",\n              \"peer_vpc_id\": \"${aws_vpc.foo.id}\",\n              \"vpc_id\": \"${aws_vpc.foo.id}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"aws_vpc_peering_connection\": [\n        {\n          \"<vpc_peering_connection_name>\": [\n            {\n              \"peer_owner_id\": \"${var.peer_owner_id}\",\n              \"peer_vpc_id\": \"${aws_vpc.foo.id}\",\n              \"vpc_id\": \"${aws_vpc.foo.id}\"\n            }\n          ]\n        }\n      ]"
   }
 }

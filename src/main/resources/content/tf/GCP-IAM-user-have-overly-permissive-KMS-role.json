@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that GCP IAM User doesn't have overly permissive Cloud KMS roles.",
     "description": "Ensure that GCP IAM User doesn't have overly permissive Cloud KMS roles. Please make sure that in the template \"members\" doesn't start with \"user:\" when the \"role\" is \"roles/cloudkms.admin\"",
-    "snippet": "\"google_iam_policy\": [\n        {\n          \"x\": [\n            {\n              \"binding\": [\n                {\n                  \"members\":  [\"admin:c@d.com\"],\n                  \"role\": \"roles/cloudkms.admin\"\n                }\n              ]\n            }\n          ]\n        }"
+    "snippet": "\"google_iam_policy\": [\n        {\n          \"<iam_policy_name>\": [\n            {\n              \"binding\": [\n                {\n                  \"members\":  [\"admin:c@d.com\"],\n                  \"role\": \"roles/cloudkms.admin\"\n                }\n              ]\n            }\n          ]\n        }"
   }
 }

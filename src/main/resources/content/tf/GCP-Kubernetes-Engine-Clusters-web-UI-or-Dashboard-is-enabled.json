@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to disable web UI/Dashboard for Kubernetes Engine Clusters.",
     "description": "Ensure that GCP Kubernetes Engine Clusters have web UI/Dashboard disabled. Please make sure that the template has \"kubernetes_dashboard\" enabled.",
-    "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"kubernetes_dashboard\": [\n                    {\n                      \"disabled\": true\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"addons_config\": [\n                {\n                  \"kubernetes_dashboard\": [\n                    {\n                      \"disabled\": true\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

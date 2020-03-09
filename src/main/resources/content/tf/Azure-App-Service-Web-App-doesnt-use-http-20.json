@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making sure App Service Web app uses HTTP 2.0",
     "description": "It is recommended that Azure App Service Web app uses HTTP 2.0. Please make sure your template has \"http2_enabled\" and it is set to true.",
-    "snippet": "\"azurerm_app_service\": [\n        {\n          \"dup\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n             \"http2_enabled\": true\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_app_service\": [\n        {\n          \"<app_service_name>\": [\n            {\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\",\n             \"http2_enabled\": true\n            }\n          ]\n        }\n      ]"
   }
 }

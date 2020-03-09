@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to enable istioConfig in GCP Kubernetes cluster.",
     "description": "Ensure that GCP Kubernetes cluster have istioConfig enabled. Please make sure that the template have \"addons_config\" defined and \"istio_config\" under that is not disabled.",
-    "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"istio_config\": [\n                    {\n                      \"auth\": \"AUTH_MUTUAL_TLS\",\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"addons_config\": [\n                {\n                  \"istio_config\": [\n                    {\n                      \"auth\": \"AUTH_MUTUAL_TLS\",\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

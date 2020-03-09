@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to configure Kubernetes Engine Clusters with private cluster.",
     "description": "Ensure that GCP Kubernetes Engine Clusters are configured with private cluster. Please make sure that your template have \"private_cluster_config\" block with \"enable_private_nodes\" set to true.",
-    "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"location\": \"us-central1\",\n              \"name\": \"my-gke-cluster\",\n              \"private_cluster_config\": [\n                {\n                  \"enable_private_nodes\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"location\": \"us-central1\",\n              \"name\": \"my-gke-cluster\",\n              \"private_cluster_config\": [\n                {\n                  \"enable_private_nodes\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }
