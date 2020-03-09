@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that storage account 'Trusted Microsoft Services' access is enabled.",
     "description": "Ensure that Azure Storage Account 'Trusted Microsoft Services' access is enabled. Please make sure the template has \"bypass\" set as AzureServices under \"network_rules\"",
-    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"example\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"bypass\": \"AzureServices\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"<storage_account_name>\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"bypass\": \"AzureServices\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
   }
 }

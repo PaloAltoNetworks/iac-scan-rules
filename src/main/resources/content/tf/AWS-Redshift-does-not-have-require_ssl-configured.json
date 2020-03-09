@@ -7,8 +7,8 @@
   "policy": "AWS Redshift does not have require_ssl configured",
   "description": "This policy identifies Redshift databases in which data connection to and from is occurring on an insecure channel. SSL connections ensures the security of the data in transit.",
   "recommendation": {
-    "name":"Recommended solution for having AWS Redshift have require_ssl configured",
-    "description":"Ensure that AWS Redshift have require_ssl configured. Please make sure the template have \"require_ssl\" parameter defined with value set to true.",
-    "snippet":"\"aws_redshift_parameter_group\": [\n        {\n          \"bar\": [\n            {\n              \"family\": \"redshift-1.0\",\n              \"name\": \"parameter-group-test-terraform\",\n              \"parameter\": [\n                {\n                  \"name\": \"require_ssl\",\n                  \"value\": \"true\"\n                },\n                {\n                  \"name\": \"query_group\",\n                  \"value\": \"example\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "name": "Recommended solution for having AWS Redshift have require_ssl configured",
+    "description": "Ensure that AWS Redshift have require_ssl configured. Please make sure the template have \"require_ssl\" parameter defined with value set to true.",
+    "snippet": "\"aws_redshift_parameter_group\": [\n        {\n          \"<redshift_parameter_group_name>\": [\n            {\n              \"family\": \"redshift-1.0\",\n              \"name\": \"parameter-group-test-terraform\",\n              \"parameter\": [\n                {\n                  \"name\": \"require_ssl\",\n                  \"value\": \"true\"\n                },\n                {\n                  \"name\": \"query_group\",\n                  \"value\": \"example\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

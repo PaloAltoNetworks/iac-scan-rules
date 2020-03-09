@@ -9,7 +9,7 @@
   "recommendation": {
     "name": "Recommended solution to ensure that storage account does not have blob container(s) with public access.",
     "description": "Ensure that Azure Storage Account does not have blob container(s) with public access. Please make sure the template has \"container_access_type\" set as \"private\"",
-    "snippet": "\"azurerm_storage_container\": [\n        {\n          \"example\": [\n            {\n              \"container_access_type\": \"private\",\n              \"name\": \"content\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_storage_container\": [\n        {\n          \"<storage_container_name>\": [\n            {\n              \"container_access_type\": \"private\",\n              \"name\": \"content\"\n            }\n          ]\n        }\n      ]"
   }
 }
 

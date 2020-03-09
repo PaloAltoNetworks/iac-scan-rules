@@ -9,6 +9,6 @@
    "recommendation": {
       "name": "Recommended solution to enable pod security policy for Kubernetes Engine Clusters.",
       "description": "Ensure that GCP Kubernetes Engine Clusters have pod security policy enabled. Please make sure that the template has \"pod_security_policy_config\" enabled.",
-      "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"pod_security_policy_config\": {\n              \t\"enabled\" : true\n              },\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"name\": \"marcellus-wallace\"\n            }\n          ]\n        }\n      ]"
+      "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"pod_security_policy_config\": {\n              \t\"enabled\" : true\n              },\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"name\": \"marcellus-wallace\"\n            }\n          ]\n        }\n      ]"
    }
 }

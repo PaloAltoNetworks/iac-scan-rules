@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to enable GCP Kubernetes Engine Clusters HTTP load balancing.",
     "description": "Ensure that GCP Kubernetes Engine Clusters HTTP load balancing is enabled. Please make sure that \"http_load_balancing\" is enabled in the template.",
-    "snippet": "\"google_container_cluster\": [\n        {\n          \"prb-tft-kube\": [\n            {\n              \"addons_config\": [\n                {\n                  \"http_load_balancing\": [\n                    {\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"addons_config\": [\n                {\n                  \"http_load_balancing\": [\n                    {\n                      \"disabled\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

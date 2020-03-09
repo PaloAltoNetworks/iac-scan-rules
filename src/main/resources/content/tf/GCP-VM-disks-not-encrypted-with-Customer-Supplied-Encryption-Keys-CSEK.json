@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that VM disks are encrypted with Customer-Supplied Encryption Keys (CSEK).",
     "description": "Ensure that GCP VM disks are encrypted with Customer-Supplied Encryption Keys (CSEK). Please make sure that in the template, \"disk_encrypt_key\" exists and is set to true.",
-    "snippet": "\"google_compute_disk\": [\n        {\n          \"default\": [\n            {\n              \"image\": \"debian-8-jessie-v20170523\",\n              \"labels\": [\n                {\n                  \"environment\": \"dev\"\n                }\n              ],\n              \"name\": \"test-disk\",\n              \"disk_encrypt_key\": \"true\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_compute_disk\": [\n        {\n          \"<compute_disk_name>\": [\n            {\n              \"image\": \"debian-8-jessie-v20170523\",\n              \"labels\": [\n                {\n                  \"environment\": \"dev\"\n                }\n              ],\n              \"name\": \"test-disk\",\n              \"disk_encrypt_key\": \"true\"\n            }\n          ]\n        }\n      ]"
   }
 }

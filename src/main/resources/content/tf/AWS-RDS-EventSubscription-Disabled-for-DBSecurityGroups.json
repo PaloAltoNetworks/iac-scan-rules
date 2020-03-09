@@ -6,9 +6,9 @@
   "resourceType": "AWS RDS",
   "policy": "AWS RDS event subscription disabled for DB security groups",
   "description": "This policy identifies RDS event subscriptions for which DB security groups event subscription is disabled. You can create an Amazon RDS event notification subscription so that you can be notified when an event occurs for given DB security groups.",
-  "recommendation":{
-    "name":"Recommended solution for enabling RDS event subscription for DB security group.",
-    "description":"Ensure that RDS event subscription is enabled for DB security group. Please make sure your template have \"enabled\" set to true for \"aws_db_event_subscription\" block.",
-    "snippet":"{\n      \"aws_db_event_subscription\": [\n        {\n          \"default\": [\n            {\n              \"event_categories\": [\n                \"availability\",\n                \"deletion\"\n              ],\n              \"name\": \"event-sub1\",\n              \"enabled\": true,\n              \"sns_topic\": \"${aws_sns_topic.default.arn}\",\n              \"source_ids\": [\n                \"${aws_db_instance.default.id}\"\n              ],\n              \"source_type\": \"db-security-group\"\n            }\n          ]\n        }\n      ]\n    }"
+  "recommendation": {
+    "name": "Recommended solution for enabling RDS event subscription for DB security group.",
+    "description": "Ensure that RDS event subscription is enabled for DB security group. Please make sure your template have \"enabled\" set to true for \"aws_db_event_subscription\" block.",
+    "snippet": "{\n      \"aws_db_event_subscription\": [\n        {\n          \"<event_subscription_name>\": [\n            {\n              \"event_categories\": [\n                \"availability\",\n                \"deletion\"\n              ],\n              \"name\": \"event-sub1\",\n              \"enabled\": true,\n              \"sns_topic\": \"${aws_sns_topic.default.arn}\",\n              \"source_ids\": [\n                \"${aws_db_instance.default.id}\"\n              ],\n              \"source_type\": \"db-security-group\"\n            }\n          ]\n        }\n      ]\n    }"
   }
 }
