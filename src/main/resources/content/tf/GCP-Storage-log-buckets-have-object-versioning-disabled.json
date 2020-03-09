@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to enable object versioning for GCP Storage log buckets.",
     "description": "Ensure that GCP Storage buckets are not publicly accessible to all authenticated users. Please make sure that in the template, \"versioning\" has \"enabled\" set to \"true\".",
-    "snippet": "\"google_storage_bucket\": [\n        {\n          \"a\": [\n            {\n              \"name\": \"a-bucket\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_storage_bucket\": [\n        {\n          \"<storage_bucket>\": [\n            {\n              \"name\": \"a-bucket\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

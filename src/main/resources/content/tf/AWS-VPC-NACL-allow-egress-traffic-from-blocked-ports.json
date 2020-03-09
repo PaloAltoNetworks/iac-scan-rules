@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for not allowing egress traffic from blocked ports in AWS VPC NACL",
     "description": "Ensure that egress traffic is not allowed from blocked ports in AWS VPC NACL. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" for any of the blocked ports under egress block",
-    "snippet": "\"aws_network_acl\": [\n        {\n          \"main\": [\n            {\n              \"egress\": [\n                {\n                  \"action\": \"deny\",\n                  \"cidr_block\": \"0.0.0.0/0\",\n                  \"from_port\": 53,\n                  \"protocol\": \"-1\",\n                  \"rule_no\": 1200,\n                  \"to_port\": 53\n                }\n              ],\n              \"vpc_id\": \"${aws_vpc.demo.id}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"aws_network_acl\": [\n        {\n          \"<network_acl_name>\": [\n            {\n              \"egress\": [\n                {\n                  \"action\": \"deny\",\n                  \"cidr_block\": \"0.0.0.0/0\",\n                  \"from_port\": 53,\n                  \"protocol\": \"-1\",\n                  \"rule_no\": 1200,\n                  \"to_port\": 53\n                }\n              ],\n              \"vpc_id\": \"${aws_vpc.demo.id}\"\n            }\n          ]\n        }\n      ]"
   }
 }

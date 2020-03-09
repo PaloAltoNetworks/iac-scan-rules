@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to enable Secure transfer for Azure Storage Accounts.",
     "description": "Ensure that Secure transfer is enabled for Azure Storage Accounts. Please make sure the template has \"enable_https_traffic_only\" set as \"true\".",
-    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"b\": [\n            {\n              \"account_replication_type\": \"GRS\",\n              \"account_tier\": \"Standard\",\n              \"enable_https_traffic_only\": true,\n              \"location\": \"${azurerm_resource_group.b.location}\",\n              \"name\": \"storageaccountname\",\n              \"resource_group_name\": \"${azurerm_resource_group.b.name}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"<storage_account_name>\": [\n            {\n              \"account_replication_type\": \"GRS\",\n              \"account_tier\": \"Standard\",\n              \"enable_https_traffic_only\": true,\n              \"location\": \"${azurerm_resource_group.b.location}\",\n              \"name\": \"storageaccountname\",\n              \"resource_group_name\": \"${azurerm_resource_group.b.name}\"\n            }\n          ]\n        }\n      ]"
   }
 }

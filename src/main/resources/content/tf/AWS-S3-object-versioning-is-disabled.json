@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for enabling S3 Object Versioning",
     "description": "Ensure that versioning is enabled for S3 object. Please make sure \"enabled\" is set to true under versioning attribute",
-    "snippet": "\"not_aws_s3_bucket\": [\n        {\n          \"a\": [\n            {\n              \"bucket\": \"tf-test-bucket-a\",\n              \"region\": \"eu-west-1\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"aws_s3_bucket\": [\n        {\n          \"<s3_bucket_name>\": [\n            {\n              \"bucket\": \"tf-test-bucket-a\",\n              \"region\": \"eu-west-1\",\n              \"versioning\": [\n                {\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

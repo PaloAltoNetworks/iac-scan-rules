@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making sure App Service Web app authentication is not off.",
     "description": "It is recommended to have App Service Web app authentication on. Please make sure your template has the \"auth_settings\" enabled.",
-    "snippet": "\"azurerm_app_service\": [\n        {\n          \"example\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"auth_settings\": [\n                {\n                  \"enabled\": true\n                }\n              ],\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_app_service\": [\n        {\n          \"<app_service_name>\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"auth_settings\": [\n                {\n                  \"enabled\": true\n                }\n              ],\n              \"location\": \"${azurerm_resource_group.example.location}\",\n              \"name\": \"example-app-service\",\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
   }
 }

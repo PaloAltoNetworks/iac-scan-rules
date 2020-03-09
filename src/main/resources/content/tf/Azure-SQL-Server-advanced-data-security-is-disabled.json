@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for enabling advanced data security for Azure SQL Server",
     "description": "It is recommended to have Azure SQL Server advanced data security enabled. Please make sure if your template have \"azurerm_mssql_server_security_alert_policy\" resource defined and the \"state\" is set to \"enabled\".",
-    "snippet": "\"azurerm_mssql_server_security_alert_policy\": [\n        {\n          \"example\": [\n            {\n              \"resource_group_name\": \"azurerm_resource_group.example.name\",\n              \"retention_days\": 20,\n              \"server_name\": \"azurerm_sql_server.example.name\",\n              \"state\": \"Disabled\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_mssql_server_security_alert_policy\": [\n        {\n          \"<mssql_server_security_alert_policy_name>\": [\n            {\n              \"resource_group_name\": \"azurerm_resource_group.example.name\",\n              \"retention_days\": 20,\n              \"server_name\": \"azurerm_sql_server.example.name\",\n              \"state\": \"Disabled\"\n            }\n          ]\n        }\n      ]"
   }
 }

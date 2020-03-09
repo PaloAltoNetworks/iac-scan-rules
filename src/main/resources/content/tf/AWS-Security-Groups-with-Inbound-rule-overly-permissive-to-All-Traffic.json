@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for not allowing all ingress traffic",
     "description": "Ensure that Security Group is not overly permissive to allow all ingress traffic. Please make sure the value for \"cidr_blocks\" is not equal to \"0.0.0.0/0\" or \"::/0\" when \"protocol\" is set to -1.",
-    "snippet": "\"aws_security_group\": [\n        {\n          \"x\": [\n            {\n              \"description\": \"Allow TLS inbound traffic\",\n              \"ingress\": [\n                {\n                  \"cidr_blocks\": [\"10.0.0.0/16\"],\n                  \"protocol\": \"-1\"\n                }\n              ],\n              \"name\": \"allow_tls\",\n              \"vpc_id\": \"${aws_vpc.main.id}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"aws_security_group\": [\n        {\n          \"<security_group_name>\": [\n            {\n              \"description\": \"Allow TLS inbound traffic\",\n              \"ingress\": [\n                {\n                  \"cidr_blocks\": [\"10.0.0.0/16\"],\n                  \"protocol\": \"-1\"\n                }\n              ],\n              \"name\": \"allow_tls\",\n              \"vpc_id\": \"${aws_vpc.main.id}\"\n            }\n          ]\n        }\n      ]"
   }
 }

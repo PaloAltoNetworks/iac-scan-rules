@@ -6,9 +6,9 @@
   "resourceType": "AWS ElasticSearch",
   "policy": "AWS ElasticSearch cluster not in a VPC",
   "description": "VPC support for Amazon ES is easy to configure, reliable, and offers an extra layer of security. With VPC support, traffic between other services and Amazon ES stays entirely within the AWS network, isolated from the public Internet. You can manage network access using existing VPC security groups, and you can use AWS Identity and Access Management (IAM) policies for additional protection. VPC support for Amazon ES domains is available at no additional charge.",
-  "recommendation":{
-    "name":"Recommended solution making sure that AWS ElasticSearch cluster is in a VPC.",
-    "description":"It is recommended to have AWS ElasticSearch cluster run in a VPC. Please make sure your template has the \"vpc_options\" block defined in the \"aws_elasticsearch_domain\".",
-    "snippet":"\"aws_elasticsearch_domain\": [\n        {\n          \"example\": [\n            {\n              \n              \"vpc_options\": [\n                {\n                  \"security_group_ids\": [\n                    \"${aws_security_group.elasticsearch.id}\"\n                  ],\n                  \"subnet_ids\": [\n                    \"${data.aws_subnet_ids.selected.ids[0]}\",\n                    \"${data.aws_subnet_ids.selected.ids[1]}\"\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+  "recommendation": {
+    "name": "Recommended solution making sure that AWS ElasticSearch cluster is in a VPC.",
+    "description": "It is recommended to have AWS ElasticSearch cluster run in a VPC. Please make sure your template has the \"vpc_options\" block defined in the \"aws_elasticsearch_domain\".",
+    "snippet": "\"aws_elasticsearch_domain\": [\n        {\n          \"<elasticsearch_domain_name>\": [\n            {\n              \n              \"vpc_options\": [\n                {\n                  \"security_group_ids\": [\n                    \"${aws_security_group.elasticsearch.id}\"\n                  ],\n                  \"subnet_ids\": [\n                    \"${data.aws_subnet_ids.selected.ids[0]}\",\n                    \"${data.aws_subnet_ids.selected.ids[1]}\"\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

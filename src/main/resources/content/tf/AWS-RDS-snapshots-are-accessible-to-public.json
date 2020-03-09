@@ -7,8 +7,8 @@
   "policy": "AWS RDS snapshots are accessible to public",
   "description": "This policy identifies AWS RDS snapshots which are accessible to public. Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to setup and manage databases. If RDS snapshots are inadvertently shared to public, any unauthorized user with AWS console access can gain access to the snapshots and gain access to sensitive data.",
   "recommendation": {
-    "name":"Recommended solution for making sure RDS snapshots are not accessible to public.",
-    "description":"Ensure that AWS RDS snapshots are not accessible to public. Please make sure \"publicly_accessible\" attribute is set to false for \"aws_db_instance\" block.",
-    "snippet":"\"aws_db_instance\": [\n                {\n                    \"a\": [\n                        {\n                            \"instance_class\": \"db.t2.micro\",\n                            \"name\": \"mydb\",\n                            \"password\": \"foobarbaz\",\n                            \"publicly_accessible\": false,\n                            \"storage_type\": \"gp2\",\n                            \"username\": \"foo\"\n                        }\n                    ]\n                }\n            ]"
+    "name": "Recommended solution for making sure RDS snapshots are not accessible to public.",
+    "description": "Ensure that AWS RDS snapshots are not accessible to public. Please make sure \"publicly_accessible\" attribute is set to false for \"aws_db_instance\" block.",
+    "snippet": "\"aws_db_instance\": [\n                {\n                    \"<db_instance_name>\": [\n                        {\n                            \"instance_class\": \"db.t2.micro\",\n                            \"name\": \"mydb\",\n                            \"password\": \"foobarbaz\",\n                            \"publicly_accessible\": false,\n                            \"storage_type\": \"gp2\",\n                            \"username\": \"foo\"\n                        }\n                    ]\n                }\n            ]"
   }
 }    

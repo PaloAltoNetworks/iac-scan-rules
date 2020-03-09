@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that the Storage account default network is not set to Allow.",
     "description": "Ensure that Azure Storage Account default network access is set to Allow. Please make sure if your template have\"default_action\" set to \"Deny\" for \"network_rules\".",
-    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"example\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"default_action\": \"Deny\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_storage_account\": [\n        {\n          \"<storage_account_name>\": [\n            {\n              \"name\": \"storageaccountname\",\n              \"network_rules\": [\n                {\n                  \"default_action\": \"Deny\"\n                }\n              ],\n              \"resource_group_name\": \"${azurerm_resource_group.example.name}\"\n            }\n          ]\n        }\n      ]"
   }
 }

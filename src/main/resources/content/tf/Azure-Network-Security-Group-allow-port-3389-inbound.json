@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for not allowing SSH traffic on port 3389 from internet in NSG",
     "description": "It is recommended that Azure Network Security Group (NSG) should not allow SSH traffic from internet on port 3389. Please make sure if your template has \"access\" set to \"Deny\" if direction is Inbound and port is 3389.",
-    "snippet": "\"azurerm_network_security_rule\": [\n        {\n          \"test\": [\n            {\n              \"access\": \"Deny\",\n              \"destination_address_prefix\": \"*\",\n              \"destination_port_range\": \"3389\",\n              \"direction\": \"Inbound\",\n              \"name\": \"test123\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_network_security_rule\": [\n        {\n          \"<network_security_rule_name>\": [\n            {\n              \"access\": \"Deny\",\n              \"destination_address_prefix\": \"*\",\n              \"destination_port_range\": \"3389\",\n              \"direction\": \"Inbound\",\n              \"name\": \"test123\"\n            }\n          ]\n        }\n      ]"
   }
 }
