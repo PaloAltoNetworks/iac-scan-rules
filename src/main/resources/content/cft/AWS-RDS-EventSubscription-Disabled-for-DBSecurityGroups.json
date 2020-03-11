@@ -8,7 +8,7 @@
    "enabled": false,
    "recommendation": {
       "name": "Recommended solution for enabling AWS RDS event subscription.",
-      "description": "It is recommended to enable subscriptions for AWS RDS event. Please make sure that \"SourceType\" is equal to \"db-security-group\" under \"EventSubscription\", then its value should be set to false",
+      "description": "It is recommended to enable subscriptions for AWS RDS event. Please make sure that if \"SourceType\" is equal to \"db-security-group\" under \"EventSubscription\", then \"Enabled\" should be set to true",
       "snippet": "\"myEventSubscription\": {\n      \"Type\": \"AWS::RDS::EventSubscription\",\n      \"Properties\": {\n        \"SnsTopicArn\": \"arn:aws:sns:us-west-2:123456789012:example-topic\",\n        \"SourceType\": \"db-security-group\",\n        \"Enabled\": true\n      }\n    }"
    }
 }
