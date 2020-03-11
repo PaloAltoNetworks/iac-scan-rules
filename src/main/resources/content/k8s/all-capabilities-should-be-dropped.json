@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making sure all capabilities are dropped in a Security Context.",
     "description": "It is recommended that all capabilities are dropped in a Security Context. Please make sure \"capabilities\" has \"drop\" set to \"ALL\"",
-    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"image\": \"mateobur/flask\",\n                        \"name\": \"flask-cap\",\n                        \"securityContext\": {\n                            \"capabilities\": {\n                                \"drop\": [\n                                    \"NET_RAW\",\n                                    \"CHOWN\"\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }"
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"image\": \"mateobur/flask\",\n                        \"name\": \"flask-cap\",\n                        \"securityContext\": {\n                            \"capabilities\": {\n                                \"drop\": [\n                                    \"ALL\"\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }"
   }
 }

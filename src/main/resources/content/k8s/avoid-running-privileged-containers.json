@@ -8,7 +8,7 @@
   "description": "Ensure containers' privileged is false.",
   "recommendation": {
     "name": "Recommended solution for making sure containers running are not privileged.",
-    "description": "It is recommended containers privilege is False. Please make sure \"privileged\" has value set to \"false\"",
+    "description": "It is recommended not to run containers as privileged. Please make sure \"privileged\" has value set to \"false\".",
     "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"privileged\": false\n                        }\n                    }\n                ]\n            }"
   }
 }

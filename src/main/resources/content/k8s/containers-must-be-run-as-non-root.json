@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making sure containers are running as non root.",
     "description": "It is recommended containers run as non-root. Please make sure \"runAsNonRoot\" has value set to \"true\"",
-    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": false\n                        }\n                    }\n                ]\n            }"
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": true\n                        }\n                    }\n                ]\n            }"
   }
 }
