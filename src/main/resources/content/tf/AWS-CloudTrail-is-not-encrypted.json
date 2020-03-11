@@ -6,9 +6,9 @@
   "resourceType": "cloudtrail",
   "policy": "AWS CloudTrail logs are not encrypted using Customer Master Keys (CMKs)",
   "description": "Checks to ensure that CloudTrail logs are encrypted. AWS CloudTrail is a service that enables governance, compliance, operational & risk auditing of the AWS account. It is a compliance and security best practice to encrypt the CloudTrail data since it may contain sensitive information.",
-  "recommendation":{
-    "name":"Recommended solution for making sure AWS Cloudtrail logs are encrypted using Customer Master Keys.",
-    "description":"It is recommended to encrypt the CloudTrail data since it may contain sensitive information. To do so, please make sure \"enable_key_rotation\" atrribute under  and it is not null.",
-    "snippet":"{\n      \"aws_cloudtrail\": [\n        {\n          \"bar\": [\n            {\n              \"include_global_service_events\": false,\n              \"name\": \"tf-trail-bar\",\n              \"s3_bucket_name\": \"${aws_s3_bucket.foo.id}\",\n              \"s3_key_prefix\": \"prefix\",\n              \"kms_key_id\": \"y\"\n            }\n          ]\n        }\n      ]\n    }"
+  "recommendation": {
+    "name": "Recommended solution for making sure AWS Cloudtrail logs are encrypted using Customer Master Keys.",
+    "description": "It is recommended to encrypt the CloudTrail data since it may contain sensitive information. To do so, please make sure \"enable_key_rotation\" atrribute under  and it is not null.",
+    "snippet": "{\n      \"aws_cloudtrail\": [\n        {\n          \"<s3 cloudtrail logfile name>\": [\n            {\n              \"include_global_service_events\": false,\n              \"name\": \"tf-trail-bar\",\n              \"s3_bucket_name\":    \"${aws_s3_bucket.foo.id}\",\n              \"s3_key_prefix\": \"prefix\",\n              \"kms_key_id\": \"y\"\n            }\n          ]\n        }\n      ]\n    }"
   }
 }

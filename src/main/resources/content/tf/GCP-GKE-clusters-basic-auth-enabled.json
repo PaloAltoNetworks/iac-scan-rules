@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to disable GCP Kubernetes Engine Clusters Basic Authentication.",
     "description": "Ensure that GCP Kubernetes Engine Clusters Basic Authentication is disabled. Please make sure that username and password are either not present or if present, their value is empty.",
-    "snippet": "\"google_container_cluster\": [\n        {\n          \"primary\": [\n            {\n              \"initial_node_count\": 1,\n              \"location\": \"us-central1\",\n              \"master_auth\": [\n                {\n                    \"username\": \"x\",\n                    \"password\": \"y\"\n                }\n              ],\n              \"name\": \"my-gke-cluster\",\n              \"remove_default_node_pool\": true\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"initial_node_count\": 1,\n              \"location\": \"us-central1\",\n              \"master_auth\": [\n                {\n                    \"username\": \"x\",\n                    \"password\": \"y\"\n                }\n              ],\n              \"name\": \"my-gke-cluster\",\n              \"remove_default_node_pool\": true\n            }\n          ]\n        }\n      ]"
   }
 }

@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution setting Activity Log Retention to greater than or equal 365 day.",
     "description": "It is recommended that Activity Log Retention should not be less than 365 day. Please make sure your template has the \"days\" under \"retention_policy\" set to 365 or greater.",
-    "snippet": "azurerm_monitor_log_profile\": [\n        {\n          \"example\": [\n            {\n              \n              \"name\": \"default\",\n              \"retention_policy\": [\n                {\n                  \"days\": 367,\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "azurerm_monitor_log_profile\": [\n        {\n          \"<monitor_log_profile_name>\": [\n            {\n              \n              \"name\": \"default\",\n              \"retention_policy\": [\n                {\n                  \"days\": 367,\n                  \"enabled\": true\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

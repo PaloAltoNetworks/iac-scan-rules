@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to disable GCP Kubernetes Engine Clusters Legacy Authorization.",
     "description": "Ensure that GCP Kubernetes Engine Clusters Legacy Authorization is disabled. Please make sure that if the template has \"enable_legacy_abac\", it is set to false.",
-    "snippet": "\"google_container_cluster\": [\n        {\n          \"x\": [\n            {\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"name\": \"marcellus-wallace\",\n              \"enable_legacy_abac\" : false\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_cluster\": [\n        {\n          \"<container_cluster_name>\": [\n            {\n              \"initial_node_count\": 3,\n              \"location\": \"us-central1-a\",\n              \"name\": \"marcellus-wallace\",\n              \"enable_legacy_abac\" : false\n            }\n          ]\n        }\n      ]"
   }
 }

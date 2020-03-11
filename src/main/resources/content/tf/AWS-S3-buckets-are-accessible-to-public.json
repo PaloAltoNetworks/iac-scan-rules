@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making AWS S3 bucket not accessible to public.",
     "description": "Ensure that AWS S3 buckets are not accessible to public. Please make sure \"acl\" attribute is set to private under \"aws_s3_bucket\"",
-    "snippet": "\"aws_s3_bucket\": [\n        {\n          \"b\": [\n            {\n              \"acl\": \"private\",\n              \"bucket\": \"my-tf-test-bucket\",\n              \"tags\": [\n                {\n                  \"Environment\": \"Dev\",\n                  \"Name\": \"My bucket\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"aws_s3_bucket\": [\n        {\n          \"<s3_bucket_name>\": [\n            {\n              \"acl\": \"private\",\n              \"bucket\": \"my-tf-test-bucket\",\n              \"tags\": [\n                {\n                  \"Environment\": \"Dev\",\n                  \"Name\": \"My bucket\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

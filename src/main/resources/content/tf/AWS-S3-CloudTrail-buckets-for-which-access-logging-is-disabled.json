@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for enabling access logging for AWS S3 CloudTrail buckets",
     "description": "Ensure that access logging is enabled for AWS S3 CloudTrail buckets. Please make sure \"enable_logging\" attribute is set to true or is not present under \"aws_cloudtrail\"",
-    "snippet": "\"aws_cloudtrail\": [\n        {\n          \"foobar\": [\n            {\n              \"enable_logging\": true,\n              \"include_global_service_events\": false,\n              \"name\": \"tf-trail-foobar\",\n              \"s3_bucket_name\": \"${aws_s3_bucket.foo.id}\",\n              \"s3_key_prefix\": \"prefix\"\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"aws_cloudtrail\": [\n        {\n          \"<cloudtrail_name>\": [\n            {\n              \"enable_logging\": true,\n              \"include_global_service_events\": false,\n              \"name\": \"tf-trail-foobar\",\n              \"s3_bucket_name\": \"${aws_s3_bucket.foo.id}\",\n              \"s3_key_prefix\": \"prefix\"\n            }\n          ]\n        }\n      ]"
   }
 }

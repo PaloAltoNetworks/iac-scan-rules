@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution for making sure App Service Web app have Managed Service Identity",
     "description": "It is recommended that Azure App Service Web app have Managed Service Identity. Please make sure your template have \"identity\" block defined.",
-    "snippet": "\"azurerm_app_service\": [\n        {\n          \"example\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"identity\": [\n                {\n                  \"type\": \"SystemAssigned\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"azurerm_app_service\": [\n        {\n          \"<app_service_name>\": [\n            {\n              \"app_service_plan_id\": \"${azurerm_app_service_plan.example.id}\",\n              \"identity\": [\n                {\n                  \"type\": \"SystemAssigned\"\n                }\n              ]\n            }\n          ]\n        }\n      ]"
   }
 }

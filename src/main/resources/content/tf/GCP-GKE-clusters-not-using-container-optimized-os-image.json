@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that Kubernetes Engine Clusters uses Container-Optimized OS for Node image.",
     "description": "Ensure that GCP Kubernetes Engine Clusters uses Container-Optimized OS for Node image. Please make sure that your template have \"image_type\" defined and set to image that starts with \"cos\".",
-    "snippet": "\"google_container_node_pool\": [\n        {\n          \"primary_nodes\": [\n            {\n              \"cluster\": \"google_container_cluster.primary.name\",\n              \"location\": \"us-central1\",\n              \"name\": \"my-node-pool\",\n              \"node_config\": [\n                {\n                  \"image_type\": \"cos\"\n                }\n              ],\n              \"node_count\": 1\n            }\n          ]\n        }\n      ]"
+    "snippet": "\"google_container_node_pool\": [\n        {\n          \"<container_node_pool_name>\": [\n            {\n              \"cluster\": \"google_container_cluster.primary.name\",\n              \"location\": \"us-central1\",\n              \"name\": \"my-node-pool\",\n              \"node_config\": [\n                {\n                  \"image_type\": \"cos\"\n                }\n              ],\n              \"node_count\": 1\n            }\n          ]\n        }\n      ]"
   }
 }
