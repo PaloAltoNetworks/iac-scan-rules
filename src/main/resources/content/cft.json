@@ -6,9 +6,9 @@
     "rule": "$.Resources.*[?(@.Type=='AWS::S3::Bucket')].Properties.LoggingConfiguration any null",
     "description": "This policy identifies S3 CloudTrail buckets for which access is disabled.S3 Bucket access logging generates access records for each request made to your S3 bucket. An access log record contains information such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket",
     "recommendation": {
-      "snippet": "{\"LoggingConfiguration\":{\"DestinationBucketName\":{\"Ref\":\"LoggingBucket\"},\"LogFilePrefix\":\"testing-logs\"}}",
+      "snippet": "\"LoggingBucket\": {\n            \"Type\": \"AWS::S3::Bucket\",\n            \"Properties\": {\n                \"AccessControl\": \"LogDeliveryWrite\",\n                \"LoggingConfiguration\": {\n                    \"DestinationBucketName\": {\"Ref\" : \"LoggingBucket\"},\n                    \"LogFilePrefix\": \"testing-logs\"\n                }\n            }\n        }",
       "name": "Recommended solution for enabling access logging on AWS S3 CloudTrail buckets.",
-      "description": "It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket. Please make sure your template has the logging configuration  under s3 bucket configuration"
+      "description": "It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket. Please make sure your template has \"LoggingConfiguration\" block present under s3 bucket configuration"
     },
     "id": "4daa435b-fa46-457a-9359-6a4b4a43a442",
     "enabled": true,
@@ -22,7 +22,7 @@
     "recommendation": {
       "snippet": "\"Type\":\"AWS::CloudTrail::Trail\",\"Properties\":{\"S3BucketName\":{\"Ref\":\"S3Bucket\"},\"IsLogging\":true,\"IsMultiRegionTrail\":true",
       "name": "Recommended solution for AWS CloudTrail is enabled in all regions",
-      "description": "It is recommended that CloudTrail logs are enabled in all regions. Please make sure your template has the IsMultiRegionTrail is set to True"
+      "description": "It is recommended that CloudTrail logs are enabled in all regions. Please make sure your template has \"IsMultiRegionTrail\" set to True"
     },
     "id": "c1ad39ed-5341-43cb-8266-4d93a2033d75",
     "enabled": true,
@@ -36,7 +36,7 @@
     "recommendation": {
       "snippet": "\"CloudWatchLogsLogGroupArn\":\"fooarn\",\"KMSKeyId\":\"fookey\",\"TrailName\":\"foo\"",
       "name": "Recommended solution for encrypting AWS CloudTrail logs using Customer Master Keys.",
-      "description": "It is recommended that CloudTrail logs are encrypted using Customer Master Keys. Please make sure your template has the KMSKeyId is provided under AWS::CloudTrail resource"
+      "description": "It is recommended that CloudTrail logs are encrypted using Customer Master Keys. Please make sure your template has \"KMSKeyId\" provided under \"AWS::CloudTrail\" resource"
     },
     "id": "7d618dd9-e061-4e14-bc7b-812c0394bbef",
     "enabled": true,
@@ -92,7 +92,7 @@
     "recommendation": {
       "snippet": "\"ContainerDefinitions\" : [\n\t    {\n\t      \"Name\": {\"Ref\": \"AppName\"},\n\t      \"ReadonlyRootFilesystem\": true,\n\t      \"Image\":\"amazon/amazon-ecs-sample\",\n\t      \"Cpu\": \"10\",\n\t      \"Memory\":\"0.5GB\",\n\t      \"Essential\": \"true\"\n\t    }]",
       "name": "Recommended solution for enabling readonlyRootFilesystem for AWS ECS task definition.",
-      "description": "It is recommended that readonlyRootFilesystem is enabled for AWS ECS task definition. Please make sure your \"ContainerDefinitions\" template has \"readonlyRootFilesystem\" and is set to \"true\"."
+      "description": "It is recommended that readonlyRootFilesystem is enabled for AWS ECS task definition. Please make sure your \"ContainerDefinitions\" template has \"ReadonlyRootFilesystem\" and is set to \"true\"."
     },
     "id": "0f4959be-5d2d-41cf-aa45-08bb4c13121f",
     "enabled": true,
@@ -104,9 +104,9 @@
     "rule": "$.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any null or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Cpu any equal 0 or $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Cpu any equal 0 or ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any null and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any null) or  ($.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.Memory any equal 0 and $.Resources.*[?(@.Type=='AWS::ECS::TaskDefinition')].Properties.ContainerDefinitions[*].Memory any equal 0)",
     "description": "Check if AWS ECS task definition resource limits are set",
     "recommendation": {
-      "snippet": "\"ContainerDefinitions\" : [\n\t    {\n\t      \"Name\": {\"Ref\": \"AppName\"},\n\t      \"Image\":\"amazon/amazon-ecs-sample\",\n\t      \"Cpu\": \"10\",\n\t      \"Memory\":\"0.5GB\",\n\t      \"Essential\": \"true\"\n\t    }]",
+      "snippet": "\\\"ContainerDefinitions\\\" : [\\n\\t    {\\n\\t      \\\"Name\\\": {\\\"Ref\\\": \\\"AppName\\\"},\\n\\t      \\\"ReadonlyRootFilesystem\\\": true,\\n\\t      \\\"Image\\\":\\\"amazon/amazon-ecs-sample\\\",\\n\\t      \\\"Cpu\\\": \\\"10\\\",\\n\\t      \\\"Memory\\\":\\\"0.5GB\\\",\\n\\t      \\\"Essential\\\": \\\"true\\\"\\n\\t    }]\"\n  }",
       "name": "Recommended solution for setting resource limits for AWS ECS task definition.",
-      "description": "It is recommended that resource limits are set for AWS ECS task definition. Please make sure your \"Cpu\" or \"Memory\" exists and its value is not set to 0 under \"TaskDefinition\" or \"ContainerDefinitions\"."
+      "description": "It is recommended that resource limits are set for AWS ECS task definition. Please make sure attributes \"Cpu\" or \"Memory\" exists and its value is not set to 0 under \"TaskDefinition\" or \"ContainerDefinitions\"."
     },
     "id": "44a82298-64d1-4b4b-a9ad-eeda02448975",
     "enabled": true,
@@ -120,7 +120,7 @@
     "recommendation": {
       "snippet": "\"ElasticsearchDomain\": {\n\t\t\t\"Type\": \"AWS::Elasticsearch::Domain\",\n\t\t\t\"Properties\": {\n\t\t\t\t\"VPCOptions\": {\n\t\t\t\t\t\"SubnetIds\": [{\n\t\t\t\t\t\t\"Ref\": \"subnet\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"SecurityGroupIds\": [{\n\t\t\t\t\t\t\"Ref\": \"mySecurityGroup\"\n\t\t\t\t\t}]\n\t\t\t\t}\n\t\t\t}\n\t\t}",
       "name": "Recommended solution having Elastic Cluster inside a VPC.",
-      "description": "It is recommended to have Elastic Cluster inside a VPC. Please make sure that \"VPCOptions\" exists and it has \"subnetIds\" defined."
+      "description": "It is recommended to have Elastic Cluster inside a VPC. Please make sure that \"VPCOptions\" block exists and it has \"subnetIds\" defined."
     },
     "id": "3b745764-1d47-4adf-a023-18b95dcd713e",
     "enabled": true,
@@ -148,7 +148,7 @@
     "recommendation": {
       "snippet": "\"myEventSubscription\": {\n      \"Type\": \"AWS::RDS::EventSubscription\",\n      \"Properties\": {\n        \"SnsTopicArn\": \"arn:aws:sns:us-west-2:123456789012:example-topic\",\n        \"SourceType\": \"db-security-group\",\n        \"Enabled\": true\n      }\n    }",
       "name": "Recommended solution for enabling AWS RDS event subscription.",
-      "description": "It is recommended to enable subscriptions for AWS RDS event. Please make sure that \"SourceType\" is equal to \"db-security-group\" under \"EventSubscription\", then its value should be set to false"
+      "description": "It is recommended to enable subscriptions for AWS RDS event. Please make sure that if \"SourceType\" is equal to \"db-security-group\" under \"EventSubscription\", then \"Enabled\" should be set to true"
     },
     "id": "5b3c12cf-eef5-42de-afbe-4e80e1dfe600",
     "enabled": false,
@@ -190,7 +190,7 @@
     "recommendation": {
       "snippet": "\"MyDB1\": {\n\t        \"Type\": \"AWS::RDS::DBInstance\",\n\t        \"Properties\": {\n\t            \"AllocatedStorage\": \"100\",\n\t            \"DBInstanceClass\": \"db.t3.small\",\n\t            \"CopyTagsToSnapshot\": true\n\t        }\n\t    }",
       "name": "Recommended solution to enable CopyTagsToSnapshot.",
-      "description": "It is recommended that CopyTagsToSnapshot should be enabled. Please make sure that \"StorageEncrypted\" attribute exists and is set to \"true\""
+      "description": "It is recommended that CopyTagsToSnapshot should be enabled. Please make sure that \"CopyTagsToSnapshot\" attribute exists and is set to \"true\""
     },
     "id": "8a910436-344a-4bd9-9359-239a3ca13b99",
     "enabled": true,
@@ -218,7 +218,7 @@
     "recommendation": {
       "snippet": "\"rdsagoyal21postgreuswest1db\": {\n      \"Type\": \"AWS::RDS::DBInstance\",\n      \"Properties\": {\n        \"PubliclyAccessible\": \"false\",\n        \"StorageType\": \"gp2\",\n        \"BackupRetentionPeriod\": \"0\"\n      }\n    }",
       "name": "Recommended solution for making sure that RDS Instances are not accessible to pubic.",
-      "description": "It is recommended that RDS snapshots are accessible to public. Please make sure that if \"PubliclyAccessible\" attribute exists, it is set to \"false\""
+      "description": "It is recommended that RDS snapshots are not accessible to public. Please make sure that if \"PubliclyAccessible\" attribute exists, it is set to \"false\""
     },
     "id": "d68f9185-422e-42d3-b673-b1aef528012c",
     "enabled": true,
@@ -288,7 +288,7 @@
     "recommendation": {
       "snippet": "\"S3Bucket2\": {\n      \"Type\": \"AWS::S3::Bucket\",\n      \"Properties\": {\n        \"AccessControl\": \"Private\"\n      }\n    }",
       "name": "Recommended solution for making sure S3 buckets are not accessible to public.",
-      "description": "It is recommended that S3 buckets are not accessible to public. Please make sure that \"PublicRead\" is set to \"Private\""
+      "description": "It is recommended that S3 buckets are not accessible to public. Please make sure that \"PublicRead\" is set to \"Private\" or \"AuthenticatedRead\" or \"BucketOwnerRead\" or \"BucketOwnerFullControl\""
     },
     "id": "bbb01285-7fc6-4649-85c0-6ab9f08bde4f",
     "enabled": true,
@@ -342,9 +342,9 @@
     "rule": "$.Resources.*[?(@.Type == 'AWS::EC2::Subnet')].Properties.MapPublicIpOnLaunch anyTrue",
     "description": "This policy identifies VPC subnets which allow automatic public IP assignment. VPC subnet is a part of the VPC having its own rules for traffic. Assigning the Public IP to the subnet automatically (on launch) can accidentally expose the instances within this subnet to internet and should be edited to 'No' post creation of the Subnet.",
     "recommendation": {
-      "snippet": "\"PublicSubnetOne\": {\n      \"Type\": \"AWS::EC2::Subnet\",\n      \"Properties\": {\n        \"VpcId\": null,\n        \"CidrBlock\": null,\n        \"MapPublicIpOnLaunch\": true\n      }\n    }",
+      "snippet": "\"PublicSubnetOne\": {\n      \"Type\": \"AWS::EC2::Subnet\",\n      \"Properties\": {\n        \"VpcId\": null,\n        \"CidrBlock\": null,\n        \"MapPublicIpOnLaunch\": false\n      }\n    }",
       "name": "Recommended solution for not allowing automatic public IP assignment for VPC Subnets.",
-      "description": "It is recommended that VPC subnets should not be allow automatic public IP assignment. Please make sure that if \"MapPublicIpOnLaunch\" exists, its value is set to \"false\""
+      "description": "It is recommended that VPC subnets should not be allowed automatic public IP assignment. Please make sure that if \"MapPublicIpOnLaunch\" exists, its value is set to \"false\""
     },
     "id": "11743cd3-35e4-4639-91e1-bc87b52d4cf5",
     "enabled": true,
