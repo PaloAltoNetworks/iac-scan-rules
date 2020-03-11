@@ -8,7 +8,7 @@
   "description": "Check if AWS ECS task definition readonlyRootFilesystem is enabled",
   "recommendation": {
     "name": "Recommended solution for enabling readonlyRootFilesystem for AWS ECS task definition.",
-    "description": "It is recommended that readonlyRootFilesystem is enabled for AWS ECS task definition. Please make sure your \"ContainerDefinitions\" template has \"readonlyRootFilesystem\" and is set to \"true\".",
+    "description": "It is recommended that readonlyRootFilesystem is enabled for AWS ECS task definition. Please make sure your \"ContainerDefinitions\" template has \"ReadonlyRootFilesystem\" and is set to \"true\".",
     "snippet": "\"ContainerDefinitions\" : [\n\t    {\n\t      \"Name\": {\"Ref\": \"AppName\"},\n\t      \"ReadonlyRootFilesystem\": true,\n\t      \"Image\":\"amazon/amazon-ecs-sample\",\n\t      \"Cpu\": \"10\",\n\t      \"Memory\":\"0.5GB\",\n\t      \"Essential\": \"true\"\n\t    }]"
   }
 }

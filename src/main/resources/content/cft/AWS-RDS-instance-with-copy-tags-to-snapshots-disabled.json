@@ -8,7 +8,7 @@
   "description": "This policy identifies RDS instances which have copy tags to snapshots disabled. Copy tags to snapshots copies all the user-defined tags from the DB instance to snapshots. Copying tags allow you to add metadata and apply access policies to your Amazon RDS resources.",
   "recommendation": {
     "name": "Recommended solution to enable CopyTagsToSnapshot.",
-    "description": "It is recommended that CopyTagsToSnapshot should be enabled. Please make sure that \"StorageEncrypted\" attribute exists and is set to \"true\"",
+    "description": "It is recommended that CopyTagsToSnapshot should be enabled. Please make sure that \"CopyTagsToSnapshot\" attribute exists and is set to \"true\"",
     "snippet": "\"MyDB1\": {\n\t        \"Type\": \"AWS::RDS::DBInstance\",\n\t        \"Properties\": {\n\t            \"AllocatedStorage\": \"100\",\n\t            \"DBInstanceClass\": \"db.t3.small\",\n\t            \"CopyTagsToSnapshot\": true\n\t        }\n\t    }"
   }
 }

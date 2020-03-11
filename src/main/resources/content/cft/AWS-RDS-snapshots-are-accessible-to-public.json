@@ -8,7 +8,7 @@
 	"enabled": true,
 	"recommendation": {
 		"name": "Recommended solution for making sure that RDS Instances are not accessible to pubic.",
-		"description": "It is recommended that RDS snapshots are accessible to public. Please make sure that if \"PubliclyAccessible\" attribute exists, it is set to \"false\"",
+		"description": "It is recommended that RDS snapshots are not accessible to public. Please make sure that if \"PubliclyAccessible\" attribute exists, it is set to \"false\"",
 		"snippet": "\"rdsagoyal21postgreuswest1db\": {\n      \"Type\": \"AWS::RDS::DBInstance\",\n      \"Properties\": {\n        \"PubliclyAccessible\": \"false\",\n        \"StorageType\": \"gp2\",\n        \"BackupRetentionPeriod\": \"0\"\n      }\n    }"
 	}
 }
