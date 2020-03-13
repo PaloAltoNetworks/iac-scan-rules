@@ -31,7 +31,7 @@
   },
   {
     "severity": "high",
-    "rule": "$.spec.templates.spec.containers[*].securityContext.runAsNonRoot any false",
+    "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot any false",
     "description": "Ensure containers run as non-root.",
     "recommendation": {
       "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": true\n                        }\n                    }\n                ]\n            }",
