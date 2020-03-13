@@ -7,8 +7,8 @@
   "policy": "do not allow volume claims to be read-write by many nodes",
   "description": "Ensure not allowing volume claims to be read-write by many nodes.",
   "recommendation": {
-    "name": "Recommended solution for allowing volume claims to be read-write by many nodes.",
-    "description": "It is recommended to allow volume claims to be read-write by many nodes. Please make sure \"accessModes\" is not set to \"ReadWriteMany\"",
+    "name": "Recommended solution for not allowing volume claims to be read-write by many nodes.",
+    "description": "It is recommended not to allow volume claims to be read-write by many nodes. Please make sure \"accessModes\" is not set to \"ReadWriteMany\"",
     "snippet": "\"spec\": {\n                    \"accessModes\": [\n                        \"ReadWriteOnce\"\n                    ],\n                    \"storageClassName\": \"my-storage-class\",\n                    \"resources\": {\n                        \"requests\": {\n                            \"storage\": \"1Gi\"\n                        }\n                    }\n                }"
   }
 }

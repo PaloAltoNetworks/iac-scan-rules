@@ -9,6 +9,6 @@
   "recommendation": {
     "name": "Recommended solution to ensure that containers are immutable.",
     "description": "It is recommended that containers are immutable. Please make sure \"readOnlyRootFilesystem\" is set to \"true\"",
-    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"readOnlyRootFilesystem\": false\n                        }\n                    }\n                ]\n            }"
+    "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"readOnlyRootFilesystem\": true\n                        }\n                    }\n                ]\n            }"
   }
 }

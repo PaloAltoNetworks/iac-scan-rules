@@ -8,7 +8,7 @@
   "description": "Ensure not running containers with dangerous capabilities.",
   "recommendation": {
     "name": "Recommended solution to not run containers with dangerous capabilities.",
-    "description": "It is recommended to run containers with dangerous capabilities. Please make sure \"capabilities\" does not have FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE as its members",
+    "description": "It is recommended to not run containers with dangerous capabilities. Please make sure \"capabilities\" does not have FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE as its members",
     "snippet": "\"securityContext\": {\n                            \"capabilities\": {\n                                \"add\": [\n                                    \"SYS_NICE\"\n                                ],\n                                \"drop\": [\n                                    \"KILL\"\n                                ]\n                            }\n                        }"
   }
 }

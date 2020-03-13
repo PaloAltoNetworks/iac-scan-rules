@@ -6,7 +6,7 @@
     "rule": "$.spec.template.spec.containers[*].securityContext.capabilities.drop exists and not $.spec.templates.spec.containers[*].securityContext.capabilities.drop[*] contains ALL",
     "description": "Ensure that all capabilities are dropped.",
     "recommendation": {
-      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"image\": \"mateobur/flask\",\n                        \"name\": \"flask-cap\",\n                        \"securityContext\": {\n                            \"capabilities\": {\n                                \"drop\": [\n                                    \"NET_RAW\",\n                                    \"CHOWN\"\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }",
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"image\": \"mateobur/flask\",\n                        \"name\": \"flask-cap\",\n                        \"securityContext\": {\n                            \"capabilities\": {\n                                \"drop\": [\n                                    \"ALL\"\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }",
       "name": "Recommended solution for making sure all capabilities are dropped in a Security Context.",
       "description": "It is recommended that all capabilities are dropped in a Security Context. Please make sure \"capabilities\" has \"drop\" set to \"ALL\""
     },
@@ -22,7 +22,7 @@
     "recommendation": {
       "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"privileged\": false\n                        }\n                    }\n                ]\n            }",
       "name": "Recommended solution for making sure containers running are not privileged.",
-      "description": "It is recommended containers privilege is False. Please make sure \"privileged\" has value set to \"false\""
+      "description": "It is recommended not to run containers as privileged. Please make sure \"privileged\" has value set to \"false\"."
     },
     "id": "92714c07-d12b-4635-ae6a-514c5c428c5a",
     "enabled": true,
@@ -34,7 +34,7 @@
     "rule": "$.spec.templates.spec.containers[*].securityContext.runAsNonRoot any false",
     "description": "Ensure containers run as non-root.",
     "recommendation": {
-      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": false\n                        }\n                    }\n                ]\n            }",
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"pause\",\n                        \"image\": \"k8s.gcr.io/pause\",\n                        \"securityContext\": {\n                            \"runAsNonRoot\": true\n                        }\n                    }\n                ]\n            }",
       "name": "Recommended solution for making sure containers are running as non root.",
       "description": "It is recommended containers run as non-root. Please make sure \"runAsNonRoot\" has value set to \"true\""
     },
@@ -77,8 +77,8 @@
     "description": "Ensure not allowing volume claims to be read by many nodes.",
     "recommendation": {
       "snippet": "\"spec\": {\n                    \"accessModes\": [\n                        \"ReadWriteOnce\"\n                    ],\n                    \"storageClassName\": \"my-storage-class\",\n                    \"resources\": {\n                        \"requests\": {\n                            \"storage\": \"1Gi\"\n                        }\n                    }\n                }",
-      "name": "Recommended solution for allowing volume claims to be read by many nodes.",
-      "description": "It is recommended to allow volume claims to be read by many nodes. Please make sure \"accessModes\" is not set to \"ReadOnlyMany\""
+      "name": "Recommended solution for not allowing volume claims to be read by many nodes.",
+      "description": "It is recommended not to allow volume claims to be read by many nodes. Please make sure \"accessModes\" is not set to \"ReadOnlyMany\""
     },
     "id": "802f2ed9-0b0d-4627-bf1a-7cb0ccfdd71c",
     "enabled": true,
@@ -91,8 +91,8 @@
     "description": "Ensure not allowing volume claims to be read-write by many nodes.",
     "recommendation": {
       "snippet": "\"spec\": {\n                    \"accessModes\": [\n                        \"ReadWriteOnce\"\n                    ],\n                    \"storageClassName\": \"my-storage-class\",\n                    \"resources\": {\n                        \"requests\": {\n                            \"storage\": \"1Gi\"\n                        }\n                    }\n                }",
-      "name": "Recommended solution for allowing volume claims to be read-write by many nodes.",
-      "description": "It is recommended to allow volume claims to be read-write by many nodes. Please make sure \"accessModes\" is not set to \"ReadWriteMany\""
+      "name": "Recommended solution for not allowing volume claims to be read-write by many nodes.",
+      "description": "It is recommended not to allow volume claims to be read-write by many nodes. Please make sure \"accessModes\" is not set to \"ReadWriteMany\""
     },
     "id": "f9bcb4b8-3f22-448a-8521-9e09e3a994e0",
     "enabled": true,
@@ -120,7 +120,7 @@
     "recommendation": {
       "snippet": "\"securityContext\": {\n                            \"capabilities\": {\n                                \"add\": [\n                                    \"SYS_NICE\"\n                                ],\n                                \"drop\": [\n                                    \"KILL\"\n                                ]\n                            }\n                        }",
       "name": "Recommended solution to not run containers with dangerous capabilities.",
-      "description": "It is recommended to run containers with dangerous capabilities. Please make sure \"capabilities\" does not have FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE as its members"
+      "description": "It is recommended to not run containers with dangerous capabilities. Please make sure \"capabilities\" does not have FSETID, SETUID, SETGID,SYS_CHROOT,SYS_PTRACE,CHOWN,NET_RAW,NET_ADMIN,SYS_ADMIN,NET_BIND_SERVICE as its members"
     },
     "id": "135420a6-3206-4c29-b944-846f65cea43e",
     "enabled": true,
@@ -146,7 +146,7 @@
     "rule": "$.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem exists and $.spec.template.spec.containers[*].securityContext.readOnlyRootFilesystem any false",
     "description": "Ensure containers are immutable.",
     "recommendation": {
-      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"readOnlyRootFilesystem\": false\n                        }\n                    }\n                ]\n            }",
+      "snippet": "\"spec\": {\n                \"containers\": [\n                    {\n                        \"name\": \"friendly-container\",\n                        \"image\": \"alpine:3.4\",\n                        \"command\": [\n                            \"/bin/echo\",\n                            \"hello\",\n                            \"world\"\n                        ],\n                        \"securityContext\": {\n                            \"readOnlyRootFilesystem\": true\n                        }\n                    }\n                ]\n            }",
       "name": "Recommended solution to ensure that containers are immutable.",
       "description": "It is recommended that containers are immutable. Please make sure \"readOnlyRootFilesystem\" is set to \"true\""
     },
