@@ -1,6 +1,6 @@
 {
   "severity": "high",
-  "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot any false",
+  "rule": "$.spec.template.spec.containers[*].securityContext.runAsNonRoot equals false",
   "id": "2e22737c-a5b8-4808-8a8b-d99fc7e99505",
   "enabled": true,
   "resourceType": "k8s",
